@@ -1,0 +1,7 @@
+
+
+test_data:
+- ["FEMALE",{"success":"true","message":{"code":200,"content":"操作成功"}}]
+- ["UNLIMIT",{"success":"true","message":{"code":200,"content":"操作成功"}}]
+- ["MALE",{"success":"true","message":{"code":200,"content":"操作成功"}}]
+- ["123",{"success":"false","message":{"code":300,"content":"系统异常"}}]

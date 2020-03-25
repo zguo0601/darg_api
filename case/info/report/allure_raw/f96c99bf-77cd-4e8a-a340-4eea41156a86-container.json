@@ -1,0 +1,1 @@
+{"uuid": "2ae704dd-6343-4ec8-ab0b-1f733a22ac62", "children": ["65010d5f-6e83-40ae-ba53-d6f694130208"], "befores": [{"name": "delect_task", "status": "passed", "start": 1585039064465, "stop": 1585039064465}], "afters": [{"name": "delect_task::0", "status": "passed", "start": 1585039064862, "stop": 1585039064970}], "start": 1585039064465, "stop": 1585039064970}

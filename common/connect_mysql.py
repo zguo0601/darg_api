@@ -54,13 +54,33 @@ def excute_sql(del_sql):
     db.close()
     return result
 
+def select1_sql(sel1_sql):
+    db =  DbConnect(dbinfo,database="inside_user_center")
+    result = db.select(sel1_sql)
+    db.close()
+    return result
+
+def excute1_sql(del1_sql):
+    #连接数据库
+    db =  DbConnect(dbinfo,database="inside_user_center")
+    #插入sql语句
+    result = db.excute(del1_sql)
+    db.close()
+    return result
+
 
 if __name__ == '__main__':
-    sel_sql = 'SELECT * FROM spman_center.task where merchant_name = "极限传媒" AND title = "哈哈哈哈1";'
-    del_sql = 'DELETE  FROM spman_center.task where  title = "哈哈哈哈1";'
-    result = select_sql(sel_sql)
+    # sel_sql = 'SELECT * FROM spman_center.merchant where short_name = "小可爱";'
+    # sel1_sql = 'SELECT * FROM inside_user_center.user where user_name = "小可爱";'
+    # del_sql = 'DELETE  FROM spman_center.merchant where short_name = "小可爱";'
+    # del1_sql = 'DELETE from inside_user_center.user where user_name = "小可爱";'
+    del_sql = 'DELETE  from spman_center.merchant_relation  WHERE uid = 2454 and puid = 2137;'
+
+    # result = select_sql(sel_sql)
+    # result1 = select1_sql(sel1_sql)
     excute_sql(del_sql)
-    print(result)
+    # excute1_sql(del1_sql)
+
 
 
 

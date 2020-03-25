@@ -27,13 +27,12 @@ def host(request):
     print("当前用例运行环境:%s"%os.environ["yy_host"])
 
 
-
 @pytest.fixture(scope="session")
 def login_fix(request):
     '''自定义一个前置操作'''
-    print("先登录成功获取到cookie")
     #相当于打开浏览器
     s = requests.session()
+    print("登录获取cookie")
     DF = DRG_func(s)
     DF.login()
     #关闭session
@@ -43,18 +42,13 @@ def login_fix(request):
     # 这里s返回的是最新的cookie
     return s
 
+
 @pytest.fixture(scope="function")
 def unlogin_fix():
     '''自定义一个前置操作'''
     print("不登录")
     s = requests.session()
     return s
-
-
-
-
-
-
 
 
 @pytest.fixture(scope="function")
@@ -66,6 +60,25 @@ def delect_task():
     yield
     #测试用例之后执行sql语句
     excute_sql(del_sql)
+
+@pytest.fixture(scope="function")
+def delect_spman_center_merchant():
+    #前置条件，先删除要新增的任务内容，保证用例可以循环执行
+    del_sql = 'DELETE  FROM spman_center.merchant where short_name = "小可爱";'
+    # 测试用例之前执行sql语句
+    excute_sql(del_sql)
+    yield
+    #测试用例之后执行sql语句
+    #excute_sql(del_sql)
+@pytest.fixture(scope="function")
+def delect_inside_user_center_user():
+    #前置条件，先删除要新增的任务内容，保证用例可以循环执行
+    del_sql = 'DELETE from inside_user_center.user where user_name = "小可爱";'
+    # 测试用例之前执行sql语句
+    excute_sql(del_sql)
+    yield
+
+
 
 
 

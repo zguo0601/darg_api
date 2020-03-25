@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="faa4d92c-ca9d-482e-941d-159190c2f8e3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case/common_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/common_func.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/case/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case/info/test_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/info/test_task.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case/info/test_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/info/test_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/connect_mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/connect_mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/read_yaml.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/read_yaml.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/test_data.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/common/test_data.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +219,7 @@
       <workItem from="1584682942431" duration="13140000" />
       <workItem from="1584926701368" duration="24013000" />
       <workItem from="1585015583020" duration="14820000" />
-      <workItem from="1585099999044" duration="1126000" />
+      <workItem from="1585099999044" duration="1688000" />
     </task>
     <servers />
   </component>

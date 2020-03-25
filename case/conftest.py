@@ -46,7 +46,7 @@ def login_fix(request):
 @pytest.fixture(scope="function")
 def unlogin_fix():
     '''自定义一个前置操作'''
-    print("不登录")
+    print("不登录操作")
     s = requests.session()
     return s
 

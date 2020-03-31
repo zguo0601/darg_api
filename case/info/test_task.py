@@ -29,8 +29,10 @@ class Test_drgapi_task():
     def test_1(self,login_fix,delect_task,sex,recruitNum,amount):
         '''新增任务'''
         s = login_fix
+        code = time.strftime("%Y%m%d%H%M%S")
+        smscode = code[2:8]
         DF = DRG_func(s)
-        DF.login()
+        DF.login(smscode)
         result = DF.add_task_cszh(sex,recruitNum,amount)
         assert result["message"]["content"] == "系统异常"
 
@@ -44,11 +46,44 @@ class Test_drgapi_task():
     @allure.story("新增任务,读取yaml")
     @pytest.mark.parametrize("test_input,expect", task_data)
     def test_2(self,login_fix,delect_task,test_input,expect,):
+        '''新增任务,读取yaml'''
         s = login_fix
+        code = time.strftime("%Y%m%d%H%M%S")
+        smscode = code[2:8]
         DF = DRG_func(s)
-        DF.login()
+        DF.login(smscode)
         result = DF.add_task_yaml(test_input)
         assert result["message"]["content"] == expect["message"]["content"]
+
+    @allure.story("任务列表")
+    def test_3(self,login_fix):
+        '''任务列表'''
+        s = login_fix
+        code = time.strftime("%Y%m%d%H%M%S")
+        smscode = code[2:8]
+        DF = DRG_func(s)
+        DF.login(smscode)
+        result = DF.task_list()
+        assert result["message"]["content"] == "查询成功"
+
+    @allure.story("关闭任务")
+    def test_4(self,login_fix,update_spman_center_task):
+        '''关闭任务'''
+        s = login_fix
+        code = time.strftime("%Y%m%d%H%M%S")
+        smscode = code[2:8]
+        DF = DRG_func(s)
+        DF.login(smscode)
+        status = "true"
+        #查询已发布任务
+        result = DF.task_list(status)
+        #获取已发布任务id
+        task_id = result["data"]["dataList"][0]["id"]
+        #关闭此id的任务
+        r_close = DF.close_task(task_id)
+        assert r_close["message"]["content"] == "操作成功"
+
+
 
 
 if __name__ == '__main__':

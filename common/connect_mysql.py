@@ -9,16 +9,17 @@ dbinfo = {
 }
 
 class DbConnect():
-    def __init__(self,db_cof,database="spman_center"):
-    #实例化
-        self.db_conf = db_cof
+
+    def __init__(self,db_conf,database="spman_center"):
+        #实例化
+        self.db_conf = db_conf
         #打开数据库连接
         self.db = pymysql.connect(database=database,
                                   cursorclass = pymysql.cursors.DictCursor,
-                                  **db_cof)
+                                  **db_conf)
         #使用cursors方法获取操作游标
         self.cursors = self.db.cursor()
-
+    #查询
     def select(self, sql):
         # 执行sql语句
         self.cursors.execute(sql)
@@ -29,6 +30,7 @@ class DbConnect():
     def close(self):
         self.db.close()
 
+    #修改
     def excute(self, sql):
         try:
             #执行sql语句
@@ -69,17 +71,19 @@ def excute1_sql(del1_sql):
     return result
 
 
-if __name__ == '__main__':
-    # sel_sql = 'SELECT * FROM spman_center.merchant where short_name = "小可爱";'
-    # sel1_sql = 'SELECT * FROM inside_user_center.user where user_name = "小可爱";'
-    # del_sql = 'DELETE  FROM spman_center.merchant where short_name = "小可爱";'
-    # del1_sql = 'DELETE from inside_user_center.user where user_name = "小可爱";'
-    del_sql = 'DELETE  from spman_center.merchant_relation  WHERE uid = 2454 and puid = 2137;'
 
-    # result = select_sql(sel_sql)
-    # result1 = select1_sql(sel1_sql)
-    excute_sql(del_sql)
-    # excute1_sql(del1_sql)
+
+if __name__ == '__main__':
+    sql1 = 'SELECT * FROM spman_center.task where id = "137";'
+    s1 = select_sql(sql1)
+    print(s1)
+    sql2 = 'UPDATE spman_center.task set STATUS=1 WHERE  id = "137";'
+    excute_sql(sql2)
+    sql3 = 'SELECT * FROM spman_center.task where id = "137";'
+    s3 = select_sql(sql3)
+    print(s3)
+
+
 
 
 

@@ -11,9 +11,10 @@ import time
 
 
 
-
-os.environ["yy_host"] = 'http://120.79.243.237:10021'
+#设置环境变量
+os.environ["yy_host"] = 'https://spman.shb02.net'
 host = os.environ["yy_host"]
+
 
 #公共操作的函数
 class DRG_func():
@@ -21,20 +22,35 @@ class DRG_func():
     def __init__(self,s):
         self.s = requests.session()
 
+    @allure.step("获取短信验证码")
+    def get_LoginSmsCode(self):
+        '''获取短信验证码'''
+        url_get_LoginSmsCode = host + "/common/reset/getLoginSmsCode"
+        data = {
+            "loginPort": "OPERATION",
+            "principal": "spman_admin",
+        }
+        r = self.s.post(url=url_get_LoginSmsCode, data=data)
+        print(r.json())
+        return r.json()
 
     @allure.step("登录获取cookie")
-    def login(self):
+    def login(self,code):
         '''登录获取cookie'''
         url_login_page = host+"/login"
         data = {
             "port_key": "OPERATION",
             "captcha_type": "LOGIN_CAPTCHA",
             "username": "spman_admin",
-            "password": "111111"
+            "password": "111111",
+            "mobile_key": code,
         }
         # verify=False（不做安全验证报错SSLerror时候）allow_redirects=False（禁止页面重定向，不禁用的话有可能会获取不到cookies）
-        c = self.s.post(url=url_login_page, data=data, verify=False, allow_redirects=False)
+        c = self.s.post(url=url_login_page, data=data,verify=False,allow_redirects=False)
+        print(c.cookies)
         return c
+
+
 
     @allure.step("获取发包方信息")
     def get_merchant_list(self):
@@ -193,7 +209,7 @@ class DRG_func():
     @allure.step("新增任务,读取yanl")
     def add_task_yaml(self,test_input):
         '''新增任务'''
-        url_addtask = host+'/operation/task/issue'
+        url_add_task = host+'/operation/task/issue'
         data_2 = {
             "title": "哈哈哈哈1",
             "industryId": "1",
@@ -213,8 +229,28 @@ class DRG_func():
             "releaseDate": "2020-2-13",
             "autoStatus": "true"
         }
-        task_list = self.s.post(url=url_addtask, data=data_2)
+        add_task = self.s.post(url=url_add_task, data=data_2)
+        return add_task.json()
+
+    @allure.step("任务列表")
+    def task_list(self,status=''):
+        url_task_list = "https://spman.shb02.net/operation/task/list"
+        data = {
+            "status":status,
+            "currentPage":"1",
+            "pageSize":"20",
+        }
+        task_list = self.s.post(url_task_list,data)
         return task_list.json()
+
+    @allure.step("关闭任务")
+    def close_task(self,task_id):
+        url_close_task= "https://spman.shb02.net/operation/task/close"
+        data = {
+            "id":task_id,
+        }
+        result = self.s.post(url_close_task,data)
+        return result.json()
 
 
 
@@ -222,26 +258,19 @@ class DRG_func():
 
 if __name__ == '__main__':
     s = requests.session()
-    sex = " "
-    amount = "213132fdsa"
-    recruitNum = "6d46fd"
+    code = time.strftime("%Y%m%d%H%M%S")
+    smscode = code[2:8]
     DF = DRG_func(s)
-    DF.login()
-    # 删除子公司
-    sl = DF.sub_list()
-    print(sl["data"]["dataList"][0]["status"])
+    g = DF.get_LoginSmsCode()
+    DF.login(smscode)
+    a = DF.get_merchant_list()
+    print(a)
 
-    # d_l = sl["data"]["total"]
-    # print(d_l)
-    #mid = sl["data"]["dataList"][0]["merchantRelationId"]
-    #print(mid)
-    #DF.del_sub(mid)
-    #新增子公司
-    # result = DF.add_sub()
-    # print(result)
 
-   # print(eval(result1))
-    #assert result["message"]["content"] == "新增成功"
+
+
+
+
 
 
 

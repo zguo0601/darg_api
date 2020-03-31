@@ -2,8 +2,8 @@ import os
 import requests
 import pytest
 from case.common_func import DRG_func
-from common.connect_mysql import excute_sql
-
+from common.connect_mysql import excute_sql, select_sql
+import time
 
 '''默认级别为scope="function"，只针对函数，每个用例都要调用一次。
  module针对的是模块，每个.py文件都会调用一次。
@@ -20,11 +20,18 @@ def pytest_addoption(parser):
         default="https://spman.shb02.net/login",
         help="运营端测试环境地址"
     )
+
+
 @pytest.fixture(scope="session",autouse=True)
 def host(request):
-    '''获取命令行参数，给到环境变量'''
+    '''
+    设置的环境变量是：http://120.79.243.237:10021
+    配置默认环境变量：https://spman.shb02.net/login，
+    命令获取默认参数，赋值给环境变量，打印出来的是默认配置的环境'''
     os.environ["yy_host"] = request.config.getoption("--cmdhost")
     print("当前用例运行环境:%s"%os.environ["yy_host"])
+
+
 
 
 @pytest.fixture(scope="session")
@@ -32,9 +39,12 @@ def login_fix(request):
     '''自定义一个前置操作'''
     #相当于打开浏览器
     s = requests.session()
+    code = time.strftime("%Y%m%d%H%M%S")
+    smscode = code[2:8]
     print("登录获取cookie")
     DF = DRG_func(s)
-    DF.login()
+    DF.get_LoginSmsCode()
+    DF.login(smscode)
     #关闭session
     def close_s():
         s.close()
@@ -78,8 +88,14 @@ def delect_inside_user_center_user():
     excute_sql(del_sql)
     yield
 
-
-
+@pytest.fixture()
+def update_spman_center_task():
+    #1任务开启，0任务关闭
+    up_sql = 'UPDATE spman_center.task set STATUS=0 WHERE  id = "137";'
+    sql1 = 'SELECT * FROM spman_center.task where id = "137";'
+    select_sql(sql1)
+    excute_sql(up_sql)
+    yield
 
 
 #终端执行标记测试用例时报无法识别标签时添加此命令（单个标签）

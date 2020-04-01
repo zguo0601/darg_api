@@ -36,21 +36,24 @@ def host(request):
 
 @pytest.fixture(scope="session")
 def login_fix(request):
-    '''自定义一个前置操作'''
     #相当于打开浏览器
-    s = requests.session()
-    code = time.strftime("%Y%m%d%H%M%S")
-    smscode = code[2:8]
-    print("登录获取cookie")
-    DF = DRG_func(s)
-    DF.get_LoginSmsCode()
-    DF.login(smscode)
+    session = requests.session()
+    # code = time.strftime("%Y%m%d%H%M%S")
+    # smscode = code[2:8]
+    # print("登录获取cookie")
+    # DF = DRG_func(session)
+    # DF.get_LoginSmsCode()
+    # DF.login(smscode)
+    #这里yield s返回的是最新的cookie
+    yield session
     #关闭session
     def close_s():
-        s.close()
-    request.addfinalizer(close_s)#终结
-    # 这里s返回的是最新的cookie
-    return s
+        session.close()
+    request.addfinalizer(close_s)#终结'''自定义一个前置操作'''
+    #
+
+
+
 
 
 @pytest.fixture(scope="function")
@@ -113,4 +116,5 @@ def pytest_configure(config):
 
 
 if __name__ == '__main__':
-        pass
+    r = login_fix()
+    print(r)

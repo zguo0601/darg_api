@@ -30,12 +30,11 @@ class DRG_func():
             "loginPort": "OPERATION",
             "principal": "spman_admin",
         }
-        r = self.s.post(url=url_get_LoginSmsCode, data=data)
-        print(r.json())
-        return r.json()
+        r = self.s.post(url=url_get_LoginSmsCode, data=data,)
+        return r
 
     @allure.step("登录获取cookie")
-    def login(self,code):
+    def login(self,smscode):
         '''登录获取cookie'''
         url_login_page = host+"/login"
         data = {
@@ -43,17 +42,24 @@ class DRG_func():
             "captcha_type": "LOGIN_CAPTCHA",
             "username": "spman_admin",
             "password": "111111",
-            "mobile_key": code,
+            "mobile_key": smscode,
         }
         # verify=False（不做安全验证报错SSLerror时候）allow_redirects=False（禁止页面重定向，不禁用的话有可能会获取不到cookies）
-        c = self.s.post(url=url_login_page, data=data,verify=False,allow_redirects=False)
-        print(c.cookies)
-        return c
+        r = self.s.post(url=url_login_page, data=data,verify=False,allow_redirects=False)
+        return r
+
+
+    @allure.step("获取验证码+登录成功")
+    def login_sucess(self,smscode):
+        self.get_LoginSmsCode()
+        return self.login(smscode)
+
+
 
 
 
     @allure.step("获取发包方信息")
-    def get_merchant_list(self):
+    def get_merchant_list(self,):
         url_merchant_list = host+'/operation/merchant/list'
         data = {
             "currentPage": "1",
@@ -129,7 +135,7 @@ class DRG_func():
 
 
     @allure.step("获取承揽方信息")
-    def get_user_list(self):
+    def get_user_list(self,):
         url_user_list = host+'/operation/user/list'
         data = {
             "currentPage": "1",
@@ -139,7 +145,7 @@ class DRG_func():
         return user_list.json()
 
     @allure.step("承揽方详情")
-    def get_user_detail(self):
+    def get_user_detail(self,):
         url_user_detail = host+'/operation/user/detail'
         data = {
             "userNumber": "USER002151",
@@ -160,8 +166,8 @@ class DRG_func():
         return result.json()
 
     @allure.step("子公司列表")
-    def sub_list(self):
-        url_sub_list = "http://120.79.243.237:10021/operation/merchant/subList"
+    def sub_list(self,):
+        url_sub_list = host + "/operation/merchant/subList"
         data = {
             "merchantNumber":"M002137",
         }
@@ -170,7 +176,8 @@ class DRG_func():
 
     @allure.step("删除子公司")
     def del_sub(self,merchantRelationId):
-        url_del_sub = "http://120.79.243.237:10021/operation/merchant/deleteSub"
+
+        url_del_sub = host + "/operation/merchant/deleteSub"
         data = {
             "merchantNumber":"M002137",
             "merchantRelationId":merchantRelationId,
@@ -183,6 +190,7 @@ class DRG_func():
     @allure.step("新增任务,参数组合")
     def add_task_cszh(self,sex,recruitNum,amount):
         '''新增任务'''
+
         url_addtask = host+'/operation/task/issue'
         data_2 = {
             "title": "哈哈哈哈1",
@@ -234,7 +242,7 @@ class DRG_func():
 
     @allure.step("任务列表")
     def task_list(self,status=''):
-        url_task_list = "https://spman.shb02.net/operation/task/list"
+        url_task_list = host + "/operation/task/list"
         data = {
             "status":status,
             "currentPage":"1",
@@ -245,7 +253,7 @@ class DRG_func():
 
     @allure.step("关闭任务")
     def close_task(self,task_id):
-        url_close_task= "https://spman.shb02.net/operation/task/close"
+        url_close_task= host + "/operation/task/close"
         data = {
             "id":task_id,
         }
@@ -261,10 +269,12 @@ if __name__ == '__main__':
     code = time.strftime("%Y%m%d%H%M%S")
     smscode = code[2:8]
     DF = DRG_func(s)
-    g = DF.get_LoginSmsCode()
-    DF.login(smscode)
-    a = DF.get_merchant_list()
-    print(a)
+    DF.login_sucess(smscode)
+    r = DF.sub_list()
+    print(r)
+
+
+
 
 
 

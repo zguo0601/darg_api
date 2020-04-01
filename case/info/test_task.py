@@ -13,6 +13,22 @@ from case.common_func import DRG_func
 @allure.feature("达人馆用任务模块")
 class Test_drgapi_task():
 
+    @classmethod
+    def setup_class(cls):
+        # 前置条件，打开浏览器
+        cls.s = requests.session()
+        # 操作步骤：1.实例化DRG_func(s)
+        cls.DF = DRG_func(cls.s)
+        code = time.strftime("%Y%m%d%H%M%S")
+        smscode = code[2:8]
+        # 2.获取验证码+获取登录成功
+        cls.DF.login_sucess(smscode)
+
+    @classmethod
+    def teardown_class(cls):
+        cls.s = requests.session()
+        cls.s.close()
+
 
 
     # 暂时不执行该用用例@pytest.mark.skip("阻塞bug")，执行时会跳过这个测试用例，开发把这个问题解决了，就可以把这个skip注释掉
@@ -26,14 +42,10 @@ class Test_drgapi_task():
     @pytest.mark.parametrize("sex",["123","dshfsdh"])
     @pytest.mark.parametrize("amount",[" ","dshfsdh"])
     @pytest.mark.parametrize("recruitNum",[" ","dshfsdh"])
-    def test_1(self,login_fix,delect_task,sex,recruitNum,amount):
+    def test_1(self,delect_task,sex,recruitNum,amount):
         '''新增任务'''
-        s = login_fix
-        code = time.strftime("%Y%m%d%H%M%S")
-        smscode = code[2:8]
-        DF = DRG_func(s)
-        DF.login(smscode)
-        result = DF.add_task_cszh(sex,recruitNum,amount)
+
+        result = self.DF.add_task_cszh(sex,recruitNum,amount)
         assert result["message"]["content"] == "系统异常"
 
 
@@ -45,42 +57,28 @@ class Test_drgapi_task():
     task_data = readyaml(yamlpath)['task_sex_data']
     @allure.story("新增任务,读取yaml")
     @pytest.mark.parametrize("test_input,expect", task_data)
-    def test_2(self,login_fix,delect_task,test_input,expect,):
+    def test_2(self,delect_task,test_input,expect,):
         '''新增任务,读取yaml'''
-        s = login_fix
-        code = time.strftime("%Y%m%d%H%M%S")
-        smscode = code[2:8]
-        DF = DRG_func(s)
-        DF.login(smscode)
-        result = DF.add_task_yaml(test_input)
+
+        result = self.DF.add_task_yaml(test_input)
         assert result["message"]["content"] == expect["message"]["content"]
 
     @allure.story("任务列表")
-    def test_3(self,login_fix):
+    def test_3(self):
         '''任务列表'''
-        s = login_fix
-        code = time.strftime("%Y%m%d%H%M%S")
-        smscode = code[2:8]
-        DF = DRG_func(s)
-        DF.login(smscode)
-        result = DF.task_list()
+        result = self.DF.task_list()
         assert result["message"]["content"] == "查询成功"
 
     @allure.story("关闭任务")
-    def test_4(self,login_fix,update_spman_center_task):
+    def test_4(self,update_spman_center_task):
         '''关闭任务'''
-        s = login_fix
-        code = time.strftime("%Y%m%d%H%M%S")
-        smscode = code[2:8]
-        DF = DRG_func(s)
-        DF.login(smscode)
         status = "true"
         #查询已发布任务
-        result = DF.task_list(status)
+        result = self.DF.task_list(status)
         #获取已发布任务id
         task_id = result["data"]["dataList"][0]["id"]
         #关闭此id的任务
-        r_close = DF.close_task(task_id)
+        r_close = self.DF.close_task(task_id)
         assert r_close["message"]["content"] == "操作成功"
 
 

@@ -21,13 +21,10 @@ class Test_drgapi_user():
         # 2.获取验证码+获取登录成功
         cls.DF.login_sucess(smscode)
 
-
     @classmethod
     def teardown_class(cls):
         cls.s = requests.session()
         cls.s.close()
-
-
 
     @allure.story("获取承揽方信息")
     # 标记测试用例，加个标签
@@ -35,13 +32,9 @@ class Test_drgapi_user():
     def test_1(self):
         '''获取承揽方信息'''
         u_list = self.DF.get_user_list()
+        print(u_list)
         #3.断言
         assert u_list["data"]["pageSize"] == 20
-        #s_code = user_list.status_code
-        # print(s_code)
-        # print(type(user_list))
-        # print(type(user_list.json()["data"]["success"]))
-        #assert s_code == 200
 
     @allure.story("获取发包方信息")
     def test_2(self):

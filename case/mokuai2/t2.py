@@ -1,54 +1,56 @@
+import os
+import pytest
 import requests
-from urllib3.exceptions import InsecureRequestWarning
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+import allure
+from case.common_func import *
+from common.read_yaml import readyaml
+import time
 
 
+@allure.feature("达人馆用户管理模块")
+class Test_drgapi_user():
 
+    def test_1(self,lg):
+        '''获取承揽方信息'''
+        s = lg
+        DF = DRG_func(s)
+        u_list = DF.get_user_list()
+        print(u_list)
+        # 3.断言
+        assert u_list["data"]["pageSize"] == 20
 
-
-class new():
-
-    def __init__(self,s):
-        self.s = requests.session()
-
-    def get_LoginSmsCode(self):
-
-        url = "https://spman.shb02.net/common/reset/getLoginSmsCode"
-        data = {
-            "loginPort":"OPERATION",
-            "principal":"spman_admin",
-        }
-        r = self.s.post(url=url,data=data)
-        return r
-
-
-    def login(self):
-
-        url = "https://spman.shb02.net/login"
-
-        data = {
-            "port_key": "OPERATION",
-            "captcha_type": "LOGIN_CAPTCHA",
-            "username": "spman_admin",
-            "password": "111111",
-            "mobile_key": 200331,
-        }
-        result = self.s.get(url=url,params=data,allow_redirects=False,verify=False)
-        return result
-
-    def get_merchant_list(self):
-        url_merchant_list = 'https://spman.shb02.net/login/operation/merchant/list'
+    def test_5(self, lg):
+        s = lg
+        # test_2(s)
+        # test_3(s)
+        # test_4(s)
+        url_merchant_list = 'https://spman.shb02.net/operation/merchant/list'
         data = {
             "currentPage": "1",
             "pageSize": "20"
         }
-        merchant_list = self.s.post(url=url_merchant_list, data=data)
-        return merchant_list.json()
+        merchant_list = s.post(url=url_merchant_list, data=data)
+        print(merchant_list.json())
+
+    #@pytest.mark.usefixtures("test_1")
+    def test_6(self,lg):
+        s = lg
+        # test_2(s)
+        # test_3(s)
+        # test_4(s)
+        DF = DRG_func(s)
+        res = DF.get_merchant_list()
+        print(res)
+        # url_merchant_list = 'https://spman.shb02.net/operation/merchant/list'
+        # data = {
+        #     "currentPage": "1",
+        #     "pageSize": "20"
+        # }
+        # merchant_list = s.post(url=url_merchant_list, data=data)
+        # return merchant_list.json()
+
 
 if __name__ == '__main__':
-    s = requests.session()
-    n = new(s)
-    n.get_LoginSmsCode()
-    n.login()
-    print(n.get_merchant_list())
+    # 使用python的方式去执行此命令，结果是与在终端中使用脚本执行的效果是一样的
+    pytest.main(["-s","test_info_1.py","-m","drg_api_login"])
 

@@ -19,8 +19,8 @@ host = os.environ["yy_host"]
 #公共操作的函数
 class DRG_func():
 
-    def __init__(self,s):
-        self.s = requests.session()
+    def __init__(self,s,):
+        self.s = s
 
     @allure.step("获取短信验证码")
     def get_LoginSmsCode(self):
@@ -59,7 +59,7 @@ class DRG_func():
 
 
     @allure.step("获取发包方信息")
-    def get_merchant_list(self,):
+    def get_merchant_list(self):
         url_merchant_list = host+'/operation/merchant/list'
         data = {
             "currentPage": "1",
@@ -135,7 +135,7 @@ class DRG_func():
 
 
     @allure.step("获取承揽方信息")
-    def get_user_list(self,):
+    def get_user_list(self):
         url_user_list = host+'/operation/user/list'
         data = {
             "currentPage": "1",
@@ -269,9 +269,14 @@ if __name__ == '__main__':
     code = time.strftime("%Y%m%d%H%M%S")
     smscode = code[2:8]
     DF = DRG_func(s)
-    DF.login_sucess(smscode)
-    r = DF.sub_list()
+    response = DF.login_sucess(smscode)
+    r = DF.get_user_list()
+    print(response.headers)
+    print(response.cookies)
     print(r)
+
+
+
 
 
 

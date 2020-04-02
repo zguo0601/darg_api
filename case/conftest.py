@@ -34,25 +34,52 @@ def host(request):
 
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def login_fix(request):
     #相当于打开浏览器
     session = requests.session()
-    # code = time.strftime("%Y%m%d%H%M%S")
-    # smscode = code[2:8]
-    # print("登录获取cookie")
-    # DF = DRG_func(session)
-    # DF.get_LoginSmsCode()
-    # DF.login(smscode)
-    #这里yield s返回的是最新的cookie
-    yield session
-    #关闭session
-    def close_s():
-        session.close()
-    request.addfinalizer(close_s)#终结'''自定义一个前置操作'''
-    #
+    code = time.strftime("%Y%m%d%H%M%S")
+    smscode = code[2:8]
+    print("登录获取cookie")
+    DF = DRG_func(session)
+    DF.login_sucess()
+    return session
+    # #这里yield s返回的是最新的cookie
+    # yield
+    # #关闭session
+    # def close_s():
+    #     session.close()
+    # request.addfinalizer(close_s)#终结'''自定义一个前置操作'''
+    # print("关闭请求")
 
-
+@pytest.fixture(scope="session")
+def lg():
+    print("开始请求")
+    s = requests.session()
+    print("打开首页")
+    url_merchant_list = "https://spman.shb02.net/admin/login"
+    s.get(url=url_merchant_list)
+    print("获取验证码")
+    url = "https://spman.shb02.net/common/reset/getLoginSmsCode"
+    data = {
+        "loginPort": "OPERATION",
+        "principal": "spman_admin",
+    }
+    res = s.post(url, data)
+    print("登录成功")
+    code = time.strftime("%Y%m%d%H%M%S")
+    smscode = code[2:8]
+    url_login = "https://spman.shb02.net/login"
+    data = {
+        "port_key": "OPERATION",
+        "captcha_type": "LOGIN_CAPTCHA",
+        "username": "spman_admin",
+        "password": "111111",
+        "mobile_key": smscode,
+    }
+    # verify=False（不做安全验证报错SSLerror时候）allow_redirects=False（禁止页面重定向，不禁用的话有可能会获取不到cookies）
+    r = s.post(url_login, data, verify=False, allow_redirects=False)
+    return s
 
 
 

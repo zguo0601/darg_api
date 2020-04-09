@@ -81,6 +81,12 @@ class Test_drgapi_task():
         r_close = self.DF.close_task(task_id)
         assert r_close["message"]["content"] == "操作成功"
 
+    @allure.story("任务报名信息")
+    def test_5(self):
+        '''任务报名信息'''
+        result = self.DF.task_applicants()
+        assert result["message"]["content"] == "查询成功"
+
 
 
 

@@ -10,7 +10,6 @@ from common.SJ import SF
 import time
 
 
-
 #设置环境变量
 os.environ["yy_host"] = 'https://spman.shb02.net'
 host = os.environ["yy_host"]
@@ -20,6 +19,7 @@ host = os.environ["yy_host"]
 class DRG_func():
 
     def __init__(self,s,):
+        #---类下实例化----
         self.s = s
 
     @allure.step("获取短信验证码")
@@ -53,8 +53,6 @@ class DRG_func():
     def login_sucess(self,smscode):
         self.get_LoginSmsCode()
         return self.login(smscode)
-
-
 
 
 
@@ -260,7 +258,27 @@ class DRG_func():
         result = self.s.post(url_close_task,data)
         return result.json()
 
+    @allure.step("任务报名信息")
+    def task_applicants(self):
+        url_task_applicants =  host +"/operation/task/applicants"
+        data = {
+            "currentPage":"1",
+            "pageSize":"20",
+            "taskId":"519",
+        }
+        result = self.s.post(url=url_task_applicants,data=data)
+        return result.json()
 
+
+    @allure.step("上传完税证明")
+    def update_apply(self):
+        url_update_apply =  host +"/operation/issu/uploadTaxCertificate"
+        data = {
+            "systemOrderNumber":"20200403161904016364001236",
+            "taxesUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1585903011042.jpg",
+        }
+        result = self.s.post(url=url_update_apply,data=data)
+        return result.json()
 
 
 
@@ -270,9 +288,7 @@ if __name__ == '__main__':
     smscode = code[2:8]
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    r = DF.get_user_list()
-    print(response.headers)
-    print(response.cookies)
+    r = DF.get_merchant_list()
     print(r)
 
 

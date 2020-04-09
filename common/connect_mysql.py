@@ -1,12 +1,17 @@
+import os
+from common.read_yaml import readyaml
 import pymysql
 
 
-dbinfo = {
+dbinfo1 = {
     "host":"120.79.243.237",
     "user":"root",
     "password":"OorwdAS6",
     "port":4306,
 }
+
+
+
 
 class DbConnect():
 
@@ -19,18 +24,18 @@ class DbConnect():
                                   **db_conf)
         #使用cursors方法获取操作游标
         self.cursors = self.db.cursor()
-    #查询
+    #数据库查询方法
     def select(self, sql):
         # 执行sql语句
         self.cursors.execute(sql)
         #返回多个元组
         result = self.cursors.fetchall()
         return result
-
+    #关闭数据库连接
     def close(self):
         self.db.close()
 
-    #修改
+    #修改数据库方法
     def excute(self, sql):
         try:
             #执行sql语句
@@ -40,6 +45,13 @@ class DbConnect():
         except:
             #发生错误时回滚
             self.db.rollback()
+
+
+#从yaml读取数据库配置信息
+curpath = os.path.dirname(os.path.realpath(__file__))
+# yaml文件的路径
+yamlpath = os.path.join('./test_data.yaml')
+dbinfo = readyaml(yamlpath)['dbinfo'][0]
 
 
 def select_sql(sel_sql):
@@ -74,14 +86,14 @@ def excute1_sql(del1_sql):
 
 
 if __name__ == '__main__':
+    curpath = os.path.dirname(os.path.realpath(__file__))
+    # yaml文件的路径
+    yamlpath = os.path.join('./test_data.yaml')
+    task_data = readyaml(yamlpath)['dbinfo'][0]
     sql1 = 'SELECT * FROM spman_center.task where id = "137";'
-    s1 = select_sql(sql1)
-    print(s1)
-    sql2 = 'UPDATE spman_center.task set STATUS=1 WHERE  id = "137";'
-    excute_sql(sql2)
-    sql3 = 'SELECT * FROM spman_center.task where id = "137";'
-    s3 = select_sql(sql3)
-    print(s3)
+    r = select_sql(sql1)
+    print(r)
+
 
 
 

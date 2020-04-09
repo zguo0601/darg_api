@@ -10,12 +10,11 @@ import time
 @allure.feature("达人馆用户管理模块")
 class Test_drgapi_user():
 
-    def test_1(self,lg):
+    def test_1(self,login_fix):
         '''获取承揽方信息'''
-        s = lg
+        s = login_fix
         DF = DRG_func(s)
         u_list = DF.get_user_list()
-        print(u_list)
         # 3.断言
         assert u_list["data"]["pageSize"] == 20
 
@@ -41,13 +40,7 @@ class Test_drgapi_user():
         DF = DRG_func(s)
         res = DF.get_merchant_list()
         print(res)
-        # url_merchant_list = 'https://spman.shb02.net/operation/merchant/list'
-        # data = {
-        #     "currentPage": "1",
-        #     "pageSize": "20"
-        # }
-        # merchant_list = s.post(url=url_merchant_list, data=data)
-        # return merchant_list.json()
+
 
 
 if __name__ == '__main__':

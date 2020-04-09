@@ -33,26 +33,32 @@ def host(request):
 
 
 
-
-@pytest.fixture(scope="function")
+'''
+fixture的作用范围:
+fixture里面有个scope参数可以控制fixture的作用范围：session>module>class>function
+function：每一个函数或方法都会调用
+class：每一个类调用一次，一个类中可以有多个方法
+module：每一个.py文件调用一次，该文件内又有多个function和class
+session：是多个文件调用一次，可以跨.py文件调用，每个.py文件就是module。
+'''
+@pytest.fixture(scope="class")
 def login_fix(request):
     #相当于打开浏览器
     session = requests.session()
     code = time.strftime("%Y%m%d%H%M%S")
     smscode = code[2:8]
-    print("登录获取cookie")
+    print("登录成功")
     DF = DRG_func(session)
-    DF.login_sucess()
-    return session
-    # #这里yield s返回的是最新的cookie
-    # yield
-    # #关闭session
-    # def close_s():
-    #     session.close()
-    # request.addfinalizer(close_s)#终结'''自定义一个前置操作'''
-    # print("关闭请求")
+    DF.login_sucess(smscode)
+    #这里yield s返回的是最新的cookie
+    yield session
+    #关闭session
+    def close_s():
+        session.close()
+    request.addfinalizer(close_s)#终结'''自定义一个前置操作'''
+    print("关闭请求")
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def lg():
     print("开始请求")
     s = requests.session()
@@ -140,6 +146,8 @@ def pytest_configure(config):
         config.addinivalue_line(
         "markers", markers
 )
+
+
 
 
 if __name__ == '__main__':

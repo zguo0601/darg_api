@@ -1,15 +1,10 @@
-import os
-import pytest
-import requests
-import allure
-from case.common_func import *
-from common.read_yaml import readyaml
-import time
+from common.common_func import *
 
 
 @allure.feature("达人馆用户管理模块")
 class Test_drgapi_user():
 
+    @pytest.mark.usefixtures("login_fix")
     def test_1(self,login_fix):
         '''获取承揽方信息'''
         s = login_fix

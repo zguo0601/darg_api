@@ -213,7 +213,7 @@ class DRG_func():
         return task_list.json()
 
     @allure.step("新增任务,读取yanl")
-    def add_task_yaml(self,test_input):
+    def add_task_yaml(self,test_input="MALE"):
         '''新增任务'''
         url_add_task = host+'/operation/task/issue'
         data_2 = {
@@ -288,7 +288,7 @@ if __name__ == '__main__':
     smscode = code[2:8]
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    r = DF.get_merchant_list()
+    r = DF.add_task_yaml()
     print(r)
 
 

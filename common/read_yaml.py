@@ -10,7 +10,7 @@ def readyaml(yamlpath):
     #print("读取测试文件数据:%s"%d)
     return d
 if __name__ == '__main__':
-    test_data = readyaml('test_data.yaml')
+    test_data = readyaml('test_data.yaml')["dbinfo"][0]
     # print(type(test_data))
     print(test_data)
     # print(test_data['merchant_accountName_data'])

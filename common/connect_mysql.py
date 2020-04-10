@@ -3,7 +3,7 @@ from common.read_yaml import readyaml
 import pymysql
 
 
-dbinfo1 = {
+dbinfo = {
     "host":"120.79.243.237",
     "user":"root",
     "password":"OorwdAS6",
@@ -47,11 +47,11 @@ class DbConnect():
             self.db.rollback()
 
 
-#从yaml读取数据库配置信息
-curpath = os.path.dirname(os.path.realpath(__file__))
-# yaml文件的路径
-yamlpath = os.path.join('./test_data.yaml')
-dbinfo = readyaml(yamlpath)['dbinfo'][0]
+# #从yaml读取数据库配置信息
+# curpath = os.path.dirname(os.path.realpath(__file__))
+# # yaml文件的路径
+# yamlpath = os.path.join('test_data.yaml')
+# dbinfo = readyaml(yamlpath)['dbinfo'][0]
 
 
 def select_sql(sel_sql):
@@ -88,11 +88,17 @@ def excute1_sql(del1_sql):
 if __name__ == '__main__':
     curpath = os.path.dirname(os.path.realpath(__file__))
     # yaml文件的路径
-    yamlpath = os.path.join('./test_data.yaml')
+    yamlpath = os.path.join('test_data.yaml')
     task_data = readyaml(yamlpath)['dbinfo'][0]
-    sql1 = 'SELECT * FROM spman_center.task where id = "137";'
-    r = select_sql(sql1)
+    task_data1 = readyaml(yamlpath)['task_sex_data']
+    print(task_data)
+    print(task_data1)
+    sql1 = 'DELETE  FROM spman_center.task where  title = "哈哈哈哈1";'
+    # sql2 = 'select *  FROM spman_center.task where  title = "哈哈哈哈1";'
+    r = excute_sql(sql1)
+    # r2 = select_sql(sql2)
     print(r)
+    # print(r2)
 
 
 

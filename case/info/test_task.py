@@ -1,12 +1,14 @@
 import os
 import pytest
 import requests
-import json
 import time
 from common.connect_mysql import excute_sql
 from common.read_yaml import readyaml
 import allure
-from case.common_func import DRG_func
+from common.common_func import DRG_func
+
+
+
 
 
 
@@ -42,7 +44,7 @@ class Test_drgapi_task():
     @pytest.mark.parametrize("sex",["123","dshfsdh"])
     @pytest.mark.parametrize("amount",[" ","dshfsdh"])
     @pytest.mark.parametrize("recruitNum",[" ","dshfsdh"])
-    def test_1(self,delect_task,sex,recruitNum,amount):
+    def test_1(self,sex,recruitNum,amount):
         '''新增任务'''
 
         result = self.DF.add_task_cszh(sex,recruitNum,amount)

@@ -2,9 +2,8 @@ import os
 
 import allure
 import pytest
-import requests
 
-from case.common_func import DRG_func
+from common.common_func import DRG_func
 
 os.environ["yy_host"] = 'https://spman.shb02.net'
 host = os.environ["yy_host"]

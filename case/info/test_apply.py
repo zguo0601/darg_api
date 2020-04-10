@@ -1,7 +1,5 @@
-import os
-import requests
 import allure
-from case.common_func import DRG_func
+from common.common_func import DRG_func
 
 
 class Test_drg_apply():

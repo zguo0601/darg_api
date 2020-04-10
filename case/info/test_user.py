@@ -1,10 +1,6 @@
-import os
 import pytest
-import requests
 import allure
-from case.common_func import DRG_func
-from common.read_yaml import readyaml
-import time
+from common.common_func import DRG_func
 
 
 @allure.feature("达人馆用户管理模块")
@@ -54,7 +50,7 @@ class Test_drgapi_user():
         assert result["message"]["content"] == "查询成功"
 
     @allure.story("新增发包方")
-    def test_4(self,delect_spman_center_merchant,delect_inside_user_center_user,login_fix):
+    def test_4(self,login_fix,delect_spman_center_merchant,delect_inside_user_center_user):
         '''新增发包方'''
         s = login_fix
         DF = DRG_func(s)

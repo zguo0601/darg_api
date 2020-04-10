@@ -2,13 +2,6 @@ import pytest
 import allure
 
 
-@pytest.fixture()
-def demon_fix():
-
-    print("测试之前的操作")
-    #这里的hello就是  return hello
-    yield 'hello'
-    print("测试用例结束之后的操作，数据清理")
 
 @allure.step("我的步骤1，测试报告中展示")
 def step1():

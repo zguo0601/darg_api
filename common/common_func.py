@@ -23,6 +23,36 @@ class DRG_func():
         self.s = s
 
     @allure.step("获取短信验证码")
+    def get_Login(self,test_input):
+        '''获取短信验证码'''
+        url_get_LoginSmsCode = host + "/common/reset/getLoginSmsCode"
+        data = {
+            "loginPort": "OPERATION",
+            "principal": test_input,
+        }
+        r = self.s.post(url=url_get_LoginSmsCode, data=data,)
+        return r.json()
+
+    def test_password(self):
+        s = requests.session()
+        DF = DRG_func(s)
+        code = time.strftime("%Y%m%d%H%M%S")
+        smscode = code[2:8]
+        DF.get_LoginSmsCode()
+        '''登录获取cookie'''
+        url_login_page = "https://spman.shb02.net/login"
+        data = {
+            "port_key": "OPERATION",
+            "captcha_type": "LOGIN_CAPTCHA",
+            "username": "spman_admin",
+            "password": "11111111",
+            "mobile_key": smscode,
+        }
+        # verify=False（不做安全验证报错SSLerror时候）allow_redirects=False（禁止页面重定向，不禁用的话有可能会获取不到cookies）
+        r = s.post(url=url_login_page, data=data, verify=False, allow_redirects=False)
+        return r.text
+
+    @allure.step("获取短信验证码")
     def get_LoginSmsCode(self):
         '''获取短信验证码'''
         url_get_LoginSmsCode = host + "/common/reset/getLoginSmsCode"
@@ -30,7 +60,7 @@ class DRG_func():
             "loginPort": "OPERATION",
             "principal": "spman_admin",
         }
-        r = self.s.post(url=url_get_LoginSmsCode, data=data,)
+        r = self.s.post(url=url_get_LoginSmsCode, data=data, )
         return r
 
     @allure.step("登录获取cookie")
@@ -279,6 +309,8 @@ class DRG_func():
         }
         result = self.s.post(url=url_update_apply,data=data)
         return result.json()
+
+
 
 
 

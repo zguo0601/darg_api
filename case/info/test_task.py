@@ -63,6 +63,7 @@ class Test_drgapi_task():
         '''新增任务,读取yaml'''
 
         result = self.DF.add_task_yaml(test_input)
+        print(result)
         assert result["message"]["content"] == expect["message"]["content"]
 
     @allure.story("任务列表")

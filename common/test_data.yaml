@@ -10,6 +10,12 @@ task_sex_data:
 dbinfo:
   - {"host" : "120.79.243.237","user" : "root","password" : "OorwdAS6","port" : 4306}
 
+#运营登录信息
+login_username_data:
+  - ["111",{'success': False, 'message': {'code': 300, 'content': '未知账号'}}]
+  - [" ",{'success': False, 'message': {'code': 300, 'content': '未知账号'}}]
+  - ["spman_admin",{"data":{"mobile":"18888888888"},"success":true,"message":{"code":200,"content":"验证码获取成功"}}]
+
 
 
 

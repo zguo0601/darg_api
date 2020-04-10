@@ -310,6 +310,18 @@ class DRG_func():
         result = self.s.post(url=url_update_apply,data=data)
         return result.json()
 
+    @allure.step("付款记录")
+    def issu_list(self):
+        url_issu_list = "https://spman.shb02.net/operation/issu/list"
+        data = {
+            "dateType":"apply",
+            "startDate":"2020-04-01",
+            "currentPage":"1",
+            "pageSize":"20",
+        }
+        result = self.s.post(url=url_issu_list,data=data)
+        return result.json()
+
 
 
 
@@ -320,7 +332,7 @@ if __name__ == '__main__':
     smscode = code[2:8]
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    r = DF.add_task_yaml()
+    r = DF.issu_list()
     print(r)
 
 

@@ -150,14 +150,17 @@ def pytest_configure(config):
 
 
 
-
-@pytest.fixture()
-def demon_fix():
-
-    print("测试之前的操作")
-    #这里的hello就是  return hello
-    yield 'hello'
-    print("测试用例结束之后的操作，数据清理")
+@pytest.fixture(scope="class")
+def merchant_login(self):
+    url = host+"/login"
+    data = {
+        "port_key": "MERCHANT",
+        "captcha_type": "LOGIN_CAPTCHA",
+        "username": "M002137",
+        "password": "111111",
+    }
+    r = self.s.post(url=url, data=data, verify=False, allow_redirects=False)
+    return r
 
 
 if __name__ == '__main__':

@@ -46,7 +46,6 @@ class Test_drgapi_task():
     @pytest.mark.parametrize("recruitNum",[" ","dshfsdh"])
     def test_1(self,sex,recruitNum,amount):
         '''新增任务'''
-
         result = self.DF.add_task_cszh(sex,recruitNum,amount)
         assert result["message"]["content"] == "系统异常"
 
@@ -57,11 +56,11 @@ class Test_drgapi_task():
     # yaml文件的路径
     yamlpath = os.path.join('../../common/test_data.yaml')
     task_data = readyaml(yamlpath)['task_sex_data']
+
     @allure.story("新增任务,读取yaml")
     @pytest.mark.parametrize("test_input,expect", task_data)
     def test_2(self,delect_task,test_input,expect,):
         '''新增任务,读取yaml'''
-
         result = self.DF.add_task_yaml(test_input)
         print(result)
         assert result["message"]["content"] == expect["message"]["content"]

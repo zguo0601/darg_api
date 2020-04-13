@@ -6,7 +6,6 @@ import allure
 from common.read_yaml import readyaml
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 import pytest
-from common.SJ import SF
 import time
 
 
@@ -312,7 +311,7 @@ class DRG_func():
 
     @allure.step("付款记录")
     def issu_list(self):
-        url_issu_list = "https://spman.shb02.net/operation/issu/list"
+        url_issu_list = host+"/operation/issu/list"
         data = {
             "dateType":"apply",
             "startDate":"2020-04-01",
@@ -322,6 +321,75 @@ class DRG_func():
         result = self.s.post(url=url_issu_list,data=data)
         return result.json()
 
+    @allure.step("放款详情")
+    def issu_detail(self):
+        url_issu_detail = host+"/operation/issu/detail"
+        data = {
+            "systemOrderNumber":"20200410114901016767001236",
+        }
+        response = self.s.post(url=url_issu_detail,data=data)
+        return response.json()
+
+    @allure.step("批量放款记录")
+    def issuBatchApply_detail(self):
+        url_issuBatchApply_detail = host+"/operation/issuBatchApply/list"
+        data = {
+            "currentPage": "1",
+            "pageSize": "20",
+        }
+        response = self.s.post(url=url_issuBatchApply_detail, data=data)
+        return response.json()
+
+    @allure.step("批次放款记录")
+    def batch_issu_detail(self):
+        url_batch_issu_detail = host+"/operation/issu/list"
+        data = {
+            "dateType": "apply",
+            "batchNumber": "BATCH00001080",
+            "currentPage": "1",
+            "pageSize": "20",
+        }
+        response = self.s.post(url=url_batch_issu_detail, data=data)
+        return response.json()
+
+    @allure.step("查询商户所有的充值订单")
+    def all_wait_order(self):
+        url_all_wait_order = host + "/operation/rechargeOrder/list"
+        data = {
+            "dateType": "apply",
+            "currentPage": "1",
+            "pageSize": "20",
+        }
+        response = self.s.post(url=url_all_wait_order, data=data)
+        return response.json()
+
+
+    @allure.step("查询未确认充值订单")
+    def wait_order(self):
+        url_wait_order = host+"/operation/rechargeOrder/list"
+        data = {
+            "dateType":"apply",
+            "orderStatus":"WAIT",
+            "currentPage":"1",
+            "pageSize":"20",
+        }
+        response = self.s.post(url=url_wait_order,data=data)
+        return response.json()["data"]["resultList"]["dataList"][0]["systemOrderNumber"]
+
+    @allure.step("确认充值订单")
+    def sucess_order(self,paytime,systemOrderNumber):
+        url_sucess_order = host+"/operation/rechargeOrder/wait/manualConfirm"
+        data = {
+            "paymentTime":paytime,
+            "systemOrderNumber":systemOrderNumber,
+        }
+        response = self.s.post(url=url_sucess_order,data=data)
+        return response.json()
+
+
+
+
+
 
 
 
@@ -330,10 +398,14 @@ if __name__ == '__main__':
     s = requests.session()
     code = time.strftime("%Y%m%d%H%M%S")
     smscode = code[2:8]
+    paytime = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
+    print(paytime)
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    r = DF.issu_list()
-    print(r)
+    sysnumber = DF.all_wait_order()
+
+    print(sysnumber)
+
 
 
 

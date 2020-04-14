@@ -151,15 +151,16 @@ def pytest_configure(config):
 
 
 @pytest.fixture(scope="class")
-def merchant_login(self):
-    url = host+"/login"
+def merchant_login():
+    s = requests.session()
+    url = "https://spman.shb02.net/login"
     data = {
         "port_key": "MERCHANT",
         "captcha_type": "LOGIN_CAPTCHA",
         "username": "M002137",
         "password": "111111",
     }
-    r = self.s.post(url=url, data=data, verify=False, allow_redirects=False)
+    r = s.post(url=url, data=data, verify=False, allow_redirects=False)
     return r
 
 

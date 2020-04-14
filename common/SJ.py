@@ -94,9 +94,15 @@ class SF():
         email = phone + email_suf
         return email
 
+    #生成商户新增充值的通道编号
+    def channelOrderNumber(self):
+        channelOrderNumber = random.randint(1,9999999999999999999)
+        return channelOrderNumber
+
 
 
 
 if __name__ == '__main__':
     a = SF()
-    print(a.get_email())
+    channelOrderNumber = a.channelOrderNumber()
+    print(channelOrderNumber)

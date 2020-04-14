@@ -54,13 +54,13 @@ class DbConnect():
 # dbinfo = readyaml(yamlpath)['dbinfo'][0]
 
 
-def select_sql(sel_sql):
+def select_sql_spman_center(sel_sql):
     db =  DbConnect(dbinfo,database="spman_center")
     result = db.select(sel_sql)
     db.close()
     return result
 
-def excute_sql(del_sql):
+def excute_sql_spman_center(del_sql):
     #连接数据库
     db =  DbConnect(dbinfo,database="spman_center")
     #插入sql语句
@@ -68,13 +68,13 @@ def excute_sql(del_sql):
     db.close()
     return result
 
-def select1_sql(sel1_sql):
+def select1_sql_inside_user_center(sel1_sql):
     db =  DbConnect(dbinfo,database="inside_user_center")
     result = db.select(sel1_sql)
     db.close()
     return result
 
-def excute1_sql(del1_sql):
+def excute1_sql_inside_user_center(del1_sql):
     #连接数据库
     db =  DbConnect(dbinfo,database="inside_user_center")
     #插入sql语句

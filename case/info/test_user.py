@@ -1,6 +1,8 @@
+import time
 import pytest
 import allure
 from common.common_func import DRG_func
+from common.SJ import SF
 
 
 @allure.feature("达人馆用户管理模块")
@@ -50,11 +52,18 @@ class Test_drgapi_user():
         assert result["message"]["content"] == "查询成功"
 
     @allure.story("新增发包方")
-    def test_4(self,login_fix,delect_spman_center_merchant,delect_inside_user_center_user):
+    def test_4(self,login_fix):
         '''新增发包方'''
         s = login_fix
+        sj = SF()
+        shorrtname = sj.name()
+        accountName = sj.name()
+        contactMail = sj.get_email()
+        contactName = sj.name()
+        managerMobile = sj.phone()
+        licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
         DF = DRG_func(s)
-        result = DF.add_merchant()
+        result = DF.add_merchant(shorrtname,accountName,contactMail,contactName,managerMobile,licenceSerialNumber)
         assert result["message"]["content"] == "新增成功"
 
     @allure.story("归属用户信息")

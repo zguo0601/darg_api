@@ -7,6 +7,7 @@ from common.read_yaml import readyaml
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 import pytest
 import time
+from common.SJ import SF
 
 
 #设置环境变量
@@ -106,12 +107,12 @@ class DRG_func():
 
 
     @allure.step("新增发包方")
-    def add_merchant(self):
+    def add_merchant(self,accountName,shortName,contactMail,contactName,licenceSerialNumber,managerMobile):
         url_add_merchant = host+"/operation/merchant/addMerchant"
         data = {
             "industryId":"1",
             "accountFrontFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/by1584930836758.jpg",
-            "accountName":"小可爱",
+            "accountName":accountName,
             "accountNumber":"798798986546546",
             "bankBranchName":"中国银行闽清支行",
             "bankName":"中国银行",
@@ -122,8 +123,8 @@ class DRG_func():
             "companyAddress":"福建省福州市福清市玉屏街道官塘乾成龙花园1号楼J102店面",
             "companyPhone":"1",
             "contactAddress":"福州仓山万达",
-            "contactMail":"1611654sfih@.qq.com",
-            "contactName":"小可爱",
+            "contactMail":contactMail,#联系邮箱唯一
+            "contactName":contactName,
             "invoiceContent":"2",
             "invoiceName":"福清市玉屏葛来娣服装店",
             "licenceAddress":"福建省福州市福清市玉屏街道官塘乾成龙花园1号楼J102店面",
@@ -133,14 +134,14 @@ class DRG_func():
             "licenceEstablishTime":"2017-07-02",
             "licenceFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/by1584930809853.jpg",
             "licenceLegalerName":"林志亮",
-            "licenceSerialNumber":"22332381M6YCN1X71",
+            "licenceSerialNumber":licenceSerialNumber,#营业执照号码唯一
             "licenceType":"个体工商户",
             "platformName":"4",
             "province":"福建省",
             "provinceCode":"350000",
-            "shortName":"小可爱",
+            "shortName":shortName+"科技有限公司",
             "taxNumber":"92350181M6YCN1X71",
-            "managerMobile": "18788588987",
+            "managerMobile": managerMobile,
             "checkAccountType":"PUB",
             "connectBusinessAffairs":"萌萌哒",
             "bankBranchCode":"104391011909",
@@ -353,7 +354,7 @@ class DRG_func():
         return response.json()
 
     @allure.step("查询商户所有的充值订单")
-    def all_wait_order(self):
+    def all_recharge_order(self):
         url_all_wait_order = host + "/operation/rechargeOrder/list"
         data = {
             "dateType": "apply",
@@ -362,6 +363,20 @@ class DRG_func():
         }
         response = self.s.post(url=url_all_wait_order, data=data)
         return response.json()
+
+    @allure.step("查询所有未确认充值订单")
+    def all_wait_order(self):
+        url_all_wait_order = host + "/operation/rechargeOrder/list"
+        data = {
+            "dateType": "apply",
+            "orderStatus": "WAIT",
+            "currentPage": "1",
+            "pageSize": "20",
+            # "startDate": "2020-04-14",
+            # "endDate": "2020-04-14",
+        }
+        response = self.s.post(url=url_all_wait_order, data=data)
+        return response.json()["data"]["rechargeCount"]
 
 
     @allure.step("查询未确认充值订单")
@@ -390,20 +405,20 @@ class DRG_func():
 
 
 
-
-
-
-
 if __name__ == '__main__':
     s = requests.session()
-    code = time.strftime("%Y%m%d%H%M%S")
-    smscode = code[2:8]
+    sj = SF()
+    shorrtname = sj.name()
+    accountName = sj.name()
+    contactMail = sj.get_email()
+    contactName = sj.name()
+    managerMobile = sj.phone()
+    licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
+    smscode = licenceSerialNumber[2:8]
     paytime = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
-    print(paytime)
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    sysnumber = DF.all_wait_order()
-
+    sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
     print(sysnumber)
 
 

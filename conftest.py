@@ -2,8 +2,9 @@ import os
 import requests
 import pytest
 from common.common_func import DRG_func
-from common.connect_mysql import excute_sql, select_sql
+from common.connect_mysql import select_sql_spman_center, excute_sql_spman_center
 import time
+from common.common_func_merchant import Drg_merchant
 
 '''默认级别为scope="function"，只针对函数，每个用例都要调用一次。
  module针对的是模块，每个.py文件都会调用一次。
@@ -41,7 +42,7 @@ class：每一个类调用一次，一个类中可以有多个方法
 module：每一个.py文件调用一次，该文件内又有多个function和class
 session：是多个文件调用一次，可以跨.py文件调用，每个.py文件就是module。
 '''
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="session")
 def login_fix(request):
     #相当于打开浏览器
     session = requests.session()
@@ -102,36 +103,31 @@ def delect_task():
     #前置条件，先删除要新增的任务内容，保证用例可以循环执行
     del_sql = 'DELETE  FROM spman_center.task where  title = "哈哈哈哈1";'
     # 测试用例之前执行sql语句
-    excute_sql(del_sql)
+    excute_sql_spman_center(del_sql)
     yield
     #测试用例之后执行sql语句
     #excute_sql(del_sql)
-
-
+#
+#
 @pytest.fixture(scope="function")
 def delect_spman_center_merchant():
     #前置条件，先删除要新增的任务内容，保证用例可以循环执行
     del_sql = 'DELETE  FROM spman_center.merchant where short_name = "小可爱";'
     # 测试用例之前执行sql语句
-    excute_sql(del_sql)
+    excute_sql_spman_center(del_sql)
     yield
     #测试用例之后执行sql语句
     #excute_sql(del_sql)
-@pytest.fixture(scope="function")
-def delect_inside_user_center_user():
-    #前置条件，先删除要新增的任务内容，保证用例可以循环执行
-    del_sql = 'DELETE from inside_user_center.user where user_name = "小可爱";'
-    # 测试用例之前执行sql语句
-    excute_sql(del_sql)
-    yield
 
+
+#
 @pytest.fixture()
 def update_spman_center_task():
     #1任务开启，0任务关闭
     up_sql = 'UPDATE spman_center.task set STATUS=0 WHERE  id = "137";'
     sql1 = 'SELECT * FROM spman_center.task where id = "137";'
-    select_sql(sql1)
-    excute_sql(up_sql)
+    select_sql_spman_center(sql1)
+    excute_sql_spman_center(up_sql)
     yield
 
 
@@ -150,21 +146,20 @@ def pytest_configure(config):
 
 
 
+
+
+
+
+
 @pytest.fixture(scope="class")
-def merchant_login():
+def merchant_login_fix():
     s = requests.session()
-    url = "https://spman.shb02.net/login"
-    data = {
-        "port_key": "MERCHANT",
-        "captcha_type": "LOGIN_CAPTCHA",
-        "username": "M002137",
-        "password": "111111",
-    }
-    r = s.post(url=url, data=data, verify=False, allow_redirects=False)
-    return r
+    username = "M002137"
+    password = "111111"
+    DM = Drg_merchant(s)
+    DM.merchant_login(username,password)
+    return s
 
 
 if __name__ == '__main__':
-    del_sql = 'DELETE  FROM spman_center.task where  title = "哈哈哈哈1";'
-    r = delect_task(del_sql)
-    print(r)
+    pass

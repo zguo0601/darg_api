@@ -11,13 +11,13 @@ class Test_drg_login():
 
     curpath = os.path.dirname(os.path.realpath(__file__))
     # yaml文件的路径
-    yamlpath = os.path.join('../../common/test_data.yaml')
-    task_data = readyaml(yamlpath)['login_username_data']
+    yamlpath = os.path.join('../../common/data.yaml')
+    data = readyaml(yamlpath)['login_username_data']
 
 
 
 
-    @pytest.mark.parametrize("test_input,expect", task_data)
+    @pytest.mark.parametrize("test_input,expect", data)
     @allure.story("运营账户登录测试")
     def test_username(self,test_input,expect):
         '''登录用户名测试'''

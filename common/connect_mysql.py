@@ -50,7 +50,7 @@ class DbConnect():
 # #从yaml读取数据库配置信息
 # curpath = os.path.dirname(os.path.realpath(__file__))
 # # yaml文件的路径
-# yamlpath = os.path.join('test_data.yaml')
+# yamlpath = os.path.join('data.yaml')
 # dbinfo = readyaml(yamlpath)['dbinfo'][0]
 
 
@@ -95,9 +95,9 @@ if __name__ == '__main__':
     print(task_data1)
     sql1 = 'DELETE  FROM spman_center.task where  title = "哈哈哈哈1";'
     # sql2 = 'select *  FROM spman_center.task where  title = "哈哈哈哈1";'
-    r = excute_sql(sql1)
+    #r = excute_sql(sql1)
     # r2 = select_sql(sql2)
-    print(r)
+    #print(r)
     # print(r2)
 
 

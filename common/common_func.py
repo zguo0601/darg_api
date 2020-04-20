@@ -107,7 +107,7 @@ class DRG_func():
 
 
     @allure.step("新增发包方")
-    def add_merchant(self,accountName,shortName,contactMail,contactName,licenceSerialNumber,managerMobile):
+    def add_merchant(self,accountName,contactMail,contactName,licenceSerialNumber,shortName,managerMobile):
         url_add_merchant = host+"/operation/merchant/addMerchant"
         data = {
             "industryId":"1",
@@ -389,7 +389,7 @@ class DRG_func():
             "pageSize":"20",
         }
         response = self.s.post(url=url_wait_order,data=data)
-        return response.json()["data"]["resultList"]["dataList"][0]["systemOrderNumber"]
+        return response.json()
 
     @allure.step("确认充值订单")
     def sucess_order(self,paytime,systemOrderNumber):
@@ -400,6 +400,162 @@ class DRG_func():
         }
         response = self.s.post(url=url_sucess_order,data=data)
         return response.json()
+
+    @allure.step("付款详情")
+    def rechargeOrder_detail(self):
+        url_rechargeOrder_detail = "https://spman.shb02.net/operation/rechargeOrder/detail"
+        data = {
+            "systemOrderNumber":"10200414103247016873002137",
+        }
+        response = self.s.post(url=url_rechargeOrder_detail, data=data)
+        return response.json()
+
+
+    @allure.step("赏金记录查询")
+    def withdrawOrder_list(self):
+        url_withdrawOrder_list = "https://spman.shb02.net/operation/withdrawOrder/list"
+        data = {
+            "dateType": "apply",
+            "currentPage": "1",
+            "pageSize": "20",
+        }
+        response = self.s.post(url=url_withdrawOrder_list, data=data)
+        return response.json()
+
+    @allure.step("赏金详情")
+    def withdrawOrder_detail(self):
+        url_withdrawOrder_detail = "https://spman.shb02.net/operation/withdrawOrder/detail"
+        data = {
+            "systemOrderNumber": "30200408173431016567002015",
+        }
+        response = self.s.post(url=url_withdrawOrder_detail, data=data)
+        return response.json()
+
+    @allure.step("达人馆财务管理模块")
+    def invoice_list(self):
+        url_invoice_list = "https://spman.shb02.net/operation/invoice/apply/list"
+        data = {
+            "currentPage": "1",
+            "pageSize": "20",
+        }
+        response = self.s.post(url=url_invoice_list, data=data)
+        return response.json()
+
+    @allure.step("发票申请详情")
+    def invoice_detail(self):
+        url_invoice_detail = "https://spman.shb02.net/operation/invoice/apply/list"
+        data = {
+            "batchNumber": "BATCH00000947",
+        }
+        response = self.s.post(url=url_invoice_detail, data=data)
+        return response.json()
+
+    @allure.step("已开发票")
+    def invoice_info_list(self):
+        url_invoice_info_list = "https://spman.shb02.net/operation/invoice/info/list"
+        data = {
+            "status": "1",
+            "batchNumber": "BATCH00000947",
+        }
+        response = self.s.post(url=url_invoice_info_list, data=data)
+        return response.json()
+
+    @allure.step("已开发票详情")
+    def invoice_info_detail(self):
+        url_invoice_info_detail = "https://spman.shb02.net/operation/invoice/info/detail"
+        data = {
+            "id": "70",
+        }
+        response = self.s.post(url=url_invoice_info_detail, data=data)
+        return response.json()
+
+    @allure.step("查询待处理发票")#返回税价合计金额
+    def invoice_apply_list(self):
+        url_invoice_apply_list = "https://spman.shb02.net/operation/invoice/apply/list"
+        data = {
+            "applyStatus": "WAIT",
+            # "startDate": "2020-04-16",
+            # "endDate": "2020-04-16",
+        }
+        response = self.s.post(url=url_invoice_apply_list, data=data)
+        return response.json()
+
+    @allure.step("新增发票信息")
+    def invoice_add(self,invoiceCode,invoiceDate,invoiceNumber,taxAmount,totalAmount,amount,batchNumber,merchantNumber):
+        url_invoice_add = "https://spman.shb02.net/operation/invoice/info/add"
+        data = {
+            "invoiceCode": invoiceCode,
+            "invoiceDate": invoiceDate,
+            "invoiceNumber": invoiceNumber,
+            "invoiceType": "VAT_INVOICE",
+            "topCategoryId": "1",
+            "topCategoryName": "现代服务",
+            "secondCategoryId": "2",
+            "secondCategoryName": "视频推广",
+            "rate": "10",
+            "taxAmount": taxAmount,#税额
+            "totalAmount": totalAmount,#税价合计
+            "amount": amount,#金额
+            "batchNumber": batchNumber,
+            "merchantNumber": merchantNumber,
+        }
+        response = self.s.post(url=url_invoice_add, data=data)
+        return response.json()
+
+    @allure.step("填写快递单号")
+    def invoice_addEmsInfo(self,batchNumber,merchantNumber,emsOrderNumber):
+        url_invoice_addEmsInfo = "https://spman.shb02.net/operation/invoice/apply/addEmsInfo"
+        data = {
+            "batchNumber": batchNumber,
+            "merchantNumber": merchantNumber,
+            "emsOrderNumber": emsOrderNumber,
+            "emsType": "SF",
+        }
+        response = self.s.post(url=url_invoice_addEmsInfo, data=data)
+        return response.json()
+
+    @allure.step("驳回开票申请")
+    def unpass_invoice(self,batchNumber,merchantNumber):
+        url_unpass_invoice = "https://spman.shb02.net/operation/invoice/apply/unPass"
+        data = {
+            "batchNumber":batchNumber,
+            "merchantNumber":merchantNumber,
+            "reason":"贵公司当月所开发票已超过月限额。",
+        }
+        response = self.s.post(url=url_unpass_invoice, data=data)
+        return response.json()
+
+    @allure.step("发包方钱包查询")
+    def merchantWallet_list(self):
+        url_merchantWallet_list = "https://spman.shb02.net/operation/merchantWallet/list"
+        response = self.s.post(url=url_merchantWallet_list)
+        return response.json()
+
+    @allure.step("发包方钱包详情")
+    def merchantWallet_selectOne(self):
+        url_merchantWallet_selectOne = "https://spman.shb02.net/operation/merchantWallet/selectOne"
+        data = {"ownId":"2137",}
+        response = self.s.post(url=url_merchantWallet_selectOne,data=data)
+        return response.json()
+
+    @allure.step("承揽方钱包")
+    def userWallet_list(self):
+        url_userWallet_list = "https://spman.shb02.net/operation/userWallet/list"
+        data = {"currentPage":"6",}
+        response = self.s.post(url=url_userWallet_list,data=data)
+        return response.json()
+
+
+
+    @allure.step("承揽方钱包详情")
+    def userWallet_selectOne(self):
+        url_userWallet_selectOne = "https://spman.shb02.net/operation/userWallet/selectOne"
+        data = {"ownId": "2151", }
+        response = self.s.post(url=url_userWallet_selectOne, data=data)
+        return response.json()
+
+
+
 
 
 
@@ -413,13 +569,42 @@ if __name__ == '__main__':
     contactMail = sj.get_email()
     contactName = sj.name()
     managerMobile = sj.phone()
+    emsOrderNumber = sj.phone()
+    invoiceCode = sj.phone()
+    invoiceNumber = sj.phone()
+
     licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
     smscode = licenceSerialNumber[2:8]
-    paytime = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
+    invoiceDate = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
+
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
-    print(sysnumber)
+    #sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
+    r1 = DF.userWallet_selectOne()
+
+    print(r1)
+
+    #print(sysnumber)
+    # r2 = DF.invoice_wait_list()
+    # totalAmount1 = r2["data"]["resultList"]["dataList"][0]["totalAmount"]
+    # batchNumber = r2["data"]["resultList"]["dataList"][0]["batchNumber"]
+    # merchantNumber = r2["data"]["resultList"]["dataList"][0]["merchantNumber"]
+    # totalAmount = float(totalAmount1)
+    # amount1 = totalAmount/(1+0.1)
+    # amount= round(amount1, 2)
+    # taxAmount1 = totalAmount - amount
+    # taxAmount = round(taxAmount1, 2)
+    # print(sysnumber)
+    # print(totalAmount)
+    # print(batchNumber)
+    # print(merchantNumber)
+    # print(amount)
+    # print(taxAmount)
+    # DF.invoice_add(invoiceCode,invoiceDate,invoiceNumber,taxAmount,totalAmount,amount,batchNumber,merchantNumber)
+    # r = DF.invoice_addEmsInfo(batchNumber,merchantNumber,emsOrderNumber)
+    # assert r["message"]["content"] == "操作成功"
+    # print(r)
+
 
 
 

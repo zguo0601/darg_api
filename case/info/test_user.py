@@ -56,14 +56,14 @@ class Test_drgapi_user():
         '''新增发包方'''
         s = login_fix
         sj = SF()
-        shorrtname = sj.name()
+        shortName = sj.name()
         accountName = sj.name()
         contactMail = sj.get_email()
         contactName = sj.name()
         managerMobile = sj.phone()
         licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
         DF = DRG_func(s)
-        result = DF.add_merchant(shorrtname,accountName,contactMail,contactName,managerMobile,licenceSerialNumber)
+        result = DF.add_merchant(accountName,contactMail,contactName,licenceSerialNumber,shortName,managerMobile)#参数顺序要和方法一致
         assert result["message"]["content"] == "新增成功"
 
     @allure.story("归属用户信息")
@@ -112,5 +112,5 @@ class Test_drgapi_user():
 
 if __name__ == '__main__':
     # 使用python的方式去执行此命令，结果是与在终端中使用脚本执行的效果是一样的
-    pytest.main(["-s","test_info_1.py","-m","drg_api_login"])
+    pytest.main(["-s","test_1.py","-m","drg_api_login"])
 

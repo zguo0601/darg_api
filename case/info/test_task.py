@@ -2,7 +2,6 @@ import os
 import pytest
 import requests
 import time
-from common.connect_mysql import excute_sql
 from common.read_yaml import readyaml
 import allure
 from common.common_func import DRG_func
@@ -54,11 +53,11 @@ class Test_drgapi_task():
     # 测试用例的路径
     curpath = os.path.dirname(os.path.realpath(__file__))
     # yaml文件的路径
-    yamlpath = os.path.join('../../common/test_data.yaml')
-    task_data = readyaml(yamlpath)['task_sex_data']
+    yamlpath = os.path.join('../../common/data.yaml')
+    data = readyaml(yamlpath)['task_sex_data']
 
     @allure.story("新增任务,读取yaml")
-    @pytest.mark.parametrize("test_input,expect", task_data)
+    @pytest.mark.parametrize("test_input,expect", data)
     def test_2(self,delect_task,test_input,expect,):
         '''新增任务,读取yaml'''
         result = self.DF.add_task_yaml(test_input)
@@ -94,5 +93,5 @@ class Test_drgapi_task():
 
 if __name__ == '__main__':
     # 使用python的方式去执行此命令，结果是与在终端中使用脚本执行的效果是一样的
-    pytest.main(["-s","test_info_1.py","-m","drg_api_login"])
+    pytest.main(["-s","test_1.py","-m","drg_api_login"])
 

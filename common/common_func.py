@@ -204,7 +204,6 @@ class DRG_func():
 
     @allure.step("删除子公司")
     def del_sub(self,merchantRelationId):
-
         url_del_sub = host + "/operation/merchant/deleteSub"
         data = {
             "merchantNumber":"M002137",
@@ -218,7 +217,6 @@ class DRG_func():
     @allure.step("新增任务,参数组合")
     def add_task_cszh(self,sex,recruitNum,amount):
         '''新增任务'''
-
         url_addtask = host+'/operation/task/issue'
         data_2 = {
             "title": "哈哈哈哈1",
@@ -403,7 +401,7 @@ class DRG_func():
 
     @allure.step("付款详情")
     def rechargeOrder_detail(self):
-        url_rechargeOrder_detail = "https://spman.shb02.net/operation/rechargeOrder/detail"
+        url_rechargeOrder_detail = host+"/operation/rechargeOrder/detail"
         data = {
             "systemOrderNumber":"10200414103247016873002137",
         }
@@ -413,7 +411,7 @@ class DRG_func():
 
     @allure.step("赏金记录查询")
     def withdrawOrder_list(self):
-        url_withdrawOrder_list = "https://spman.shb02.net/operation/withdrawOrder/list"
+        url_withdrawOrder_list =  host+"/operation/withdrawOrder/list"
         data = {
             "dateType": "apply",
             "currentPage": "1",
@@ -424,7 +422,7 @@ class DRG_func():
 
     @allure.step("赏金详情")
     def withdrawOrder_detail(self):
-        url_withdrawOrder_detail = "https://spman.shb02.net/operation/withdrawOrder/detail"
+        url_withdrawOrder_detail =  host+"/operation/withdrawOrder/detail"
         data = {
             "systemOrderNumber": "30200408173431016567002015",
         }
@@ -433,7 +431,7 @@ class DRG_func():
 
     @allure.step("达人馆财务管理模块")
     def invoice_list(self):
-        url_invoice_list = "https://spman.shb02.net/operation/invoice/apply/list"
+        url_invoice_list =  host+"/operation/invoice/apply/list"
         data = {
             "currentPage": "1",
             "pageSize": "20",
@@ -443,7 +441,7 @@ class DRG_func():
 
     @allure.step("发票申请详情")
     def invoice_detail(self):
-        url_invoice_detail = "https://spman.shb02.net/operation/invoice/apply/list"
+        url_invoice_detail =  host+"/operation/invoice/apply/list"
         data = {
             "batchNumber": "BATCH00000947",
         }
@@ -452,7 +450,7 @@ class DRG_func():
 
     @allure.step("已开发票")
     def invoice_info_list(self):
-        url_invoice_info_list = "https://spman.shb02.net/operation/invoice/info/list"
+        url_invoice_info_list =  host+"/operation/invoice/info/list"
         data = {
             "status": "1",
             "batchNumber": "BATCH00000947",
@@ -462,7 +460,7 @@ class DRG_func():
 
     @allure.step("已开发票详情")
     def invoice_info_detail(self):
-        url_invoice_info_detail = "https://spman.shb02.net/operation/invoice/info/detail"
+        url_invoice_info_detail =  host+"/operation/invoice/info/detail"
         data = {
             "id": "70",
         }
@@ -471,7 +469,7 @@ class DRG_func():
 
     @allure.step("查询待处理发票")#返回税价合计金额
     def invoice_apply_list(self):
-        url_invoice_apply_list = "https://spman.shb02.net/operation/invoice/apply/list"
+        url_invoice_apply_list =  host+"/operation/invoice/apply/list"
         data = {
             "applyStatus": "WAIT",
             # "startDate": "2020-04-16",
@@ -482,7 +480,7 @@ class DRG_func():
 
     @allure.step("新增发票信息")
     def invoice_add(self,invoiceCode,invoiceDate,invoiceNumber,taxAmount,totalAmount,amount,batchNumber,merchantNumber):
-        url_invoice_add = "https://spman.shb02.net/operation/invoice/info/add"
+        url_invoice_add =  host+"/operation/invoice/info/add"
         data = {
             "invoiceCode": invoiceCode,
             "invoiceDate": invoiceDate,
@@ -504,7 +502,7 @@ class DRG_func():
 
     @allure.step("填写快递单号")
     def invoice_addEmsInfo(self,batchNumber,merchantNumber,emsOrderNumber):
-        url_invoice_addEmsInfo = "https://spman.shb02.net/operation/invoice/apply/addEmsInfo"
+        url_invoice_addEmsInfo =  host+"/operation/invoice/apply/addEmsInfo"
         data = {
             "batchNumber": batchNumber,
             "merchantNumber": merchantNumber,
@@ -516,7 +514,7 @@ class DRG_func():
 
     @allure.step("驳回开票申请")
     def unpass_invoice(self,batchNumber,merchantNumber):
-        url_unpass_invoice = "https://spman.shb02.net/operation/invoice/apply/unPass"
+        url_unpass_invoice =  host+"/operation/invoice/apply/unPass"
         data = {
             "batchNumber":batchNumber,
             "merchantNumber":merchantNumber,
@@ -527,31 +525,48 @@ class DRG_func():
 
     @allure.step("发包方钱包查询")
     def merchantWallet_list(self):
-        url_merchantWallet_list = "https://spman.shb02.net/operation/merchantWallet/list"
+        url_merchantWallet_list =  host+"/operation/merchantWallet/list"
         response = self.s.post(url=url_merchantWallet_list)
         return response.json()
 
     @allure.step("发包方钱包详情")
     def merchantWallet_selectOne(self):
-        url_merchantWallet_selectOne = "https://spman.shb02.net/operation/merchantWallet/selectOne"
+        url_merchantWallet_selectOne =  host+"/operation/merchantWallet/selectOne"
         data = {"ownId":"2137",}
         response = self.s.post(url=url_merchantWallet_selectOne,data=data)
         return response.json()
 
     @allure.step("承揽方钱包")
     def userWallet_list(self):
-        url_userWallet_list = "https://spman.shb02.net/operation/userWallet/list"
+        url_userWallet_list =  host+"/operation/userWallet/list"
         data = {"currentPage":"6",}
         response = self.s.post(url=url_userWallet_list,data=data)
         return response.json()
 
-
-
     @allure.step("承揽方钱包详情")
     def userWallet_selectOne(self):
-        url_userWallet_selectOne = "https://spman.shb02.net/operation/userWallet/selectOne"
+        url_userWallet_selectOne =  host+"/operation/userWallet/selectOne"
         data = {"ownId": "2151", }
         response = self.s.post(url=url_userWallet_selectOne, data=data)
+        return response.json()
+
+    @allure.step("平台钱包")
+    def systemWallet_selectOne(self):
+        url_systemWallet_selectOne =  host+"/operation/systemWallet/selectOne"
+        response = self.s.post(url=url_systemWallet_selectOne)
+        return response.json()
+
+    @allure.step("通道钱包")
+    def channelWallet_list(self):
+        url_channelWallet_list =  host+"/operation/channelWallet/list"
+        response = self.s.post(url=url_channelWallet_list)
+        return response.json()
+
+    @allure.step("通道钱包详情")
+    def channelWallet_selectOne(self):
+        url_channelWallet_selectOne =  host+"/operation/channelWallet/selectOne"
+        data = {"ownId":"1",}
+        response = self.s.post(url=url_channelWallet_selectOne,data=data)
         return response.json()
 
 
@@ -580,7 +595,7 @@ if __name__ == '__main__':
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
     #sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
-    r1 = DF.userWallet_selectOne()
+    r1 = DF.get_user_list()
 
     print(r1)
 

@@ -539,8 +539,7 @@ class DRG_func():
     @allure.step("承揽方钱包")
     def userWallet_list(self):
         url_userWallet_list =  host+"/operation/userWallet/list"
-        data = {"currentPage":"6",}
-        response = self.s.post(url=url_userWallet_list,data=data)
+        response = self.s.post(url=url_userWallet_list)
         return response.json()
 
     @allure.step("承揽方钱包详情")
@@ -595,9 +594,10 @@ if __name__ == '__main__':
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
     #sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
-    r1 = DF.userWallet_selectOne()
+    r1 = DF.wait_order()
+    r2 =r1["data"]["resultList"]["dataList"][0]["systemOrderNumber"]
 
-    print(r1)
+    print(r2)
 
     #print(sysnumber)
     # r2 = DF.invoice_wait_list()

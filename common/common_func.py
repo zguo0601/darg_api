@@ -595,7 +595,7 @@ if __name__ == '__main__':
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
     #sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
-    r1 = DF.get_user_list()
+    r1 = DF.userWallet_selectOne()
 
     print(r1)
 

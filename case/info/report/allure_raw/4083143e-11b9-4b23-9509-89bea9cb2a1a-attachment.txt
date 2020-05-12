@@ -1,2 +1,0 @@
-当前用例运行环境:https://spman.shb02.net/login
-先登录成功获取到cookie

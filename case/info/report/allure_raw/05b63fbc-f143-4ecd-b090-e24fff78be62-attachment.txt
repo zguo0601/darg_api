@@ -1,3 +1,0 @@
-当前用例运行环境:https://spman.shb02.net/login
-先登录成功获取到cookie
-<RequestsCookieJar[<Cookie JSESSIONID=8F3BF91892596FEAA4A4811A04C3FFDC for spman.shb02.net/>]>

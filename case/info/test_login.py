@@ -26,6 +26,8 @@ class Test_drg_login():
         result = DF.get_Login(test_input)
         assert result["message"]["content"] == expect["message"]["content"]
 
+
+
     @allure.story("运营密码登录测试")
     def test_password(self):
         s = requests.session()

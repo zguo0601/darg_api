@@ -10,6 +10,7 @@ import time
 from common.SJ import SF
 
 
+
 #设置环境变量
 os.environ["yy_host"] = 'https://spman.shb02.net'
 host = os.environ["yy_host"]
@@ -18,7 +19,7 @@ host = os.environ["yy_host"]
 #公共操作的函数
 class DRG_func():
 
-    def __init__(self,s,):
+    def __init__(self,s):
         #---类下实例化----
         self.s = s
 
@@ -568,10 +569,93 @@ class DRG_func():
         response = self.s.post(url=url_channelWallet_selectOne,data=data)
         return response.json()
 
+    # @allure.step("我的账户")
+    # def operator_account(self):
+    #     url_operator_account = "https://spman.shb02.net/#/account/index"
+    #     response = self.s.get(url=url_operator_account)
+    #     return response.text
+    #
+    #
+    # @allure.step("账户安全页面")
+    # def operator_js(self):
+    #     url_operator_js = host+"/static/assets/operator/js/chunk-d6f12bba.bcb174fd.js"
+    #     response = self.s.get(url=url_operator_js)
+    #     return response.text
+
+    @allure.step("员工管理-员工列表页面")
+    def staff_management(self):
+        url_staff_management = "https://spman.shb02.net/system/account/list"
+        response = self.s.post(url=url_staff_management)
+        return response.json()
+
+    @allure.step("员工管理-员工角色页面")
+    def the_role(self):
+        url_the_role = "https://spman.shb02.net/system/role/list"
+        response = self.s.post(url=url_the_role)
+        return response.json()
+
+    @allure.step("员工管理-员工角色页面-新增角色")
+    def add_role(self):
+        url_add_role = "https://spman.shb02.net/system/role/add"
+        data = {
+            "roleName":"管理员",
+            "remark":"管理员",
+        }
+        response = self.s.post(url=url_add_role,data=data)
+        return response.json()
+
+    @allure.step("员工管理-员工角色页面-新增员工")
+    def add_account(self):
+        url_add_account = "https://spman.shb02.net/system/account/add"
+        data = {
+            "roleId": "120",
+            "loginName": "PAY1589252317124",
+            "passWd": "111111",
+            "mobile": "18759888519",
+            "userName": "1",
+            "status": "1",
+        }
+        response = self.s.post(url=url_add_account, data=data)
+        return response.json()
 
 
+    @allure.step("员工管理-员工角色页面-删除员工")
+    def delete_account(self,id):
+        url_delete_account = "https://spman.shb02.net/system/account/delete"
+        data = {
+            "id": id,
+        }
+        response = self.s.post(url=url_delete_account, data=data)
+        return response.json()
 
+    @allure.step("员工修改密码")
+    def modify_pwd(self):
+        url_modify_pwd = "https://spman.shb02.net/system/account/modifyPwd"
+        data = {
+            "id":"14406",
+            "roleId":"123",
+            "loginName":"OPERATION006359002535",
+            "passWd":"111111",
+            "mobile":"13559936333",
+            "userName":"刘主任",
+            "status":"1",
+        }
+        response = self.s.post(url=url_modify_pwd,data=data)
+        return response.json()
 
+    @allure.step("编辑员工信息")
+    def modify_account(self):
+        url_modify_account = "https://spman.shb02.net/system/account/modify"
+        data = {
+            "id":"14644",
+            "roleId":"119",
+            "loginName":"OPERATION006359002930",
+            "mobile":"18759888529",
+            "userName":"大大",
+            "status":"1",
+        }
+        response = self.s.post(url=url_modify_account, data=data)
+        return response.json()
 
 
 
@@ -586,18 +670,16 @@ if __name__ == '__main__':
     emsOrderNumber = sj.phone()
     invoiceCode = sj.phone()
     invoiceNumber = sj.phone()
-
     licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
     smscode = licenceSerialNumber[2:8]
     invoiceDate = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
-
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
     #sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
-    r1 = DF.wait_order()
-    r2 =r1["data"]["resultList"]["dataList"][0]["systemOrderNumber"]
+    r1 = DF.modify_account()
 
-    print(r2)
+    print(r1)
+
 
     #print(sysnumber)
     # r2 = DF.invoice_wait_list()

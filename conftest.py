@@ -150,7 +150,6 @@ def pytest_configure(config):
 
 
 
-
 @pytest.fixture(scope="class")
 def merchant_login_fix():
     s = requests.session()

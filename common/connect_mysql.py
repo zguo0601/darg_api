@@ -82,22 +82,29 @@ def excute1_sql_inside_user_center(del1_sql):
     db.close()
     return result
 
+def select_taskid_number(sel_sql):
+    db = DbConnect(dbinfo, database="spman_center")
+    result = db.select(sel_sql)
+    db.close()
+    return result
+
 
 
 
 if __name__ == '__main__':
-    curpath = os.path.dirname(os.path.realpath(__file__))
+    #curpath = os.path.dirname(os.path.realpath(__file__))
     # yaml文件的路径
-    yamlpath = os.path.join('test_data.yaml')
-    task_data = readyaml(yamlpath)['dbinfo'][0]
-    task_data1 = readyaml(yamlpath)['task_sex_data']
-    print(task_data)
-    print(task_data1)
-    sql1 = 'DELETE  FROM spman_center.task where  title = "哈哈哈哈1";'
+    # yamlpath = os.path.join('test_data.yaml')
+    # task_data = readyaml(yamlpath)['dbinfo'][0]
+    # task_data1 = readyaml(yamlpath)['task_sex_data']
+    # print(task_data)
+    # print(task_data1)
+    sql1 = 'select * FROM spman_center.task where  merchant_name = "极限传媒" and status = 1 order by id desc limit 1;'
     # sql2 = 'select *  FROM spman_center.task where  title = "哈哈哈哈1";'
-    #r = excute_sql(sql1)
-    # r2 = select_sql(sql2)
-    #print(r)
+    r = select_taskid_number(sql1)
+    id = r[0]["id"]
+    print(r)
+    print(id)
     # print(r2)
 
 

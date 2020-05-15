@@ -120,7 +120,6 @@ def delect_spman_center_merchant():
     #excute_sql(del_sql)
 
 
-#
 @pytest.fixture()
 def update_spman_center_task():
     #1任务开启，0任务关闭
@@ -144,12 +143,7 @@ def pytest_configure(config):
         "markers", markers
 )
 
-
-
-
-
-
-
+#商户登录前置条件
 @pytest.fixture(scope="class")
 def merchant_login_fix():
     s = requests.session()

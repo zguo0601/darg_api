@@ -90,7 +90,7 @@ class Test_drgapi_user():
         result = DF.sub_list()
         assert result["message"]["content"] == "查询成功"
 
-
+    #@pytest.mark.skip
     @allure.story("新增子公司")
     def test_8(self,login_fix):
         '''新增子公司'''

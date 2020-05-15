@@ -32,6 +32,8 @@ class Test_drgapi_task():
 
 
 
+
+
     # 暂时不执行该用用例@pytest.mark.skip("阻塞bug")，执行时会跳过这个测试用例，开发把这个问题解决了，就可以把这个skip注释掉
     # @pytest.mark.skip("阻塞bug")
     # 标记测试用例，可以区分之后想要执行按标记来执行测试用例,
@@ -87,6 +89,14 @@ class Test_drgapi_task():
         '''任务报名信息'''
         result = self.DF.task_applicants()
         assert result["message"]["content"] == "查询成功"
+
+    @allure.story("极限商户新增任务")
+    def test_6(self):
+        '''极限商户新增任务'''
+        result = self.DF.add_task()
+        assert result["message"]["content"] == "操作成功"
+
+
 
 
 

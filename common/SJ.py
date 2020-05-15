@@ -99,10 +99,20 @@ class SF():
         channelOrderNumber = random.randint(1,9999999999999999999)
         return channelOrderNumber
 
+    def task_id(self):
+        f_out = open('E:\\pytest_api\\common\\num.txt', 'r+')
+        a = f_out.read()
+        a = int(a) + 1
+        f_out.seek(0)
+        f_out.truncate()
+        f_out.write(str(a))
+        f_out.close()
+        return a
+
 
 
 
 if __name__ == '__main__':
     a = SF()
-    channelOrderNumber = a.channelOrderNumber()
-    print(channelOrderNumber)
+    id = a.auoto_id()
+    print(id)

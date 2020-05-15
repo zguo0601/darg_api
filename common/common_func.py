@@ -213,6 +213,32 @@ class DRG_func():
         result = self.s.post(url=url_del_sub,data=data)
         return result.json()
 
+    @allure.step("极限商户新增任务")
+    def add_task(self):
+        '''新增任务'''
+        url_addtask = host + '/operation/task/issue'
+        data_2 = {
+            "title": "极限任务",
+            "industryId": "1",
+            "industryName": "直播",
+            "merchantNumber": "M002137",
+            "merchantName": "极限传媒",
+            "content": "5",
+            "sex": "MALE",
+            "settleType": "MONTHLY",
+            "theme": "5",
+            "tag": "1",
+            "platform": "9",
+            "workPlace": "4",
+            #"recruitNum": recruitNum,
+            "amount": "50",
+            "dateLimitType": "LONGTERM",
+            "releaseDate": "2020-2-13",
+            "autoStatus": "true"
+        }
+        task_list = self.s.post(url=url_addtask, data=data_2)
+        return task_list.json()
+
 
 
     @allure.step("新增任务,参数组合")
@@ -676,9 +702,11 @@ if __name__ == '__main__':
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
     #sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
-    r1 = DF.modify_account()
+    r1 = DF.sub_list()
+    r2 = DF.add_sub()
 
     print(r1)
+    print(r2)
 
 
     #print(sysnumber)

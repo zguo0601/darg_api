@@ -114,5 +114,5 @@ class SF():
 
 if __name__ == '__main__':
     a = SF()
-    id = a.auoto_id()
+    id = a.name()
     print(id)

@@ -13,6 +13,6 @@ def readyaml(yamlpath):
 
 if __name__ == '__main__':
     yamlpath = ("data.yaml")
-    r = readyaml(yamlpath)
+    r = readyaml(yamlpath)["merchant_name"]
     print(r)
 

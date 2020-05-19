@@ -85,6 +85,17 @@ class DRG_func():
         self.get_LoginSmsCode()
         return self.login(smscode)
 
+    @allure.step("通过发包方名称查询")
+    def inquire_merchant_list(self,test_input):
+        url_inquire_merchant_list = "https://spman.shb02.net/operation/merchant/list"
+        data = {
+            "shortName":test_input,
+        }
+        response = self.s.post(url=url_inquire_merchant_list,data=data)
+        return response.json()
+
+
+
 
 
     @allure.step("获取发包方信息")
@@ -702,11 +713,9 @@ if __name__ == '__main__':
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
     #sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
-    r1 = DF.sub_list()
-    r2 = DF.add_sub()
-
+    sm = "极限传媒"
+    r1 = DF.inquire_merchant_list(sm)
     print(r1)
-    print(r2)
 
 
     #print(sysnumber)

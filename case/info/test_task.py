@@ -50,13 +50,20 @@ class Test_drgapi_task():
         result = self.DF.add_task_cszh(sex,recruitNum,amount)
         assert result["message"]["content"] == "系统异常"
 
-
-    # 绝对路径,先找出文件的上一层，在把文件加到上一层路径后面就等于文件的绝对路径
-    # 测试用例的路径
+    # 在case文件夹下运行测试用例
     curpath = os.path.dirname(os.path.realpath(__file__))
     # yaml文件的路径
-    yamlpath = os.path.join('../../common/data.yaml')
+    yamlpath = os.path.join('../common/data.yaml')
     data = readyaml(yamlpath)['task_sex_data']
+
+    # # 在merchant文件夹下运行测试用例
+    # 绝对路径,先找出文件的上一层，在把文件加到上一层路径后面就等于文件的绝对路径
+    # 测试用例的路径
+    # curpath = os.path.dirname(os.path.realpath(__file__))
+    # print(curpath)
+    # # yaml文件的路径
+    # yamlpath = os.path.join('../../common/data.yaml')
+    # data = readyaml(yamlpath)['login_username_data']
 
     @allure.story("新增任务,读取yaml")
     @pytest.mark.parametrize("test_input,expect", data)

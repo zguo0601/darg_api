@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="faa4d92c-ca9d-482e-941d-159190c2f8e3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case/info/test_apply.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/case/info/test_login.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/case/info/test_task.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/case/info/test_user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/SJ.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/SJ.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/common_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/common_func.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/read_yaml.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/read_yaml.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -346,7 +339,7 @@
       <workItem from="1589332661067" duration="20717000" />
       <workItem from="1589419185813" duration="20128000" />
       <workItem from="1589506299814" duration="8201000" />
-      <workItem from="1589850760770" duration="11635000" />
+      <workItem from="1589850760770" duration="11884000" />
     </task>
     <task id="LOCAL-00001" summary="import os&#10;import requests&#10;import pytest&#10;from common.read_yaml import readyaml&#10;from common.common_func import DRG_func&#10;&#10;&#10;&#10;class Test_drg_login():&#10;&#10;    curpath = os.path.dirname(os.path.realpath(__file__))&#10;    # yaml文件的路径&#10;    yamlpath = os.path.join('../../common/test_data.yaml')&#10;    task_data = readyaml(yamlpath)['login_username_data']&#10;&#10;&#10;&#10;&#10;    @pytest.mark.parametrize(&quot;test_input,expect&quot;, task_data)&#10;    def test_username(self,test_input,expect):&#10;        '''登录用户名测试'''&#10;        s = requests.session()&#10;        DF = DRG_func(s)&#10;        result = DF.get_Login(test_input)&#10;        assert result[&quot;message&quot;][&quot;content&quot;] == expect[&quot;message&quot;][&quot;content&quot;]&#10;&#10;&#10;    def test_password(self):&#10;        s = requests.session()&#10;        DF = DRG_func(s)&#10;        result = DF.test_password()&#10;        assert &quot;密码错误&quot; in result">
       <created>1586508174046</created>
@@ -439,7 +432,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589855993257</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="2020-5-19 修改了路径从case下运行所有的测试用例">
+      <created>1589868752921</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1589868752921</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -483,10 +483,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="675" y="233" key="#test_1/0.0.1920.1160@0.0.1920.1160" timestamp="1584606012920" />
-    <state x="726" y="141" width="1018" height="906" key="CommitChangelistDialog2" timestamp="1589855991978">
+    <state x="726" y="141" width="1018" height="906" key="CommitChangelistDialog2" timestamp="1589868751263">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="726" y="141" width="1018" height="906" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1589855991978" />
+    <state x="726" y="141" width="1018" height="906" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1589868751263" />
     <state width="181" height="442" key="Diff.GoToChangePopup" timestamp="1586507689312">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -503,22 +503,22 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="823" y="475" key="Github.ShareDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1586507368558" />
-    <state width="1877" height="432" key="GridCell.Tab.0.bottom" timestamp="1589868725200">
+    <state width="1877" height="382" key="GridCell.Tab.0.bottom" timestamp="1589868822598">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="432" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1589868725200" />
-    <state width="1877" height="432" key="GridCell.Tab.0.center" timestamp="1589868725200">
+    <state width="1877" height="382" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1589868822598" />
+    <state width="1877" height="382" key="GridCell.Tab.0.center" timestamp="1589868822598">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="432" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1589868725200" />
-    <state width="1877" height="432" key="GridCell.Tab.0.left" timestamp="1589868725200">
+    <state width="1877" height="382" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1589868822598" />
+    <state width="1877" height="382" key="GridCell.Tab.0.left" timestamp="1589868822598">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="432" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1589868725200" />
-    <state width="1877" height="432" key="GridCell.Tab.0.right" timestamp="1589868725200">
+    <state width="1877" height="382" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1589868822598" />
+    <state width="1877" height="382" key="GridCell.Tab.0.right" timestamp="1589868822598">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="432" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1589868725200" />
+    <state width="1877" height="382" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1589868822598" />
     <state width="1877" height="335" key="GridCell.Tab.1.bottom" timestamp="1589868280729">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -539,10 +539,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="168" y="106" key="SettingsEditor/0.0.1920.1160@0.0.1920.1160" timestamp="1589854755364" />
-    <state x="552" y="316" key="Vcs.Push.Dialog.v2" timestamp="1589856001441">
+    <state x="552" y="316" key="Vcs.Push.Dialog.v2" timestamp="1589868756426">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="552" y="316" key="Vcs.Push.Dialog.v2/0.0.1920.1160@0.0.1920.1160" timestamp="1589856001441" />
+    <state x="552" y="316" key="Vcs.Push.Dialog.v2/0.0.1920.1160@0.0.1920.1160" timestamp="1589868756426" />
     <state x="754" y="498" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586507066816">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>

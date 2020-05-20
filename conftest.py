@@ -1,9 +1,10 @@
 import os
 import requests
 import pytest
+import time
 from common.common_func_operation import DRG_func
 from common.connect_mysql import select_sql_spman_center, excute_sql_spman_center
-import time
+from common.common_func_merchant_api import API_merchant
 from common.common_func_merchant import Drg_merchant
 
 '''默认级别为scope="function"，只针对函数，每个用例都要调用一次。
@@ -152,6 +153,31 @@ def merchant_login_fix():
     DM = Drg_merchant(s)
     DM.merchant_login(username,password)
     return s
+
+@pytest.fixture(scope="class")
+def api_merchant_login():
+    s = requests.session()
+    api = API_merchant(s)
+    api.merchant_login()
+    return s
+
+@pytest.fixture(scope="class")
+def api_get_merchantPriKey():
+    s = requests.session()
+    api = API_merchant(s)
+    api.merchant_login()
+    merchantPriKey = api.merchant_Info()
+    return merchantPriKey["data"]["merchantPriKey"]
+
+@pytest.fixture(scope="class")
+def api_get_systemPubKey():
+    s = requests.session()
+    api = API_merchant(s)
+    api.merchant_login()
+    systemPubKey = api.merchant_Info()
+    return systemPubKey["data"]["systemPubKey"]
+
+
 
 
 if __name__ == '__main__':

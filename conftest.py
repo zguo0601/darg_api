@@ -1,7 +1,7 @@
 import os
 import requests
 import pytest
-from common.common_func import DRG_func
+from common.common_func_operation import DRG_func
 from common.connect_mysql import select_sql_spman_center, excute_sql_spman_center
 import time
 from common.common_func_merchant import Drg_merchant

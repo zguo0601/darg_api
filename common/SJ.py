@@ -100,7 +100,7 @@ class SF():
         return channelOrderNumber
 
     def task_id(self):
-        f_out = open('E:\\pytest_api\\common\\num.txt', 'r+')
+        f_out = open('/data/num.txt', 'r+')
         a = f_out.read()
         a = int(a) + 1
         f_out.seek(0)

@@ -1,0 +1,70 @@
+#新增任务测试数据
+task_sex_data:
+
+- ["FEMALE",{"success":"true","message":{"code":200,"content":"操作成功"}}]
+- ["UNLIMIT",{"success":"true","message":{"code":200,"content":"操作成功"}}]
+- ["MALE",{"success":"true","message":{"code":200,"content":"操作成功"}}]
+- ["123",{"success":"false","message":{"code":300,"content":"系统异常"}}]
+
+#数据库连接信息
+dbinfo:
+  - {"host" : "120.79.243.237","user" : "root","password" : "OorwdAS6","port" : 4306}
+
+#运营登录信息
+login_username_data:
+  - ["111",{'success': False, 'message': {'code': 300, 'content': '未知账号'}}]
+  - [" ",{'success': False, 'message': {'code': 300, 'content': '未知账号'}}]
+  - ["spman_admin",{"data":{"mobile":"18888888888"},"success":true,"message":{"code":200,"content":"验证码获取成功"}}]
+
+merchant_name:
+  - ["极限传媒",{"data":{'dataList': [{
+                                       'merchantNumber': 'M002137',
+                                       'shortName': '极限传媒',
+                                       'taxNumber': '913213223235882089',
+                                       'rate': {
+                                         'percent': 6.5,
+                                         'fixed': 6.5,
+                                         'base': 6.5
+                                       },
+                                       'managerName': '帅雷雷',
+                                       'managerMobile': '18526999857',
+                                       'status': True,
+                                       'gmtCreate': '2020-02-17 10:40:10',
+                                       'authStatus': 'SUCCESS',
+                                       'authStatusStr': '审核通过',
+                                       'signUser': True
+                                     }]}}]
+  -  ["极限传媒123",{"data":{"dataList": [],}}]
+
+Api_merchantPriKey:
+  {"merchantPriKey":"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAIPGy3NG7wj4sHP4hfVpsmYAvzUmf6MBCNjZhF3u3kM5yNKx
+  H+l5x+wcSD629NjZ8iyiatRCKZLT//B50og4nyEL9XNj0YdK4Lrl5erZN8A4z+Zo5PBt522rpGaDfrHAiwNX9EPDUkoaLUgDezRHNefEEWMRI+aRpADpME
+  NFutGjAgMBAAECgYBnqJxn/PeRphcf0vKFf3SfOp0ukS88KVctRcYTIhDi7vSjkEObJHn4qLLH6qGmZ6NSKx1ABR+w6WVeZGYRVAEQGJKFHL5fhHueiMyt
+  gyweNOtG2OaNn8S0s9eqpNni5LWE1ZJY31IAxEwT0RgdSboKFc+eFgwONe6EWzqEIB5aqQJBANWqVz80hfyCb9+j0cdAPTdlJOjbY7I6Y8xNQYAELDfft5
+  q6LeXkn2LRjXaRYx5uQOfUKng39NG9jtxaVWG7Ak0CQQCd4tckdkBAu06DZ4Dj4F/WewotnRMzDR5oeRzqtOzbx3BpL3dmL6YlcKx6A5UdM/xfGndZ8zpT
+  Ba8GqKysDruvAkAhPpjGn9B9InpvrJiWTPt5ZAZjKMeRUp52ikq3tW5/3xI9Q9yiWXknMf21xhdLA9Kbf5qADAzOmZTh2jhQtX09AkBG5xLEvhH2v+bvXf
+  Dk5ONFF3Ynq81udKq+Mf2JbXyc6kCSDA3rpuRPFf1uweMZ/TmNn/4POApuNDQ4olEA55DjAkEAhf0qqBX+/HpJ3xzzN1VUk32GQ/0AUOQqDs+OtzthmTFr
+  8sCU7ucMjdQZQgqETKFVTuwAW3N/V5hhD8QPZgkgqw=="}
+Api_systemPubKey:
+  {"systemPubKey":"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCIj1L738vLNpJ0bj2qQIOsJoK9x4TyKLSK1lY/TsHVC+ycAVblWL5+NjqWTfASWq
+  ewDn4fPg0SP4Nno7F1WAxk7GsiKaH9YFkrZH+l5uK89zVaqhuNnYrZQ4HR8FZZHMTPIdIEAYPbRUCCTvXxG//jYs8Oe5wE+JH2OVyGD1gKXQIDAQAB"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

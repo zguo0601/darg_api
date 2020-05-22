@@ -3,7 +3,7 @@ import pytest
 import allure
 from common.common_func_operation import DRG_func
 from common.common_func_merchant import Drg_merchant
-from common.SJ import SF
+from common.common_func_SJ import  SF
 
 @allure.feature("达人馆发包方付款管理")
 class Test_Recharge_order():

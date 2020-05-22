@@ -1,6 +1,6 @@
 import allure
 from common.common_func_merchant import Drg_merchant
-from common.SJ import SF
+from common.common_func_SJ import  SF
 from common.connect_mysql import select_taskid_number
 
 

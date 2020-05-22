@@ -5,7 +5,7 @@ class LL():
 
     def ll(self,requesterUserIdentity,idCard,mobile,name):
         data = {
-            'content': '[{"industryId":"1","requesterUserIdentity":"%s","idCard":"%s","mobile":"%s","name":%s,"idCardBackFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg","idCardFrontFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg"}]'%(requesterUserIdentity,idCard,mobile,name),
+            'content': '[{"industryId":"1","requesterUserIdentity":"%s","idCard":"%s","mobile":"%s","name":%s,"idCardBackFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg","idCardFrontFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg"}]',
         }
 
         print(data)

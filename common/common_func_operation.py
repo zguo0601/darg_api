@@ -3,11 +3,11 @@ import requests
 from urllib3.exceptions import InsecureRequestWarning
 # 禁用安全请求警告
 import allure
-from common.read_yaml import readyaml
+from common.common_func_read_yaml import  readyaml
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 import pytest
 import time
-from common.SJ import SF
+from common.common_func_SJ import  SF
 
 
 
@@ -25,7 +25,10 @@ class DRG_func():
 
     @allure.step("获取短信验证码")
     def get_Login(self,test_input):
-        '''获取短信验证码'''
+        """获取短信验证码
+        :param:test_input  用户名
+        return:            r.json()
+        """
         url_get_LoginSmsCode = host + "/common/reset/getLoginSmsCode"
         data = {
             "loginPort": "OPERATION",
@@ -35,6 +38,10 @@ class DRG_func():
         return r.json()
 
     def test_password(self):
+        """
+        :param: smscode  登录验证码
+        :return:
+        """
         s = requests.session()
         DF = DRG_func(s)
         code = time.strftime("%Y%m%d%H%M%S")
@@ -120,6 +127,16 @@ class DRG_func():
 
     @allure.step("新增发包方")
     def add_merchant(self,accountName,contactMail,contactName,licenceSerialNumber,shortName,managerMobile):
+        """
+        新增发需要传参参数
+        :param accountName: 开户人
+        :param contactMail: 联系邮箱
+        :param contactName: 联系人
+        :param licenceSerialNumber: 营业执照号
+        :param shortName: 发包方简称
+        :param managerMobile: 手机号
+        :return:
+        """
         url_add_merchant = host+"/operation/merchant/addMerchant"
         data = {
             "industryId":"1",
@@ -429,6 +446,11 @@ class DRG_func():
 
     @allure.step("确认充值订单")
     def sucess_order(self,paytime,systemOrderNumber):
+        """
+        :param paytime: 确认订单时间
+        :param systemOrderNumber: 充值单号
+        :return:
+        """
         url_sucess_order = host+"/operation/rechargeOrder/wait/manualConfirm"
         data = {
             "paymentTime":paytime,
@@ -518,6 +540,17 @@ class DRG_func():
 
     @allure.step("新增发票信息")
     def invoice_add(self,invoiceCode,invoiceDate,invoiceNumber,taxAmount,totalAmount,amount,batchNumber,merchantNumber):
+        """
+        :param invoiceCode: 发票代码
+        :param invoiceDate: 开票日期
+        :param invoiceNumber: 发票号码
+        :param taxAmount: 税额
+        :param totalAmount: 税价合计
+        :param amount: 金额
+        :param batchNumber: 发票批次号
+        :param merchantNumber: 商户编号
+        :return:
+        """
         url_invoice_add =  host+"/operation/invoice/info/add"
         data = {
             "invoiceCode": invoiceCode,
@@ -540,6 +573,13 @@ class DRG_func():
 
     @allure.step("填写快递单号")
     def invoice_addEmsInfo(self,batchNumber,merchantNumber,emsOrderNumber):
+        """
+        填写快递单号
+        :param batchNumber: 发票批次号
+        :param merchantNumber: 商户编号
+        :param emsOrderNumber: 快递单号
+        :return:
+        """
         url_invoice_addEmsInfo =  host+"/operation/invoice/apply/addEmsInfo"
         data = {
             "batchNumber": batchNumber,

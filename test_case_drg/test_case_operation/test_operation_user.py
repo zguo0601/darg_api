@@ -2,14 +2,14 @@ import time
 import pytest
 import allure
 from common.common_func_operation import DRG_func
-from common.SJ import SF
+from common.common_func_SJ import  SF
 import os
-from common.read_yaml import readyaml
+from common.common_func_read_yaml import  readyaml
 
 
 
 @allure.feature("达人馆用户管理模块")
-class Test_drgapi_user():
+class Test_User():
 
     # @classmethod
     # def setup_class(cls):

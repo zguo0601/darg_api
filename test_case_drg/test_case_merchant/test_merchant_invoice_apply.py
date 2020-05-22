@@ -2,7 +2,7 @@ import time
 import allure
 from common.common_func_merchant import Drg_merchant
 from common.common_func_operation import DRG_func
-from common.SJ import SF
+from common.common_func_SJ import  SF
 
 
 @allure.feature("达人馆商户端开票模块")

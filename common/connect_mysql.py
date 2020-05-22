@@ -1,5 +1,5 @@
 import os
-from common.read_yaml import readyaml
+from common.common_func_read_yaml import readyaml
 import pymysql
 
 

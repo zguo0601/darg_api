@@ -3,7 +3,7 @@ import allure
 import pytest
 from common.common_func_operation import DRG_func
 from common.common_func_merchant import Drg_merchant
-from common.SJ import SF
+from common.common_func_SJ import  SF
 
 
 @allure.feature("达人馆财务管理模块")

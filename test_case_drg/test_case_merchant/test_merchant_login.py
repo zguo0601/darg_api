@@ -2,7 +2,7 @@ import os
 import allure
 import pytest
 from common.common_func_merchant import Drg_merchant
-from common.read_yaml import readyaml
+from common.common_func_read_yaml import  readyaml
 import requests
 
 

@@ -2,7 +2,7 @@ import os
 import requests
 import allure
 import pytest
-from common.read_yaml import readyaml
+from common.common_func_read_yaml import  readyaml
 from common.common_func_operation import DRG_func
 
 

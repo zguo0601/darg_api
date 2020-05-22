@@ -6,8 +6,8 @@ import time
 import allure
 from urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-from common.SJ import SF
-from common.user_import import User_sj
+from common.common_func_SJ import  SF
+from common.common_func_user_import import  User_sj
 from requests_toolbelt import MultipartEncoder
 from common.connect_mysql import select_taskid_number
 
@@ -76,11 +76,6 @@ class Drg_merchant():
     @allure.step("批量上传用户信息")
     def user_import(self):
         url_user_import = "https://spman.shb02.net/merchant/user/import"
-        # m = MultipartEncoder(
-        #     fields=[
-        #         ( "import",('user_info.xlsx', open("E:\\pytest_api\\case\\pachong\\user_info.xls","rb"),"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
-        #     ]
-        # )
         self.u.sj_user()
         m = MultipartEncoder(
             fields={"import": ('user_info.xlsx', open(user_info_path, "rb"), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")}

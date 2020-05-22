@@ -1,7 +1,7 @@
 import allure
 import pytest
 from common.common_func_merchant import Drg_merchant
-from common.SJ import SF
+from common.common_func_SJ import  SF
 
 sj = SF()
 
@@ -23,7 +23,7 @@ class Test_User():
         ms = merchant_login_fix
         DM = Drg_merchant(ms)
         name = sj.name()
-        idcard = sj.sf()
+        idcard = sj.idcard()
         mobile = sj.phone()
         #上传用户信息返回批次号
         response = DM.add_user(name, idcard, mobile)

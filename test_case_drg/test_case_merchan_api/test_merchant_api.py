@@ -1,5 +1,5 @@
 import time
-from common.SJ import SF
+from common.common_func_SJ import SF
 from common.common_func_merchant_api import API_merchant
 import allure
 
@@ -20,7 +20,7 @@ class Test_Api_Merchant():
         api = API_merchant(s)
         sj = SF()
         requesterUserIdentity = "jx" + sj.phone()
-        idCard = sj.sf()
+        idCard = sj.idcard()
         mobile = sj.phone()
         name = sj.name()
         # 获取api商户密码

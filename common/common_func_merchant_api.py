@@ -2,7 +2,7 @@ import os
 import time
 import requests
 import allure
-from common.SJ import SF
+from common.common_func_SJ import  SF
 from urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 

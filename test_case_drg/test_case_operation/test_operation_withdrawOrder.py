@@ -1,5 +1,4 @@
 import allure
-import pytest
 from common.common_func_operation import DRG_func
 
 

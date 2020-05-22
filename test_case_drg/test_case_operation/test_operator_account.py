@@ -1,9 +1,5 @@
-import time
 import allure
-import pytest
 from common.common_func_operation import DRG_func
-from common.common_func_merchant import Drg_merchant
-from common.SJ import SF
 
 
 @allure.feature("达人馆账户管理模块")

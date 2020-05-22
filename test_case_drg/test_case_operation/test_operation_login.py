@@ -15,22 +15,6 @@ class Test_drg_login():
     yaml_path = os.path.join(cur_path,"data","data.yaml")
     data = readyaml(yaml_path)["login_username_data"]
 
-
-    # #在case文件夹下运行测试用例,提交的时候要把case下读取取消注释
-    # curpath = os.path.dirname(os.path.realpath(__file__))
-    # # yaml文件的路径
-    # yamlpath = os.path.join('../data/data.yaml')
-    # data = readyaml(yamlpath)['login_username_data']
-
-    # # 在info文件夹下运行测试用例
-    # curpath = os.path.dirname(os.path.realpath(__file__))
-    # # yaml文件的路径
-    # yamlpath = os.path.join('../../common/data.yaml')
-    # data = readyaml(yamlpath)['login_username_data']
-
-
-
-
     @pytest.mark.parametrize("test_input,expect", data)
     @allure.story("运营账户登录测试")
     def test_username(self,test_input,expect):
@@ -46,16 +30,8 @@ class Test_drg_login():
     def test_password(self):
         s = requests.session()
         DF = DRG_func(s)
-        result = DF.test_password()
+        result = DF.get_password()
         assert "密码错误" in result
 
 
-# if __name__ == '__main__':
-#     a = Test_drg_login()
-#     curpath = os.path.dirname(os.path.realpath(__file__))
-#     print(curpath)
-#     # yaml文件的路径
-#     yamlpath = os.path.join('../../common/data.yaml')
-#     data = readyaml(yamlpath)['login_username_data']
-#     print(data)
 

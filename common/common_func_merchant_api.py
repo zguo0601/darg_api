@@ -102,14 +102,12 @@ class API_merchant():
 
 
 
-
-
 if __name__ == '__main__':
     s = requests.session()
     api = API_merchant(s)
     sj = SF()
     requesterUserIdentity = "jx" + sj.phone()
-    idCard = sj.sf()
+    idCard = sj.idcard()
     mobile = sj.phone()
     name = sj.name()
 

@@ -41,7 +41,7 @@ class Test_invoice():
         result = DF.invoice_info_detail()
         assert result["data"]["batchNumber"] == "BATCH00001517"
 
-    @allure.story("确认待处理发票")
+    @allure.story("确认待审核发票")
     @pytest.mark.drg_affirm_invoice
     #@pytest.mark.skip
     def test_5(self,login_fix,merchant_login_fix):
@@ -72,7 +72,8 @@ class Test_invoice():
         s_totalAmount = recharge_detail["data"]["resultList"]["dataList"][0]["amountStr"]#格式化输出，将字典里面的值参数化
         systemOrderNumbers = recharge_detail["data"]["resultList"]["dataList"][0]["systemOrderNumber"]
         #-------查询是否有待处理开票订单-------------------------------------------------------------------------------------
-        apply = DF.invoice_apply_list()
+        applyStatus = 'WAIT'
+        apply = DF.invoice_apply_list(applyStatus)
         apply_result = apply["data"]["count"]
         if apply_result == 0:
             #新增开票申请
@@ -89,7 +90,8 @@ class Test_invoice():
                 DM.invoice_apply(m_totalAmount, systemOrderNumbers, s_totalAmount)
                 # 运营端新增开票信息
                 # --------运营端查询，返回税价合计金额、批次号、用户编号、根据税价合计计算出 金额和 税额-----------
-                r2 = DF.invoice_apply_list()
+                applyStatus = 'WAIT'
+                r2 = DF.invoice_apply_list(applyStatus)
                 totalAmount1 = r2["data"]["resultList"]["dataList"][0]["totalAmount"]  # 获取税价合计金额，类型为 str
                 batchNumber = r2["data"]["resultList"]["dataList"][0]["batchNumber"]  # 获取批次号
                 merchantNumber = r2["data"]["resultList"]["dataList"][0]["merchantNumber"]  # 获取用户编号
@@ -99,16 +101,24 @@ class Test_invoice():
                 amount = round(f_amount, 2)  # 金额
                 f_taxAmount = y_totalAmount - amount
                 taxAmount = round(f_taxAmount, 2)  # 税额
-                DF.invoice_add(invoiceCode, invoiceDate, invoiceNumber, taxAmount, y_totalAmount, amount, batchNumber,merchantNumber)
+                # 申请合并开票
+                r3 = DF.invoice_merger(batchNumber, merchantNumber)
+                # 查询开票中订单
+                applyStatus = 'HANDLE'
+                r4 = DF.invoice_apply_list(applyStatus)
+                # 返回合并开票批次号 invoiceBatchNumber
+                invoiceBatchNumber = r4["data"]["resultList"]["dataList"][0]["invoiceBatchNumber"]
+                DF.invoice_add(invoiceCode, invoiceDate, invoiceNumber, taxAmount, y_totalAmount, amount,invoiceBatchNumber, merchantNumber)
                 # 填写快递单号，确认开票申请
-                DF.invoice_addEmsInfo(batchNumber, merchantNumber, emsOrderNumber)
-
+                result = DF.invoice_addEmsInfo(batchNumber, merchantNumber, invoiceBatchNumber, emsOrderNumber)
+                assert result["message"]["content"] == "操作成功"
             else:
                 # 商户端提交开票申请
                 DM.invoice_apply(m_totalAmount, systemOrderNumbers, s_totalAmount)
                 # 运营端新增开票信息
                 # --------运营端查询，返回税价合计金额、批次号、用户编号、根据税价合计计算出 金额和 税额-----------
-                r2 = DF.invoice_apply_list()
+                applyStatus = 'WAIT'
+                r2 = DF.invoice_apply_list(applyStatus)
                 totalAmount1 = r2["data"]["resultList"]["dataList"][0]["totalAmount"]  # 获取税价合计金额，类型为 str
                 batchNumber = r2["data"]["resultList"]["dataList"][0]["batchNumber"]  # 获取批次号
                 merchantNumber = r2["data"]["resultList"]["dataList"][0]["merchantNumber"]  # 获取用户编号
@@ -118,9 +128,17 @@ class Test_invoice():
                 amount = round(f_amount, 2)  # 金额
                 f_taxAmount = y_totalAmount - amount
                 taxAmount = round(f_taxAmount, 2)  # 税额
-                DF.invoice_add(invoiceCode,invoiceDate,invoiceNumber,taxAmount,y_totalAmount,amount,batchNumber,merchantNumber)
-                #填写快递单号，确认开票申请
-                DF.invoice_addEmsInfo(batchNumber,merchantNumber,emsOrderNumber)
+                # 申请合并开票
+                r3 = DF.invoice_merger(batchNumber, merchantNumber)
+                # 查询开票中订单
+                applyStatus = 'HANDLE'
+                r4 = DF.invoice_apply_list(applyStatus)
+                # 返回合并开票批次号 invoiceBatchNumber
+                invoiceBatchNumber = r4["data"]["resultList"]["dataList"][0]["invoiceBatchNumber"]
+                DF.invoice_add(invoiceCode, invoiceDate, invoiceNumber, taxAmount, y_totalAmount, amount,invoiceBatchNumber, merchantNumber)
+                # 填写快递单号，确认开票申请
+                result = DF.invoice_addEmsInfo(batchNumber, merchantNumber, invoiceBatchNumber, emsOrderNumber)
+                assert result["message"]["content"] == "操作成功"
         else:
             # 运营端新增开票信息
             # --------运营端查询，返回税价合计金额、批次号、用户编号、根据税价合计计算出 金额和 税额-----------
@@ -134,9 +152,17 @@ class Test_invoice():
             amount = round(f_amount, 2)  # 金额
             f_taxAmount = y_totalAmount - amount
             taxAmount = round(f_taxAmount, 2)  # 税额
-            DF.invoice_add(invoiceCode, invoiceDate, invoiceNumber, taxAmount, y_totalAmount, amount, batchNumber,merchantNumber)
+            # 申请合并开票
+            r3 = DF.invoice_merger(batchNumber, merchantNumber)
+            # 查询开票中订单
+            applyStatus = 'HANDLE'
+            r4 = DF.invoice_apply_list(applyStatus)
+            # 返回合并开票批次号 invoiceBatchNumber
+            invoiceBatchNumber = r4["data"]["resultList"]["dataList"][0]["invoiceBatchNumber"]
+            DF.invoice_add(invoiceCode, invoiceDate, invoiceNumber, taxAmount, y_totalAmount, amount, invoiceBatchNumber,merchantNumber)
             # 填写快递单号，确认开票申请
-            DF.invoice_addEmsInfo(batchNumber, merchantNumber, emsOrderNumber)
+            result = DF.invoice_addEmsInfo(batchNumber, merchantNumber, invoiceBatchNumber, emsOrderNumber)
+            assert result["message"]["content"] == "操作成功"
 
     @allure.story("驳回开票申请")
     def test_6(self,login_fix,merchant_login_fix):
@@ -182,6 +208,7 @@ class Test_invoice():
                 batchNumber = result["data"]["resultList"]["dataList"][0]["batchNumber"]
                 # 驳回开票申请
                 respnose = DF.unpass_invoice(batchNumber, merchantNumber)
+                assert respnose["message"]["content"] == "操作成功"
 
             else:
                 # ----------商户端，查询出开票充值记录里面的充值金额和系统单号
@@ -197,6 +224,7 @@ class Test_invoice():
                 batchNumber = result["data"]["resultList"]["dataList"][0]["batchNumber"]
                 # 驳回开票申请
                 respnose = DF.unpass_invoice(batchNumber, merchantNumber)
+                assert respnose["message"]["content"] == "操作成功"
 
         else:
             # --------查询待处理订单，返回批次号和用户编号---------------
@@ -205,6 +233,7 @@ class Test_invoice():
             batchNumber = result["data"]["resultList"]["dataList"][0]["batchNumber"]
             # 驳回开票申请
             respnose = DF.unpass_invoice(batchNumber,merchantNumber)
+            assert respnose["message"]["content"] == "操作成功"
 
     @allure.story("发包方钱包查询")
     def test_7(self,login_fix):

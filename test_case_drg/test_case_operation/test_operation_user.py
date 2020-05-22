@@ -27,14 +27,9 @@ class Test_User():
     #     cls.s = requests.session()
     #     cls.s.close()
 
-
     cur_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
     yaml_path = os.path.join(cur_path, "data", "data.yaml")
     data = readyaml(yaml_path)["merchant_name"]
-
-
-
-
 
 
     @allure.story("获取承揽方信息")

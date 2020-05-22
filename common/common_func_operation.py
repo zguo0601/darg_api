@@ -25,7 +25,7 @@ class DRG_func():
 
     @allure.step("获取短信验证码")
     def get_Login(self,test_input):
-        """获取短信验证码
+        """获取短信验证码，测试运营登录
         :param:test_input  用户名
         return:            r.json()
         """
@@ -37,7 +37,7 @@ class DRG_func():
         r = self.s.post(url=url_get_LoginSmsCode, data=data,)
         return r.json()
 
-    def test_password(self):
+    def get_password(self):
         """
         :param: smscode  登录验证码
         :return:
@@ -86,7 +86,6 @@ class DRG_func():
         r = self.s.post(url=url_login_page, data=data,verify=False,allow_redirects=False)
         return r
 
-
     @allure.step("获取验证码+登录成功")
     def login_sucess(self,smscode):
         self.get_LoginSmsCode()
@@ -100,10 +99,6 @@ class DRG_func():
         }
         response = self.s.post(url=url_inquire_merchant_list,data=data)
         return response.json()
-
-
-
-
 
     @allure.step("获取发包方信息")
     def get_merchant_list(self):
@@ -123,7 +118,6 @@ class DRG_func():
         }
         merchant_detail = self.s.post(url=url_merchant_detail,data=data)
         return merchant_detail.json()
-
 
     @allure.step("新增发包方")
     def add_merchant(self,accountName,contactMail,contactName,licenceSerialNumber,shortName,managerMobile):
@@ -189,7 +183,6 @@ class DRG_func():
         }
         result = self.s.post(url=url_user_Merchant,data=data)
         return result.json()
-
 
     @allure.step("获取承揽方信息")
     def get_user_list(self):
@@ -266,8 +259,6 @@ class DRG_func():
         }
         task_list = self.s.post(url=url_addtask, data=data_2)
         return task_list.json()
-
-
 
     @allure.step("新增任务,参数组合")
     def add_task_cszh(self,sex,recruitNum,amount):
@@ -352,7 +343,6 @@ class DRG_func():
         result = self.s.post(url=url_task_applicants,data=data)
         return result.json()
 
-
     @allure.step("上传完税证明")
     def update_apply(self):
         url_update_apply =  host +"/operation/issu/uploadTaxCertificate"
@@ -431,7 +421,6 @@ class DRG_func():
         response = self.s.post(url=url_all_wait_order, data=data)
         return response.json()["data"]["rechargeCount"]
 
-
     @allure.step("查询未确认充值订单")
     def wait_order(self):
         url_wait_order = host+"/operation/rechargeOrder/list"
@@ -467,7 +456,6 @@ class DRG_func():
         }
         response = self.s.post(url=url_rechargeOrder_detail, data=data)
         return response.json()
-
 
     @allure.step("赏金记录查询")
     def withdrawOrder_list(self):
@@ -528,18 +516,29 @@ class DRG_func():
         return response.json()
 
     @allure.step("查询待处理发票")#返回税价合计金额
-    def invoice_apply_list(self):
+    def invoice_apply_list(self,applyStatus):
         url_invoice_apply_list =  host+"/operation/invoice/apply/list"
         data = {
-            "applyStatus": "WAIT",
+            "applyStatus": applyStatus,
             # "startDate": "2020-04-16",
             # "endDate": "2020-04-16",
         }
         response = self.s.post(url=url_invoice_apply_list, data=data)
         return response.json()
 
+
+    @allure.step("申请合并开票")
+    def invoice_merger(self,batchNumbers,merchantNumber):
+        url = "https://spman.shb02.net/operation/invoice/info/merger"
+        data = {
+            "batchNumbers":batchNumbers,
+            "merchantNumber":merchantNumber,
+        }
+        response = self.s.post(url,data)
+        return response.json()
+
     @allure.step("新增发票信息")
-    def invoice_add(self,invoiceCode,invoiceDate,invoiceNumber,taxAmount,totalAmount,amount,batchNumber,merchantNumber):
+    def invoice_add(self,invoiceCode,invoiceDate,invoiceNumber,taxAmount,totalAmount,amount,invoiceBatchNumber,merchantNumber):
         """
         :param invoiceCode: 发票代码
         :param invoiceDate: 开票日期
@@ -547,7 +546,7 @@ class DRG_func():
         :param taxAmount: 税额
         :param totalAmount: 税价合计
         :param amount: 金额
-        :param batchNumber: 发票批次号
+        :param invoiceBatchNumber: 发票批次号
         :param merchantNumber: 商户编号
         :return:
         """
@@ -565,14 +564,14 @@ class DRG_func():
             "taxAmount": taxAmount,#税额
             "totalAmount": totalAmount,#税价合计
             "amount": amount,#金额
-            "batchNumber": batchNumber,
+            "invoiceBatchNumber": invoiceBatchNumber,
             "merchantNumber": merchantNumber,
         }
         response = self.s.post(url=url_invoice_add, data=data)
         return response.json()
 
     @allure.step("填写快递单号")
-    def invoice_addEmsInfo(self,batchNumber,merchantNumber,emsOrderNumber):
+    def invoice_addEmsInfo(self,batchNumber,merchantNumber,invoiceBatchNumber,emsOrderNumber):
         """
         填写快递单号
         :param batchNumber: 发票批次号
@@ -584,6 +583,7 @@ class DRG_func():
         data = {
             "batchNumber": batchNumber,
             "merchantNumber": merchantNumber,
+            "invoiceBatchNumber": invoiceBatchNumber,
             "emsOrderNumber": emsOrderNumber,
             "emsType": "SF",
         }
@@ -695,7 +695,6 @@ class DRG_func():
         response = self.s.post(url=url_add_account, data=data)
         return response.json()
 
-
     @allure.step("员工管理-员工角色页面-删除员工")
     def delete_account(self,id):
         url_delete_account = "https://spman.shb02.net/system/account/delete"
@@ -753,9 +752,32 @@ if __name__ == '__main__':
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
     #sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
-    sm = "极限传媒"
-    r1 = DF.inquire_merchant_list(sm)
+
+
+    #确认开票待审核
+    applyStatus = 'WAIT'
+    r1 = DF.invoice_apply_list(applyStatus)
     print(r1)
+    totalAmount1 = r1["data"]["resultList"]["dataList"][0]["totalAmount"]  # 获取税价合计金额，类型为 str
+    batchNumber = r1["data"]["resultList"]["dataList"][0]["batchNumber"]  # 获取批次号
+    merchantNumber = r1["data"]["resultList"]["dataList"][0]["merchantNumber"]  # 获取用户编号
+    print(batchNumber)
+    print(merchantNumber)
+    f_totalAmount = float(totalAmount1)  # 类型为str的金额转化为 浮点型
+    y_totalAmount = round(f_totalAmount, 2)  # 浮点型 税价合计金额 四舍五入
+    f_amount = y_totalAmount / (1 + 0.1)  # 税率10%
+    amount = round(f_amount, 2)  # 金额
+    f_taxAmount = y_totalAmount - amount
+    taxAmount = round(f_taxAmount, 2)  # 税额
+    # # 申请合并开票
+    r2 = DF.invoice_merger(batchNumber,merchantNumber)
+    print(r2)
+    applyStatus = 'HANDLE'
+    r4 = DF.invoice_apply_list(applyStatus)
+    invoiceBatchNumber = r4["data"]["resultList"]["dataList"][0]["invoiceBatchNumber"]
+    print(invoiceBatchNumber)
+    r3 = DF.invoice_add(invoiceCode, invoiceDate, invoiceNumber, taxAmount, y_totalAmount, amount, invoiceBatchNumber,merchantNumber)
+    print(r3)
 
 
     #print(sysnumber)

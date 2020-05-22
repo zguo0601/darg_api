@@ -8,10 +8,10 @@ from common.common_func_merchant_api import API_merchant
 from common.common_func_merchant import Drg_merchant
 
 '''默认级别为scope="function"，只针对函数，每个用例都要调用一次。
- module针对的是模块，每个.py文件都会调用一次。
- class针对类里面需要调用的生效
- package针对的包下面都生效，
- session最高级别,针对整个项目生效
+           module   针对的是模块，每个.py文件都会调用一次。
+           class    针对类里面需要调用的生效
+           package  针对的包下面都生效，
+           session  最高级别,针对整个项目生效
  '''
 
 #配置默认地址
@@ -26,23 +26,24 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="session",autouse=True)
 def host(request):
-    '''
+    """
     设置的环境变量是：http://120.79.243.237:10021
     配置默认环境变量：https://spman.shb02.net/login，
-    命令获取默认参数，赋值给环境变量，打印出来的是默认配置的环境'''
+    命令获取默认参数，赋值给环境变量，打印出来的是默认配置的环境
+    """
     os.environ["yy_host"] = request.config.getoption("--cmdhost")
     print("当前用例运行环境:%s"%os.environ["yy_host"])
 
 
 
-'''
+"""
 fixture的作用范围:
 fixture里面有个scope参数可以控制fixture的作用范围：session>module>class>function
 function：每一个函数或方法都会调用
 class：每一个类调用一次，一个类中可以有多个方法
 module：每一个.py文件调用一次，该文件内又有多个function和class
 session：是多个文件调用一次，可以跨.py文件调用，每个.py文件就是module。
-'''
+"""
 @pytest.fixture(scope="session")
 def login_fix(request):
     #相当于打开浏览器
@@ -57,7 +58,8 @@ def login_fix(request):
     #关闭session
     def close_s():
         session.close()
-    request.addfinalizer(close_s)#终结'''自定义一个前置操作'''
+    # 终结'''自定义一个前置操作'''
+    request.addfinalizer(close_s)
     print("退出登录")
 
 @pytest.fixture(scope="class")
@@ -108,8 +110,7 @@ def delect_task():
     yield
     #测试用例之后执行sql语句
     #excute_sql(del_sql)
-#
-#
+
 @pytest.fixture(scope="function")
 def delect_spman_center_merchant():
     #前置条件，先删除要新增的任务内容，保证用例可以循环执行

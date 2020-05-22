@@ -751,33 +751,38 @@ if __name__ == '__main__':
     invoiceDate = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
+    r1 = DF.invoice_info_list()
+    print(r1)
+
+
+
     #sysnumber = DF.add_merchant(accountName,shorrtname,contactMail,contactName,licenceSerialNumber,managerMobile)
 
 
     #确认开票待审核
-    applyStatus = 'WAIT'
-    r1 = DF.invoice_apply_list(applyStatus)
-    print(r1)
-    totalAmount1 = r1["data"]["resultList"]["dataList"][0]["totalAmount"]  # 获取税价合计金额，类型为 str
-    batchNumber = r1["data"]["resultList"]["dataList"][0]["batchNumber"]  # 获取批次号
-    merchantNumber = r1["data"]["resultList"]["dataList"][0]["merchantNumber"]  # 获取用户编号
-    print(batchNumber)
-    print(merchantNumber)
-    f_totalAmount = float(totalAmount1)  # 类型为str的金额转化为 浮点型
-    y_totalAmount = round(f_totalAmount, 2)  # 浮点型 税价合计金额 四舍五入
-    f_amount = y_totalAmount / (1 + 0.1)  # 税率10%
-    amount = round(f_amount, 2)  # 金额
-    f_taxAmount = y_totalAmount - amount
-    taxAmount = round(f_taxAmount, 2)  # 税额
-    # # 申请合并开票
-    r2 = DF.invoice_merger(batchNumber,merchantNumber)
-    print(r2)
-    applyStatus = 'HANDLE'
-    r4 = DF.invoice_apply_list(applyStatus)
-    invoiceBatchNumber = r4["data"]["resultList"]["dataList"][0]["invoiceBatchNumber"]
-    print(invoiceBatchNumber)
-    r3 = DF.invoice_add(invoiceCode, invoiceDate, invoiceNumber, taxAmount, y_totalAmount, amount, invoiceBatchNumber,merchantNumber)
-    print(r3)
+    # applyStatus = 'WAIT'
+    # r1 = DF.invoice_apply_list(applyStatus)
+    # print(r1)
+    # totalAmount1 = r1["data"]["resultList"]["dataList"][0]["totalAmount"]  # 获取税价合计金额，类型为 str
+    # batchNumber = r1["data"]["resultList"]["dataList"][0]["batchNumber"]  # 获取批次号
+    # merchantNumber = r1["data"]["resultList"]["dataList"][0]["merchantNumber"]  # 获取用户编号
+    # print(batchNumber)
+    # print(merchantNumber)
+    # f_totalAmount = float(totalAmount1)  # 类型为str的金额转化为 浮点型
+    # y_totalAmount = round(f_totalAmount, 2)  # 浮点型 税价合计金额 四舍五入
+    # f_amount = y_totalAmount / (1 + 0.1)  # 税率10%
+    # amount = round(f_amount, 2)  # 金额
+    # f_taxAmount = y_totalAmount - amount
+    # taxAmount = round(f_taxAmount, 2)  # 税额
+    # # # 申请合并开票
+    # r2 = DF.invoice_merger(batchNumber,merchantNumber)
+    # print(r2)
+    # applyStatus = 'HANDLE'
+    # r4 = DF.invoice_apply_list(applyStatus)
+    # invoiceBatchNumber = r4["data"]["resultList"]["dataList"][0]["invoiceBatchNumber"]
+    # print(invoiceBatchNumber)
+    # r3 = DF.invoice_add(invoiceCode, invoiceDate, invoiceNumber, taxAmount, y_totalAmount, amount, invoiceBatchNumber,merchantNumber)
+    # print(r3)
 
 
     #print(sysnumber)

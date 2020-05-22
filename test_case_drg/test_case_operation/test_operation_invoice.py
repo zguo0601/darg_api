@@ -31,7 +31,7 @@ class Test_invoice():
         s = login_fix
         DF = DRG_func(s)
         result = DF.invoice_info_list()
-        assert result["data"]["resultList"]["dataList"][0]["invoiceTypeStr"] == "增值税普通发票"
+        assert result["data"]["resultList"]["dataList"][0]["invoiceTypeStr"] == "增值税专用发票"
 
     @allure.story("已开发票详情")
     def test_4(self, login_fix):
@@ -142,7 +142,8 @@ class Test_invoice():
         else:
             # 运营端新增开票信息
             # --------运营端查询，返回税价合计金额、批次号、用户编号、根据税价合计计算出 金额和 税额-----------
-            r2 = DF.invoice_apply_list()
+            applyStatus = 'WAIT'
+            r2 = DF.invoice_apply_list(applyStatus)
             totalAmount1 = r2["data"]["resultList"]["dataList"][0]["totalAmount"]  # 获取税价合计金额，类型为 str
             batchNumber = r2["data"]["resultList"]["dataList"][0]["batchNumber"]  # 获取批次号
             merchantNumber = r2["data"]["resultList"]["dataList"][0]["merchantNumber"]  # 获取用户编号
@@ -182,7 +183,8 @@ class Test_invoice():
         # 商户端充值金额
         recharge_amount = sj.day()
         #------查询是否有待处理开票订单----------------
-        apply = DF.invoice_apply_list()
+        applyStatus = 'WAIT'
+        apply = DF.invoice_apply_list(applyStatus)
         apply_result = apply["data"]["count"]
         if apply_result == 0:
             # 新增开票申请
@@ -203,7 +205,8 @@ class Test_invoice():
                 # 商户端提交开票申请
                 DM.invoice_apply(m_totalAmount, systemOrderNumbers, s_totalAmount)
                 # --------查询待处理订单，返回批次号和用户编号---------------
-                result = DF.invoice_apply_list()
+                applyStatus = 'WAIT'
+                result = DF.invoice_apply_list(applyStatus)
                 merchantNumber = result["data"]["resultList"]["dataList"][0]["merchantNumber"]
                 batchNumber = result["data"]["resultList"]["dataList"][0]["batchNumber"]
                 # 驳回开票申请
@@ -219,7 +222,8 @@ class Test_invoice():
                 # 商户端提交开票申请
                 DM.invoice_apply(m_totalAmount, systemOrderNumbers, s_totalAmount)
                 # --------查询待处理订单，返回批次号和用户编号---------------
-                result = DF.invoice_apply_list()
+                applyStatus = 'WAIT'
+                result = DF.invoice_apply_list(applyStatus)
                 merchantNumber = result["data"]["resultList"]["dataList"][0]["merchantNumber"]
                 batchNumber = result["data"]["resultList"]["dataList"][0]["batchNumber"]
                 # 驳回开票申请
@@ -228,7 +232,8 @@ class Test_invoice():
 
         else:
             # --------查询待处理订单，返回批次号和用户编号---------------
-            result = DF.invoice_apply_list()
+            applyStatus = 'WAIT'
+            result = DF.invoice_apply_list(applyStatus)
             merchantNumber = result["data"]["resultList"]["dataList"][0]["merchantNumber"]
             batchNumber = result["data"]["resultList"]["dataList"][0]["batchNumber"]
             # 驳回开票申请

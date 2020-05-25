@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="faa4d92c-ca9d-482e-941d-159190c2f8e3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/common_func_operation.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/common_func_operation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/user_info.xls" beforeDir="false" afterPath="$PROJECT_DIR$/data/user_info.xls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_case_drg/test_case_operation/test_operation_invoice.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_case_drg/test_case_operation/test_operation_invoice.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -263,6 +260,7 @@
     <list>
       <item itemvalue="Python.test_invoice" />
       <item itemvalue="Python.a1" />
+      <item itemvalue="Python.common_func_operation" />
       <item itemvalue="Python tests.pytest for Test_invoice.test_12" />
       <item itemvalue="Python tests.pytest for test_user.test_1" />
       <item itemvalue="Python tests.pytest in test_user" />
@@ -270,7 +268,6 @@
       <item itemvalue="Python tests.pytest for test_info_1.test_2" />
       <item itemvalue="Python tests.pytest for test_operation_invoice.Test_invoice.test_6" />
       <item itemvalue="Python tests.pytest for test_operation_invoice.Test_invoice.test_5" />
-      <item itemvalue="Python.common_func_operation" />
       <item itemvalue="Python tests.pytest for test_operation_invoice.Test_invoice.test_3" />
     </list>
     <recent_temporary>
@@ -341,7 +338,8 @@
       <workItem from="1589937784188" duration="253000" />
       <workItem from="1589938156042" duration="21883000" />
       <workItem from="1590023909791" duration="16003000" />
-      <workItem from="1590110590124" duration="20235000" />
+      <workItem from="1590110590124" duration="21459000" />
+      <workItem from="1590370696346" duration="618000" />
     </task>
     <task id="LOCAL-00001" summary="import os&#10;import requests&#10;import pytest&#10;from common.read_yaml import readyaml&#10;from common.common_func import DRG_func&#10;&#10;&#10;&#10;class Test_drg_login():&#10;&#10;    curpath = os.path.dirname(os.path.realpath(__file__))&#10;    # yaml文件的路径&#10;    yamlpath = os.path.join('../../common/test_data.yaml')&#10;    task_data = readyaml(yamlpath)['login_username_data']&#10;&#10;&#10;&#10;&#10;    @pytest.mark.parametrize(&quot;test_input,expect&quot;, task_data)&#10;    def test_username(self,test_input,expect):&#10;        '''登录用户名测试'''&#10;        s = requests.session()&#10;        DF = DRG_func(s)&#10;        result = DF.get_Login(test_input)&#10;        assert result[&quot;message&quot;][&quot;content&quot;] == expect[&quot;message&quot;][&quot;content&quot;]&#10;&#10;&#10;    def test_password(self):&#10;        s = requests.session()&#10;        DF = DRG_func(s)&#10;        result = DF.test_password()&#10;        assert &quot;密码错误&quot; in result">
       <created>1586508174046</created>
@@ -518,7 +516,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590140043096</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="2020-5-22 修复了开票流程用例报错">
+      <created>1590140800919</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1590140800919</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,10 +579,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="675" y="233" key="#test_1/0.0.1920.1160@0.0.1920.1160" timestamp="1584606012920" />
-    <state x="830" y="254" width="1018" height="906" key="CommitChangelistDialog2" timestamp="1590140041448">
+    <state x="830" y="254" width="1018" height="906" key="CommitChangelistDialog2" timestamp="1590140799410">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="830" y="254" width="1018" height="906" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1590140041448" />
+    <state x="830" y="254" width="1018" height="906" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1590140799410" />
     <state width="181" height="442" key="Diff.GoToChangePopup" timestamp="1586507689312">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -594,22 +599,22 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="823" y="475" key="Github.ShareDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1590045514064" />
-    <state width="1877" height="432" key="GridCell.Tab.0.bottom" timestamp="1590140534266">
+    <state width="1877" height="432" key="GridCell.Tab.0.bottom" timestamp="1590142017330">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="432" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1590140534266" />
-    <state width="1877" height="432" key="GridCell.Tab.0.center" timestamp="1590140534266">
+    <state width="1877" height="432" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1590142017330" />
+    <state width="1877" height="432" key="GridCell.Tab.0.center" timestamp="1590142017330">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="432" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1590140534266" />
-    <state width="1877" height="432" key="GridCell.Tab.0.left" timestamp="1590140534266">
+    <state width="1877" height="432" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1590142017330" />
+    <state width="1877" height="432" key="GridCell.Tab.0.left" timestamp="1590142017330">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="432" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1590140534266" />
-    <state width="1877" height="432" key="GridCell.Tab.0.right" timestamp="1590140534266">
+    <state width="1877" height="432" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1590142017330" />
+    <state width="1877" height="432" key="GridCell.Tab.0.right" timestamp="1590142017330">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="432" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1590140534266" />
+    <state width="1877" height="432" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1590142017330" />
     <state width="1877" height="237" key="GridCell.Tab.1.bottom" timestamp="1590056685910">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -630,10 +635,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="864" y="254" key="SettingsEditor/0.0.1920.1160@0.0.1920.1160" timestamp="1590130678084" />
-    <state x="552" y="316" key="Vcs.Push.Dialog.v2" timestamp="1590140047036">
+    <state x="552" y="316" key="Vcs.Push.Dialog.v2" timestamp="1590140804084">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="552" y="316" key="Vcs.Push.Dialog.v2/0.0.1920.1160@0.0.1920.1160" timestamp="1590140047036" />
+    <state x="552" y="316" key="Vcs.Push.Dialog.v2/0.0.1920.1160@0.0.1920.1160" timestamp="1590140804084" />
     <state x="754" y="498" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586507066816">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -642,10 +647,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="647" y="212" width="647" height="735" key="find.popup/0.0.1920.1160@0.0.1920.1160" timestamp="1589937991972" />
-    <state x="663" y="371" key="git4idea.merge.GitPullDialog" timestamp="1589869983656">
+    <state x="663" y="371" key="git4idea.merge.GitPullDialog" timestamp="1590371369017">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="663" y="371" key="git4idea.merge.GitPullDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1589869983656" />
+    <state x="663" y="371" key="git4idea.merge.GitPullDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1590371369017" />
     <state x="623" y="255" width="672" height="678" key="search.everywhere.popup" timestamp="1587115571810">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>

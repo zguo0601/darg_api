@@ -28,11 +28,22 @@ class User_sj():
         wb.save('E:\\pytest_api\\data\\user_info.xls')
 
 
+    #jmeter新增用户参数化方法
+    def sj_parameterization(self):
+        with open('E:\pytest_api\data\\user.txt', 'w', encoding='utf-8') as f:
+            for i in range(0, 500):
+                name = sj.name()
+                id = sj.idcard()
+                phone = sj.phone()
+                data1 = f.write(name + ',' + id + ',' + phone + '\n')
+        f = open('E:\pytest_api\data\\user.txt', 'r', encoding='utf-8')
+
+
 
 
 if __name__ == '__main__':
     a = User_sj()
-    a.sj_user()
+    a.sj_parameterization()
 
 
 

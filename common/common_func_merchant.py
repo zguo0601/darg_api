@@ -36,7 +36,7 @@ class Drg_merchant():
             "port_key": "MERCHANT",
             "captcha_type": "LOGIN_CAPTCHA",
             "username": username,
-            "password": password,
+                "password": password,
         }
         rsp = self.s.post(url=url, data=data, verify=False, allow_redirects=False)
         return rsp.text

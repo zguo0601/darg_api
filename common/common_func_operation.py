@@ -8,12 +8,18 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 import pytest
 import time
 from common.common_func_SJ import  SF
+from requests_toolbelt import MultipartEncoder
 
 
 
 #设置环境变量
 os.environ["yy_host"] = 'https://spman.shb02.net'
 host = os.environ["yy_host"]
+
+
+cur_path = os.path.dirname((os.path.dirname(os.path.realpath(__file__))))
+rar_path = os.path.join(cur_path, "data", "1575270331(1).rar")
+
 
 
 #公共操作的函数
@@ -352,6 +358,19 @@ class DRG_func():
         }
         result = self.s.post(url=url_update_apply,data=data)
         return result.json()
+
+    #表单格式上传文件
+    @allure.step("重新上传结算单")
+    def upload_Attachment(self):
+        url = "https://spman.shb02.net/operation/issu/uploadAttachment"
+        m = MultipartEncoder(
+            fields={
+                "batchNumber":"BATCH00001059",
+                # 文件名要写对 6.png
+                "settleFile": ('1575270331(1).rar', open(rar_path, "rb"), "application/octet-stream")}
+        )
+        response = self.s.post(url, data=m, headers={"Content-Type": m.content_type})
+        return response.json()
 
     @allure.step("付款记录")
     def issu_list(self):
@@ -751,7 +770,7 @@ if __name__ == '__main__':
     invoiceDate = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    r1 = DF.invoice_info_list()
+    r1 = DF.issuBatchApply_detail()
     print(r1)
 
 

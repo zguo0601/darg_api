@@ -1,30 +1,24 @@
-from common.SJ import SF
-
-class LL():
-
-
-    def ll(self,requesterUserIdentity,idCard,mobile,name):
-        data = {
-            'content': '[{"industryId":"1","requesterUserIdentity":"%s","idCard":"%s","mobile":"%s","name":%s,"idCardBackFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg","idCardFrontFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg"}]',
-        }
-
-        print(data)
-
-    def tt(self):
-        data = {
-
-            'content': '[{"industryId":"1","requesterUserIdentity":"jx7879187","idCard":"350181199906025489","mobile":"18759613658","name":"郭富城3","idCardBackFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg","idCardFrontFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg"}]',
-        }
-        print(data)
-
-if __name__ == '__main__':
-    a = LL()
-    sj = SF()
-    requesterUserIdentity = str("jx" + sj.phone())
-    idCard = sj.sf()
-    mobile = sj.phone()
-    name = sj.name()
+from common.common_func_SJ import  SF
+sj = SF()
+import requests
 
 
-    a.ll(requesterUserIdentity,idCard,mobile,name)
-    a.tt()
+s = requests.session()
+
+def merchant_login(username, password):
+    url = "https://spman.shb02.net/login"
+    data = {
+        "port_key": "MERCHANT",
+        "captcha_type": "LOGIN_CAPTCHA",
+        "username": username,
+        "password": password,
+    }
+    rsp = s.post(url=url, data=data, verify=False, allow_redirects=False)
+    return rsp
+
+username = 'M002137'
+password = '111111'
+r = merchant_login(username,password)
+print(r.headers)
+print(r.cookies)
+

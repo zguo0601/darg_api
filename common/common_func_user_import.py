@@ -8,7 +8,7 @@ sheet = wb.add_sheet("批量新增用户")
 
 class User_sj():
 
-
+    #批量新增
     def sj_user(self):
         list = []
         for i in range(0, 5):
@@ -28,22 +28,31 @@ class User_sj():
         wb.save('E:\\pytest_api\\data\\user_info.xls')
 
 
-    #jmeter新增用户参数化方法
-    def sj_parameterization(self):
-        with open('E:\pytest_api\data\\user.txt', 'w', encoding='utf-8') as f:
+    #jmeter 新增用户（单个新增）参数化方法
+    def sj_single(self):
+        with open('E:\pytest_api\data\\user_single.txt', 'w', encoding='utf-8') as f:
+            for i in range(0, 1):
+                name = sj.name()
+                id = sj.idcard()
+                phone = sj.phone()
+                data1 = f.write(name + ',' + id + ',' + phone + '\n')
+        f = open('E:\pytest_api\data\\user_single.txt', 'r', encoding='utf-8')
+
+    # jmeter 新增用户（批量新增）参数化方法
+    def sj_batch(self):
+        with open('E:\pytest_api\data\\user_batch.txt', 'w', encoding='utf-8') as f:
             for i in range(0, 500):
                 name = sj.name()
                 id = sj.idcard()
                 phone = sj.phone()
                 data1 = f.write(name + ',' + id + ',' + phone + '\n')
-        f = open('E:\pytest_api\data\\user.txt', 'r', encoding='utf-8')
-
+        f = open('E:\pytest_api\data\\user_batch.txt', 'r', encoding='utf-8')
 
 
 
 if __name__ == '__main__':
     a = User_sj()
-    a.sj_parameterization()
+    a.sj_single()
 
 
 

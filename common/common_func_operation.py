@@ -168,7 +168,7 @@ class DRG_func():
             "platformName":"4",
             "province":"福建省",
             "provinceCode":"350000",
-            "shortName":shortName+"科技有限公司",
+            "shortName":shortName + "科技有限公司",
             "taxNumber":"92350181M6YCN1X71",
             "managerMobile": managerMobile,
             "checkAccountType":"PUB",
@@ -271,22 +271,22 @@ class DRG_func():
         '''新增任务'''
         url_addtask = host+'/operation/task/issue'
         data_2 = {
-            "title": "哈哈哈哈1",
-            "industryId": "1",
-            "industryName": "直播",
+            "title": " ",
+            "industryId": "55",
+            "industryName": " ",
             "merchantNumber": "M002137",
-            "merchantName": "极限传媒",
-            "content": "5",
+            "merchantName": " ",
+            "content": " ",
             "sex": sex,
             "settleType": "MONTHLY",
             "theme": "5",
             "tag": "1",
-            "platform": "9",
+            "platform": "  ",
             "workPlace": "4",
             "recruitNum": recruitNum,
             "amount":amount,
             "dateLimitType": "LONGTERM",
-            "releaseDate": "2020-2-13",
+            "releaseDate": '2020-05-28',
             "autoStatus": "true"
         }
         task_list = self.s.post(url=url_addtask, data=data_2)
@@ -757,21 +757,36 @@ class DRG_func():
 if __name__ == '__main__':
     s = requests.session()
     sj = SF()
-    shorrtname = sj.name()
+
     accountName = sj.name()
-    contactMail = sj.get_email()
-    contactName = sj.name()
+    #contactMail = sj.get_email()
+    contactMail = '...'
+    # contactName = sj.name()
+    contactName = '123'
+    licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
+    shortName = sj.name()
     managerMobile = sj.phone()
+    # managerMobile = 'adsf1345'
+
     emsOrderNumber = sj.phone()
     invoiceCode = sj.phone()
     invoiceNumber = sj.phone()
-    licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
     smscode = licenceSerialNumber[2:8]
     invoiceDate = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
+
+    sex = 'FEMALE'
+    recruitNum = ''
+    amount = ' 1'
+    releaseDate = time.strftime("%Y" + "-" + "%m" + "-" + "%d")
+
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    r1 = DF.issuBatchApply_detail()
-    print(r1)
+    r = DF.add_task_cszh(sex,recruitNum,amount)
+    print(r)
+
+    #新增发包方
+    # r1 = DF.add_merchant(accountName,contactMail,contactName,licenceSerialNumber,shortName,managerMobile)
+    # print(r1)
 
 
 

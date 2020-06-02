@@ -60,7 +60,10 @@ class API_merchant():
             "systemPubKey":systemPubKey,
             'password':password,
             'type':'symmetry',
-            'content':'[{"industryId":"1","requesterUserIdentity":"%s","idCard":"%s","mobile":"%s","name":"%s","idCardBackFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg","idCardFrontFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg"}]'%(requesterUserIdentity,idCard,mobile,name),
+            'content':'[{"industryId":"1","requesterUserIdentity":"%s","idCard":"%s","mobile":"%s","name":"%s",'
+                      '"idCardBackFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg",'
+                      '"idCardFrontFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg"}]'
+                      %(requesterUserIdentity,idCard,mobile,name),
             'environment':'https://spman.shb02.net/api',
             'method':'/user/auth',
         }
@@ -93,9 +96,27 @@ class API_merchant():
             'password': password,
             'type': 'symmetry',
             #金额1是1分
-            'content': '{"amount":"%s","requesterOrderNumber":"%s","accountType":"BANK_CARD","paymentUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1586763652192.jpg"}'%(amount,requesterOrderNumber),
+            'content': '{"amount":"%s","requesterOrderNumber":"%s","accountType":"BANK_CARD",'
+                       '"paymentUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1586763652192.jpg"}'
+                       %(amount,requesterOrderNumber),
             'environment': 'https://spman.shb02.net/api',
             'method': "/recharge/single",
+        }
+        response = self.s.post(url,json=data)
+        return response.json()
+
+    @allure.step("充值详情查询")
+    def recharge_detail(self,systemOrderNumber,merchantPriKey,password,systemPubKey):
+        url = 'https://spman.shb02.net/test/api/util/proxy'
+        data = {
+            "content":'{"systemOrderNumber":%s}'%systemOrderNumber,
+            "environment":"https://spman.shb02.net/api",
+            "merchantNumber":"M002137",
+            "merchantPriKey":merchantPriKey,
+            "method":"/recharge/detail",
+            "password":password,
+            "systemPubKey":systemPubKey,
+            "type":"symmetry",
         }
         response = self.s.post(url,json=data)
         return response.json()
@@ -138,7 +159,13 @@ if __name__ == '__main__':
     r_n = time.strftime("%Y%m%d%H%M%S")
     requesterOrderNumber = 'jxcz' + r_n
     result3 = api.recharge_single(merchantPriKey,systemPubKey,password,amount,requesterOrderNumber)
-    print(result3)
+    systemOrderNumber = result3["systemOrderNumber"]
+    # print(result3)
+    # print(systemOrderNumber)
+
+    #查询充值详情
+    result4 = api.recharge_detail(systemOrderNumber,merchantPriKey,password,systemPubKey)
+    print(result4)
 
 
 

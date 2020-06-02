@@ -40,6 +40,7 @@ class Test_drgapi_task():
     # 执行方法在终端中使用命令脚本命令去执行： pytest 文件名 -m 标记名称
     # （pytest test_b.py -m drgapi）,
     # 反选（pytest test_b.py -m not drgapi）
+    releaseDate = time.strftime("%Y" + "-" + "%m" + "-" + "%d")
     @allure.story("新增任务,参数组合")
     @pytest.mark.drg_api_task
     @pytest.mark.parametrize("sex",["123","dshfsdh"])

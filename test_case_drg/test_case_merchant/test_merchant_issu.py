@@ -6,7 +6,7 @@ from common.connect_mysql import select_taskid_number
 
 
 @allure.feature("达人馆商户端放款模块")
-class Test_Issu():
+class Test_issu():
 
     @allure.story("放款列表")
     def test_1(self, merchant_login_fix):

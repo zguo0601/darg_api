@@ -181,5 +181,8 @@ def api_get_systemPubKey():
 
 
 
+
+
 if __name__ == '__main__':
-    pass
+    r = get_password()
+    print(r)

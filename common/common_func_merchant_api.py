@@ -121,6 +121,41 @@ class API_merchant():
         response = self.s.post(url,json=data)
         return response.json()
 
+    @allure.step("商户放款")
+    def issu_batch(self,requesterOrderNumber,merchantPriKey,password,systemPubKey):
+        url = 'https://spman.shb02.net/test/api/util/proxy'
+        data = {
+            'content':'[{"amount":"10","industryId":"1","requesterOrderNumber":"%s",'
+                      '"settleUrls":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1587699987268.jpg",'
+                      '"idCard":"350181199006012588","accountType":"BANK_CARD","name":"阿斯顿"}]'%requesterOrderNumber,
+            'environment':'https://spman.shb02.net/api',
+            'merchantNumber':'M002137',
+            'merchantPriKey':merchantPriKey,
+            'method':'/issu/batch',
+            'password':password,
+            'systemPubKey':systemPubKey,
+            'type':'symmetry',
+        }
+        response = self.s.post(url,json=data)
+        return response.json()
+
+    @allure.step('放款查询')
+    def issu_datail(self,systemOrderNumber,merchantPriKey,password,systemPubKey):
+        url = 'https://spman.shb02.net/test/api/util/proxy'
+        data = {
+            "content": '{"systemOrderNumber":%s}' % systemOrderNumber,
+            "environment": "https://spman.shb02.net/api",
+            "merchantNumber": "M002137",
+            "merchantPriKey": merchantPriKey,
+            "method": "/issu/detail",
+            "password": password,
+            "systemPubKey": systemPubKey,
+            "type": "symmetry",
+        }
+        response = self.s.post(url, json=data)
+        return response.json()
+
+
 
 
 if __name__ == '__main__':
@@ -154,18 +189,26 @@ if __name__ == '__main__':
     # print(result2)
 
     #充值,金额100等于1块
-    amount = "100"
+    #amount = "100"
     #请求单号
-    r_n = time.strftime("%Y%m%d%H%M%S")
-    requesterOrderNumber = 'jxcz' + r_n
-    result3 = api.recharge_single(merchantPriKey,systemPubKey,password,amount,requesterOrderNumber)
-    systemOrderNumber = result3["systemOrderNumber"]
+    # r_n = time.strftime("%Y%m%d%H%M%S")
+    # requesterOrderNumber = 'jxcz' + r_n
+    # result3 = api.recharge_single(merchantPriKey,systemPubKey,password,amount,requesterOrderNumber)
+    # systemOrderNumber = result3["systemOrderNumber"]
     # print(result3)
     # print(systemOrderNumber)
 
     #查询充值详情
-    result4 = api.recharge_detail(systemOrderNumber,merchantPriKey,password,systemPubKey)
-    print(result4)
+    # result4 = api.recharge_detail(systemOrderNumber,merchantPriKey,password,systemPubKey)
+    # print(result4)
+
+    #商户放款
+    requesterOrderNumber = 'jxfk' + time.strftime("%Y%m%d%H%M%S")
+    result5 = api.issu_batch(requesterOrderNumber,merchantPriKey,password,systemPubKey)
+    systemOrderNumber = result5[0]["systemOrderNumber"]
+    print(result5)
+    result6 = api.issu_datail(systemOrderNumber,merchantPriKey,password,systemPubKey)
+    print(result6)
 
 
 

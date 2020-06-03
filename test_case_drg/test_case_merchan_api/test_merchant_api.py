@@ -9,8 +9,6 @@ import allure
 class Test_Api_Merchant():
 
 
-
-
     @allure.story("api商户新增用户")
     def test_1(self,api_merchant_login,api_get_merchantPriKey,api_get_systemPubKey):
         '''api商户新增用户'''
@@ -69,6 +67,7 @@ class Test_Api_Merchant():
 
     allure.story("查询充值详情")
     def test_4(self,api_merchant_login,api_get_merchantPriKey,api_get_systemPubKey):
+        '''查询充值详情'''
         s = api_merchant_login
         merchantPriKey = api_get_merchantPriKey
         systemPubKey = api_get_systemPubKey
@@ -79,13 +78,29 @@ class Test_Api_Merchant():
         amount = "200"
         # 请求单号
         r_n = time.strftime("%Y%m%d%H%M%S")
-        requesterOrderNumber = 'jxcz' + r_n
+        requesterOrderNumber = 'jxcz'+r_n
         #提交充值记录
         result2 = api.recharge_single(merchantPriKey, systemPubKey, password, amount, requesterOrderNumber)
         systemOrderNumber = result2["systemOrderNumber"]
+        print(systemOrderNumber)
         #查询充值详情
         result3 = api.recharge_detail(systemOrderNumber,merchantPriKey,password,systemPubKey)
         assert result3["message"] == '等待确认'
+
+    @allure.story("商户放款")
+    def test_5(self,api_merchant_login,api_get_merchantPriKey,api_get_systemPubKey):
+        '''商户放款'''
+        s = api_merchant_login
+        merchantPriKey = api_get_merchantPriKey
+        systemPubKey = api_get_systemPubKey
+        api = API_merchant(s)
+        result1 = api.get_apimerchant_password(merchantPriKey, systemPubKey)
+        password = result1["password"]
+        requesterOrderNumber = 'jxfk' + time.strftime("%Y%m%d%H%M%S")
+        result2 = api.issu_batch(requesterOrderNumber,merchantPriKey,password,systemPubKey)
+        assert result2[0]["message"] == '放款中'
+
+
 
 
 

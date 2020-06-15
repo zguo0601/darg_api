@@ -179,6 +179,62 @@ class DRG_func():
         result = self.s.post(url=url_add_merchant,data=data)
         return result.json()
 
+    @allure.step("修改发包方出金方式为银行卡")
+    def merchant_editDetail_bybankcard(self,issuType,bankBranchCode):
+        url = "https://spman.shb02.net/operation/merchant/editDetail"
+        data = {
+            "merchantNumber":"M002137",
+            "accountName":"__极限传媒___@#*.DHF",
+            "accountNumber":"6396221159666585458",
+            "bankBranchName":"中国工商银行总行清算中心",
+            "bankName":"中国工商银行",
+            "issuType": issuType,
+            "city":"北京市",
+            "cityCode":"110100",
+            "companyAddress":"术阳县人民医院行政楼元楼",
+            "companyPhone":"8888-888-8888",
+            "contactAddress":"福州仓山万达",
+            "contactMail":"6365245@163.com",
+            "contactMobile":"18526999857",
+            "contactName":"帅雷雷",
+            "invoiceName":"沐阳乐乾投资管理有限公",
+            "jsonRate":'{"percent":6.5,"base":6.5,"fixed":6.5}',
+            "jsonInvoiceInfoList":'[{"agreementRecordId":548,"industryId":1,"authStatus":"SUCCESS","authStatusStr":"已签署","reason":null,"industryName":"直播","invoiceContent":"0","businessType":"1","platformName":"2","businessRemark":"3","contractPdfUrl":null}]',
+            "licenceAddress":"术阳县人民医院行政楼元楼",
+            "licenceBusinessScope":"动日资及投资管理;投资咨询、经济信息咨询、商务信息咨询,企业管理策品、企水形象策划、会务服务、摄影服务、保洁服务;计算机网络工程路图文制作:文化办公用品及设备、日用百货、家用电器、五金交电销品、电脑及配件、音响器材、照相器材、机电设备、金属材料、算材(公化子品除外)、家具、体育用品、通讯器材、燃料油、润滑油、机械设备销包品油;汽油、般汽油、印代油:一般危化品:柴油(闭林滑用油桥内点、60C***(不得储存,经营品种涉及其行政许可的展定行相关手续)。(依法须经批准的项目,经相关部门批准后方可开营活动)",
+            "licenceCapital":"50万元整",
+            "licenceCompanyName":"极限传媒科技有限公司",
+            "licenceEstablishTime":"2014-12-29",
+            "licenceFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1581907101438.jpg",
+            "licenceLegalerName":"帅雷雷",
+            "licenceSerialNumber":"913213223235882089",
+            "licenceType":"有限责任公司",
+            "limitMonthRecharge":"20000000",
+            "phone":"8888-888-8888",
+            "province":"北京市",
+            "provinceCode":"110000",
+            "shortName":"极限传媒",
+            "signEndDate":"2021-02-17",
+            "signStartDate":"2020-02-17",
+            "taxNumber":"913213223235882089",
+            "totalDayIssu":"10000000",
+            "totalDayRecharge":"20000000",
+            "totalMonthIssu":"10000000",
+            "totalMonthRecharge":"20000000",
+            "tradeMaxAmountIssu":"10000000",
+            "tradeMaxAmountRecharge":"10000000",
+            "tradeMinAmountIssu":"0",
+            "tradeMinAmountRecharge":"0",
+            "managerName":"帅雷雷",
+            "managerMobile":"18526999857",
+            "taxPriceType":"CONTAIN_TAX_PRICE",
+            "checkAccountType":"PUB",
+            "bankBranchCode":bankBranchCode,
+        }
+        response = self.s.post(url,data)
+        return response.json()
+
+
     @allure.step("归属用户信息")
     def user_Merchant(self):
         url_user_Merchant = host+"/operation/userMerchant/list"
@@ -781,7 +837,12 @@ if __name__ == '__main__':
 
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    r = DF.add_task_cszh(sex,recruitNum,amount)
+    #分行CODE前端随机生成
+    bankBranchCode = sj.phone()
+    #出金模式银行卡：BANK_CARD
+    #出金模式小程序钱包：APPLET_WALLET
+    issuType = "BANK_CARD"
+    r = DF.merchant_editDetail_bybankcard(issuType,bankBranchCode)
     print(r)
 
     #新增发包方

@@ -16,7 +16,7 @@ cur_path = os.path.dirname((os.path.dirname(os.path.realpath(__file__))))
 png_path = os.path.join(cur_path, "data", "6.png")
 user_issu_path = os.path.join(cur_path, "data", "user_issu.xls")
 user_info_path = os.path.join(cur_path, "data", "user_info.xls")
-
+bank_info_path = os.path.join(cur_path, "data", "批量放款银行卡模板.xlsx")
 
 
 #设置环境变量
@@ -162,7 +162,7 @@ class Drg_merchant():
         return response.json()
 
     #单笔放款步骤2: 通过批次号放款，输入支付密码
-    @allure.step("单笔放款-确认放款")
+    @allure.step("单笔/批量-确认放款")
     def batchIssu_loan(self,batchNumber):
         url_batchIssu_loan = "https://spman.shb02.net/merchant/batchIssu/loan"
         data = {
@@ -205,6 +205,45 @@ class Drg_merchant():
         }
         response = self.s.post(url=url_issu_cancel, data=data)
         return response.json()
+
+    @allure.step("商户单笔放款到银行卡")
+    def issu_by_bankcard(self,issuname, issuidCard, issuamount,accountNumber,taskId):
+        url = 'https://spman.shb02.net/merchant/batchIssu/form'
+        m = MultipartEncoder(
+            fields={
+                "industryId": "1",
+                "issuType": "BANK_CARD",
+                "issusJson": '[{"name":%s,"idCard":%s,"industry":"","amount":%s,"accountNumber":%s}]' % (issuname, issuidCard, issuamount,accountNumber),
+                "taskId": taskId,
+                # 文件名要写对 6.png
+                "settle": ('6.png', open(png_path, "rb"), "image/png")}
+        )
+        response = self.s.post(url, data=m, headers={"Content-Type": m.content_type})
+        return response.json()
+
+    @allure.step("商户批量放款带银行卡")
+    def issu_by_bankcards(self,taskId):
+        url = 'https://spman.shb02.net/merchant/batchIssu/import'
+        m = MultipartEncoder(
+            fields={
+                "industryId": "1",
+                "issuType": "BANK_CARD",
+                # 商户最新的未关闭的任务id
+                "taskId": taskId,
+                "import": ('批量放款银行卡模板.xlsx', open(bank_info_path, "rb"),
+                           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+                # 文件名要写对 6.png
+                "settle": ('6.png', open(png_path, "rb"), "image/png")}
+        )
+        response = self.s.post(url,
+                               data=m,
+                               headers={"Content-Type": m.content_type}
+                               )
+        return response.json()
+
+
+
+
 
     @allure.step("资金账户")
     def wallet_selectOne(self):
@@ -325,6 +364,8 @@ class Drg_merchant():
 
 
 
+
+
 if __name__ == '__main__':
     ms = requests.session()
     sj = SF()
@@ -335,7 +376,7 @@ if __name__ == '__main__':
     amout = '100'
     chanlnumber = '7976845646546'
     name = sj.name()
-    idcard = sj.sf()
+    idcard = sj.idcard()
     mobile = sj.phone()
 
     #taskId = str(sj.task_id())
@@ -343,18 +384,44 @@ if __name__ == '__main__':
     # print(r1)
 
     #单笔放款成功
-    issuname = "郑国"
-    issuidCard = "350181199006012155"
-    issuamount = "1"
+    # issuname = "郑国"
+    # issuidCard = "350181199006012155"
+    # issuamount = "1"
+    # sql = 'select * FROM spman_center.task where  merchant_name = "极限传媒" and status = 1 order by id desc limit 1;'
+    # r = select_taskid_number(sql)
+    # taskId = str(r[0]["id"])
+    # print(taskId)
+    # result1 = DM.batchIssu_form(issuname,issuidCard,issuamount,taskId)
+    # batchNo = result1["data"]["batchNo"]
+    # print(batchNo)
+    # result2 = DM.batchIssu_loan(batchNo)
+    # print(result2)
+
+    #单笔放款到银行卡/批量放款到银行卡
+    # issuname = "郑国"
+    # issuidCard = "350181199006012155"
+    # issuamount = "1"
+    # accountNumber = '6232111820006508170'
+    # sql = 'select * FROM spman_center.task where  merchant_name = "极限传媒" and status = 1 order by id desc limit 1;'
+    # r = select_taskid_number(sql)
+    # taskId = str(r[0]["id"])
+    # print(taskId)
+    # 单笔放款到银行卡
+    # result1 = DM.issu_by_bankcard(issuname, issuidCard, issuamount,accountNumber, taskId)
+    # batchNo = result1["data"]["batchNo"]
+    # print(batchNo)
+    # result2 = DM.batchIssu_loan(batchNo)
+    # print(result2)
+    #批量放款到银行卡
     sql = 'select * FROM spman_center.task where  merchant_name = "极限传媒" and status = 1 order by id desc limit 1;'
     r = select_taskid_number(sql)
     taskId = str(r[0]["id"])
-    print(taskId)
-    result1 = DM.batchIssu_form(issuname,issuidCard,issuamount,taskId)
+    result1 = DM.issu_by_bankcards(taskId)
     batchNo = result1["data"]["batchNo"]
     print(batchNo)
-    # result2 = DM.batchIssu_loan(batchNo)
-    # print(result2)
+    result2 = DM.batchIssu_loan(batchNo)
+    print(result2)
+
 
 
 

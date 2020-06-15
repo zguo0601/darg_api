@@ -199,16 +199,23 @@ if __name__ == '__main__':
     # print(systemOrderNumber)
 
     #查询充值详情
-    # result4 = api.recharge_detail(systemOrderNumber,merchantPriKey,password,systemPubKey)
-    # print(result4)
+    # 充值,金额100等于1块
+    amount = "200"
+    # 请求单号
+    r_n = time.strftime("%Y%m%d%H%M%S")
+    requesterOrderNumber = 'jxcz' + r_n
+    result = api.recharge_single(merchantPriKey,systemPubKey,password,amount,requesterOrderNumber)
+    systemOrderNumber = result["systemOrderNumber"]
+    result4 = api.recharge_detail(systemOrderNumber,merchantPriKey,password,systemPubKey)
+    print(result4["message"])
 
     #商户放款
-    requesterOrderNumber = 'jxfk' + time.strftime("%Y%m%d%H%M%S")
-    result5 = api.issu_batch(requesterOrderNumber,merchantPriKey,password,systemPubKey)
-    systemOrderNumber = result5[0]["systemOrderNumber"]
-    print(result5)
-    result6 = api.issu_datail(systemOrderNumber,merchantPriKey,password,systemPubKey)
-    print(result6)
+    # requesterOrderNumber = 'jxfk' + time.strftime("%Y%m%d%H%M%S")
+    # result5 = api.issu_batch(requesterOrderNumber,merchantPriKey,password,systemPubKey)
+    # systemOrderNumber = result5[0]["systemOrderNumber"]
+    # print(result5)
+    # result6 = api.issu_datail(systemOrderNumber,merchantPriKey,password,systemPubKey)
+    # print(result6)
 
 
 

@@ -128,6 +128,34 @@ class Test_User():
         result = DF.inquire_merchant_list(test_input)
         assert result["data"]["dataList"] == expect["data"]["dataList"]
 
+    @allure.story("修改商户出金方式为银行卡")
+    def test_10(self,login_fix):
+        '''修改商户出金方式为银行卡'''
+        s = login_fix
+        DF = DRG_func(s)
+        sj = SF()
+        # 分行CODE前端随机生成
+        bankBranchCode = sj.phone()
+        # 出金模式银行卡：BANK_CARD
+        # 出金模式小程序钱包：APPLET_WALLET
+        issuType = "BANK_CARD"
+        result = DF.merchant_editDetail_bybankcard(issuType,bankBranchCode)
+        assert result["message"]["content"] == "更新成功"
+
+    @allure.story("修改商户出金方式为小程序钱包")
+    def test_11(self, login_fix):
+        '''修改商户出金方式为小程序钱包'''
+        s = login_fix
+        DF = DRG_func(s)
+        sj = SF()
+        # 分行CODE前端随机生成
+        bankBranchCode = sj.phone()
+        # 出金模式银行卡：BANK_CARD
+        # 出金模式小程序钱包：APPLET_WALLET
+        issuType = "APPLET_WALLET"
+        result = DF.merchant_editDetail_bybankcard(issuType, bankBranchCode)
+        assert result["message"]["content"] == "更新成功"
+
 
 
 if __name__ == '__main__':

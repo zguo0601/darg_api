@@ -155,14 +155,14 @@ def merchant_login_fix():
     DM.merchant_login(username,password)
     return s
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def api_merchant_login():
     s = requests.session()
     api = API_merchant(s)
     api.merchant_login()
     return s
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def api_get_merchantPriKey():
     s = requests.session()
     api = API_merchant(s)
@@ -170,7 +170,7 @@ def api_get_merchantPriKey():
     merchantPriKey = api.merchant_Info()
     return merchantPriKey["data"]["merchantPriKey"]
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def api_get_systemPubKey():
     s = requests.session()
     api = API_merchant(s)

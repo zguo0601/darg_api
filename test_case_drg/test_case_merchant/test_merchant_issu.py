@@ -1,5 +1,7 @@
 import allure
+import time
 from common.common_func_merchant import Drg_merchant
+from common.common_func_operation import DRG_func
 from common.common_func_SJ import  SF
 from common.connect_mysql import select_taskid_number
 
@@ -91,5 +93,63 @@ class Test_issu():
         #通过systemOrderNumber取消订单
         result4 = DM.issu_cancel(systemOrderNumber)
         assert result4["message"]["content"] == "取消成功"
+
+    @allure.story("单笔放到银行卡")
+    def test_8(self,login_fix,merchant_login_fix):
+        '''单笔放款到银行卡'''
+        s = login_fix
+        ms = merchant_login_fix
+        sj = SF()
+        DF = DRG_func(s)
+        DM = Drg_merchant(ms)
+        #运营端修改商户出金方式为银行卡
+        licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
+        smscode = licenceSerialNumber[2:8]
+        DF.login_sucess(smscode)
+        bankBranchCode = sj.phone()
+        # 出金模式银行卡：BANK_CARD
+        # 出金模式小程序钱包：APPLET_WALLET
+        issuType = "BANK_CARD"
+        result = DF.merchant_editDetail_bybankcard(issuType, bankBranchCode)
+        #商户端单笔放款到银行卡
+        issuname = "郑国"
+        issuidCard = "350181199006012155"
+        issuamount = "2"
+        accountNumber = '6232111820006508170'
+        sql = 'select * FROM spman_center.task where  merchant_name = "极限传媒" and status = 1 order by id desc limit 1;'
+        r = select_taskid_number(sql)
+        taskId = str(r[0]["id"])
+        result1 = DM.issu_by_bankcard(issuname, issuidCard, issuamount, accountNumber, taskId)
+        batchNo = result1["data"]["batchNo"]
+        result2 = DM.batchIssu_loan(batchNo)
+        assert result2["message"]["content"] == "处理中, 请稍后..."
+
+    @allure.story("批量放到银行卡")
+    def test_9(self, login_fix, merchant_login_fix):
+        '''单笔放款到银行卡'''
+        s = login_fix
+        ms = merchant_login_fix
+        sj = SF()
+        DF = DRG_func(s)
+        DM = Drg_merchant(ms)
+        # 运营端修改商户出金方式为银行卡
+        licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
+        smscode = licenceSerialNumber[2:8]
+        DF.login_sucess(smscode)
+        bankBranchCode = sj.phone()
+        # 出金模式银行卡：BANK_CARD
+        # 出金模式小程序钱包：APPLET_WALLET
+        issuType = "BANK_CARD"
+        result = DF.merchant_editDetail_bybankcard(issuType, bankBranchCode)
+        # 商户端批量放款到银行卡
+        sql = 'select * FROM spman_center.task where  merchant_name = "极限传媒" and status = 1 order by id desc limit 1;'
+        r = select_taskid_number(sql)
+        taskId = str(r[0]["id"])
+        result1 = DM.issu_by_bankcards(taskId)
+        batchNo = result1["data"]["batchNo"]
+        result2 = DM.batchIssu_loan(batchNo)
+        assert result2["message"]["content"] == "处理中, 请稍后..."
+
+
 
 

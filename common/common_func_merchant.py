@@ -96,11 +96,11 @@ class Drg_merchant():
 
 
     @allure.step("新增充值")
-    def merchant_recharge(self,amount,channelOrderNumber):
+    def merchant_recharge(self,test_input,channelOrderNumber):
         url_merchant_recharge =  host+"/merchant/rechargeOrder/rechargeSubmit"
         data = {
             "accountType":"BANK_CARD",
-            "amount":amount,
+            "amount":test_input,
             "channelOrderNumber":channelOrderNumber,#通道编号前端随机生成
             "paymentUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/drg1586763652192.jpg",
         }
@@ -241,7 +241,36 @@ class Drg_merchant():
                                )
         return response.json()
 
+    @allure.step("保存订单至：未支付-待放款")
+    def save_Verify_SuccessOrder(self,batchNumber):
+        url = 'https://spman.shb02.net/merchant/batchIssu/saveVerifySuccessOrder'
+        data = {
+            "batchNumber":batchNumber,
+        }
+        response = self.s.post(url,data)
+        return response.json()
 
+    @allure.step("查询未支付-待放款，系统单号")
+    def SuccessOrder_list(self,batchNumber):
+        url = 'https://spman.shb02.net/merchant/issu/list'
+        data = {
+            "dateType":"apply",
+            "orderStatus":"UNPAID",
+            "batchNumber":batchNumber,
+        }
+        resposne = self.s.post(url,data)
+        return resposne.json()
+
+    @allure.step("放款未支付-待放款订单")
+    def preSave_Loan(self,systemOrderNumbers):
+        url = 'https://spman.shb02.net/merchant/batchIssu/preSaveLoan'
+        data = {
+            "systemOrderNumbers":systemOrderNumbers,
+            "tradePassword":"111111",
+            "confirmDuplicateLoan":"true",
+        }
+        response = self.s.post(url,data)
+        return response.json()
 
 
 
@@ -379,6 +408,12 @@ if __name__ == '__main__':
     idcard = sj.idcard()
     mobile = sj.phone()
 
+    #充值金额参数化
+    amout = '-1'
+    channelOrderNumber = sj.channelOrderNumber()
+    result = DM.merchant_recharge(amout,channelOrderNumber)
+    print(result)
+
     #taskId = str(sj.task_id())
     # r1 = DM.user_import()
     # print(r1)
@@ -406,21 +441,32 @@ if __name__ == '__main__':
     # r = select_taskid_number(sql)
     # taskId = str(r[0]["id"])
     # print(taskId)
-    # 单笔放款到银行卡
+    # #单笔放款到银行卡
     # result1 = DM.issu_by_bankcard(issuname, issuidCard, issuamount,accountNumber, taskId)
+    # print(result1)
     # batchNo = result1["data"]["batchNo"]
     # print(batchNo)
     # result2 = DM.batchIssu_loan(batchNo)
     # print(result2)
     #批量放款到银行卡
-    sql = 'select * FROM spman_center.task where  merchant_name = "极限传媒" and status = 1 order by id desc limit 1;'
-    r = select_taskid_number(sql)
-    taskId = str(r[0]["id"])
-    result1 = DM.issu_by_bankcards(taskId)
-    batchNo = result1["data"]["batchNo"]
-    print(batchNo)
-    result2 = DM.batchIssu_loan(batchNo)
-    print(result2)
+    # sql = 'select * FROM spman_center.task where  merchant_name = "极限传媒" and status = 1 order by id desc limit 1;'
+    # r = select_taskid_number(sql)
+    # taskId = str(r[0]["id"])
+    # result1 = DM.issu_by_bankcards(taskId)
+    # batchNo = result1["data"]["batchNo"]
+    # print(batchNo)
+    # result2 = DM.batchIssu_loan(batchNo)
+    # print(result2)
+
+    #保存订单至：未支付-待放款后，放款至银行卡
+    # result2 = DM.save_Verify_SuccessOrder(batchNo)
+    # result3 = DM.SuccessOrder_list(batchNo)
+    # print(result3)
+    # systemOrderNumbers = result3["data"]["dataList"][0]["systemOrderNumber"]
+    # print(systemOrderNumbers)
+    # result4 = DM.preSave_Loan(systemOrderNumbers)
+    # print(result4)
+
 
 
 

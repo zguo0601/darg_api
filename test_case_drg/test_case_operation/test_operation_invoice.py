@@ -31,7 +31,7 @@ class Test_invoice():
         s = login_fix
         DF = DRG_func(s)
         result = DF.invoice_info_list()
-        assert result["data"]["resultList"]["dataList"][0]["invoiceTypeStr"] == "增值税专用发票"
+        assert result["data"]["count"] > 0
 
     @allure.story("已开发票详情")
     def test_4(self, login_fix):

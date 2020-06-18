@@ -16,25 +16,16 @@ login_username_data:
   - [" ",{'success': False, 'message': {'code': 300, 'content': '未知账号'}}]
   - ["spman_admin",{"data":{"mobile":"18888888888"},"success":true,"message":{"code":200,"content":"验证码获取成功"}}]
 
-merchant_name:
-  - ["极限传媒",{"data":{'dataList': [{
-                                       'merchantNumber': 'M002137',
-                                       'shortName': '极限传媒',
-                                       'taxNumber': '913213223235882089',
-                                       'rate': {
-                                         'percent': 6.5,
-                                         'fixed': 6.5,
-                                         'base': 6.5
-                                       },
-                                       'managerName': '帅雷雷',
-                                       'managerMobile': '18526999857',
-                                       'status': True,
-                                       'gmtCreate': '2020-02-17 10:40:10',
-                                       'authStatus': 'SUCCESS',
-                                       'authStatusStr': '审核通过',
-                                       'signUser': True
-                                     }]}}]
-  -  ["极限传媒123",{"data":{"dataList": [],}}]
+#商户充值金额
+merchant_amout:
+  - ["aaa",{'success': False, 'message': {'code': 300, 'content': '系统异常'}}]
+  - [" ",{'success': False, 'message': {'code': 300, 'content': '汇款金额不能为空!'}}]
+  - ["null",{'success': False, 'message': {'code': 300, 'content': '系统异常'}}]
+  - ["465+46",{'success': False, 'message': {'code': 300, 'content': '系统异常'}}]
+  - ["/*-/",{'success': False, 'message': {'code': 300, 'content': '系统异常'}}]
+  - ["1",{'success': True, 'message': {'code': 200, 'content': '新增充值提交成功'}}]
+  - ["-1",{'success': False, 'message': {'code': 300, 'content': '汇款金额不能为零!'}}]
+  - ["1.999999",{'success': True, 'message': {'code': 200, 'content': '新增充值提交成功'}}]
 
 
 

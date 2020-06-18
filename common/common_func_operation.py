@@ -116,6 +116,42 @@ class DRG_func():
         merchant_list = self.s.post(url=url_merchant_list, data=data)
         return merchant_list.json()
 
+    @allure.step("通过发包方简称查询")
+    def shortname__query(self):
+        url_shortname__query = host + '/operation/merchant/list'
+        data = {
+            "shortName":"极限传媒",
+            "currentPage": "1",
+            "pageSize": "20"
+        }
+        response = self.s.post(url=url_shortname__query, data=data)
+        return response.json()
+
+    @allure.step("通过纳税人识别号查询")
+    def taxNumber__query(self):
+        url_taxNumber__query = host + '/operation/merchant/list'
+        data = {
+            "taxNumber": "913213223235882089",
+            "currentPage": "1",
+            "pageSize": "20"
+        }
+        response = self.s.post(url=url_taxNumber__query, data=data)
+        return response.json()
+
+    @allure.step("通过管理员姓名查询")
+    def managerName__query(self):
+        url_managerName__query = host + '/operation/merchant/list'
+        data = {
+            "managerName": "帅雷雷",
+            "currentPage": "1",
+            "pageSize": "20"
+        }
+        response = self.s.post(url=url_managerName__query, data=data)
+        return response.json()
+
+
+
+
     @allure.step("发包方信息详情")
     def merchant_detail(self):
         url_merchant_detail = host+"/operation/merchant/detail"
@@ -255,6 +291,30 @@ class DRG_func():
         }
         user_list = self.s.post(url=url_user_list, data=data)
         return user_list.json()
+
+
+    @allure.step("承揽方名称(userNumbers)查询")
+    def userNumbers_query(self):
+        url_userNumbers_query = host + '/operation/user/list'
+        data = {
+            "userNumbers":"USER002151",
+            "currentPage": "1",
+            "pageSize": "20"
+        }
+        response = self.s.post(url=url_userNumbers_query, data=data)
+        return response.json()
+
+    @allure.step("承揽方微信手机号查询")
+    def wechatMobile_query(self):
+        url_wechatMobile_query = host + '/operation/user/list'
+        data = {
+            "wechatMobile": "18120798657",
+            "currentPage": "1",
+            "pageSize": "20"
+        }
+        response = self.s.post(url=url_wechatMobile_query, data=data)
+        return response.json()
+
 
     @allure.step("承揽方详情")
     def get_user_detail(self,):
@@ -814,36 +874,27 @@ if __name__ == '__main__':
     s = requests.session()
     sj = SF()
 
-    accountName = sj.name()
-    #contactMail = sj.get_email()
-    contactMail = '...'
-    # contactName = sj.name()
-    contactName = '123'
-    licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
-    shortName = sj.name()
-    managerMobile = sj.phone()
-    # managerMobile = 'adsf1345'
+
 
     emsOrderNumber = sj.phone()
     invoiceCode = sj.phone()
     invoiceNumber = sj.phone()
+    licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
     smscode = licenceSerialNumber[2:8]
     invoiceDate = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
 
-    sex = 'FEMALE'
-    recruitNum = ''
-    amount = ' 1'
-    releaseDate = time.strftime("%Y" + "-" + "%m" + "-" + "%d")
 
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
+    result = DF.wechatMobile_query()
+    print(result)
     #分行CODE前端随机生成
-    bankBranchCode = sj.phone()
-    #出金模式银行卡：BANK_CARD
-    #出金模式小程序钱包：APPLET_WALLET
-    issuType = "BANK_CARD"
-    r = DF.merchant_editDetail_bybankcard(issuType,bankBranchCode)
-    print(r)
+    # bankBranchCode = sj.phone()
+    # #出金模式银行卡：BANK_CARD
+    # #出金模式小程序钱包：APPLET_WALLET
+    # issuType = "BANK_CARD"
+    # r = DF.merchant_editDetail_bybankcard(issuType,bankBranchCode)
+    # print(r)
 
     #新增发包方
     # r1 = DF.add_merchant(accountName,contactMail,contactName,licenceSerialNumber,shortName,managerMobile)

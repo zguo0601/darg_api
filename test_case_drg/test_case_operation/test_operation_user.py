@@ -27,9 +27,7 @@ class Test_User():
     #     cls.s = requests.session()
     #     cls.s.close()
 
-    cur_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-    yaml_path = os.path.join(cur_path, "data", "data.yaml")
-    data = readyaml(yaml_path)["merchant_name"]
+
 
 
     @allure.story("获取承揽方信息")
@@ -119,17 +117,8 @@ class Test_User():
             result = DF.add_sub()
             assert result["message"]["content"] == "新增成功"
 
-    @pytest.mark.parametrize("test_input,expect", data)
-    @allure.story("通过发包方名称查询")
-    def test_9(self,login_fix,test_input,expect):
-        '''通过发包方名称查询'''
-        s = login_fix
-        DF = DRG_func(s)
-        result = DF.inquire_merchant_list(test_input)
-        assert result["data"]["dataList"] == expect["data"]["dataList"]
-
     @allure.story("修改商户出金方式为银行卡")
-    def test_10(self,login_fix):
+    def test_9(self,login_fix):
         '''修改商户出金方式为银行卡'''
         s = login_fix
         DF = DRG_func(s)
@@ -143,7 +132,7 @@ class Test_User():
         assert result["message"]["content"] == "更新成功"
 
     @allure.story("修改商户出金方式为小程序钱包")
-    def test_11(self, login_fix):
+    def test_10(self, login_fix):
         '''修改商户出金方式为小程序钱包'''
         s = login_fix
         DF = DRG_func(s)
@@ -156,6 +145,45 @@ class Test_User():
         result = DF.merchant_editDetail_bybankcard(issuType, bankBranchCode)
         assert result["message"]["content"] == "更新成功"
 
+    @allure.story("发包方简称查询")
+    def test_11(self,login_fix):
+        '''发包方简称查询'''
+        s = login_fix
+        DF = DRG_func(s)
+        result = DF.shortname__query()
+        assert result["data"]["dataList"][0]["shortName"] == '极限传媒'
+
+    @allure.story("发包方纳税人识别号查询")
+    def test_12(self,login_fix):
+        '''发包方纳税人识别号查询'''
+        s = login_fix
+        DF = DRG_func(s)
+        result = DF.taxNumber__query()
+        assert result["data"]["dataList"][0]["taxNumber"] == '913213223235882089'
+
+    @allure.story("发包方管理员姓名查询")
+    def test_13(self,login_fix):
+        '''发包方管理员姓名查询'''
+        s = login_fix
+        DF = DRG_func(s)
+        result = DF.managerName__query()
+        assert result["data"]["dataList"][0]["managerName"] == '帅雷雷'
+
+    @allure.story("承揽方名称(userNumbers)查询")
+    def test_14(self,login_fix):
+        '''承揽方名称(userNumbers)查询'''
+        s = login_fix
+        DF = DRG_func(s)
+        result = DF.userNumbers_query()
+        assert result["data"]["dataList"][0]["userNumber"] == 'USER002151'
+
+    @allure.story("承揽方微信手机号查询")
+    def test_15(self, login_fix):
+        '''承揽方名称(userNumbers)查询'''
+        s = login_fix
+        DF = DRG_func(s)
+        result = DF.wechatMobile_query()
+        assert result["data"]["dataList"][1]["wechatMobile"] == '18120798657'
 
 
 if __name__ == '__main__':

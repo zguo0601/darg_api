@@ -88,11 +88,11 @@ class Test_issu():
         #放款成功，订单状态为，未放款-待支付
         DM.batchIssu_loan(batchNo)
         #通过批次号查询放款详情，获取充值单号systemOrderNumber
-        result3 = DM.issu_detail_batchNumber(batchNo)
-        systemOrderNumber = result3["data"]["dataList"][0]["systemOrderNumber"]
+        result2 = DM.issu_detail_batchNumber(batchNo)
+        systemOrderNumber = result2["data"]["dataList"][0]["systemOrderNumber"]
         #通过systemOrderNumber取消订单
-        result4 = DM.issu_cancel(systemOrderNumber)
-        assert result4["message"]["content"] == "取消成功"
+        result3 = DM.issu_cancel(systemOrderNumber)
+        assert result3["message"]["content"] == "取消成功"
 
     @allure.story("单笔放到银行卡")
     def test_8(self,login_fix,merchant_login_fix):
@@ -149,6 +149,47 @@ class Test_issu():
         batchNo = result1["data"]["batchNo"]
         result2 = DM.batchIssu_loan(batchNo)
         assert result2["message"]["content"] == "处理中, 请稍后..."
+
+    @allure.story("保存订单至：未支付-待放款后，放款至银行卡")
+    def test_10(self,login_fix,merchant_login_fix):
+        '''保存订单至：未支付-待放款后，放款至银行卡'''
+        s = login_fix
+        ms = merchant_login_fix
+        sj = SF()
+        DF = DRG_func(s)
+        DM = Drg_merchant(ms)
+        # 运营端修改商户出金方式为银行卡
+        licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
+        smscode = licenceSerialNumber[2:8]
+        DF.login_sucess(smscode)
+        bankBranchCode = sj.phone()
+        # 出金模式银行卡：BANK_CARD
+        # 出金模式小程序钱包：APPLET_WALLET
+        issuType = "BANK_CARD"
+        result = DF.merchant_editDetail_bybankcard(issuType, bankBranchCode)
+        # 商户端单笔放款到银行卡
+        issuname = "郑国"
+        issuidCard = "350181199006012155"
+        issuamount = "2"
+        accountNumber = '6232111820006508170'
+        sql = 'select * FROM spman_center.task where  merchant_name = "极限传媒" and status = 1 order by id desc limit 1;'
+        r = select_taskid_number(sql)
+        taskId = str(r[0]["id"])
+        result1 = DM.issu_by_bankcard(issuname, issuidCard, issuamount, accountNumber, taskId)
+        batchNo = result1["data"]["batchNo"]
+        #保存验证成功订单
+        result2 = DM.save_Verify_SuccessOrder(batchNo)
+        #查询订单详情
+        result3 = DM.SuccessOrder_list(batchNo)
+        #查询放款单号
+        systemOrderNumbers = result3["data"]["dataList"][0]["systemOrderNumber"]
+        #未支付-待放款后，放款至银行卡
+        result4 = DM.preSave_Loan(systemOrderNumbers)
+        assert result4["message"]["content"] == "处理中, 请稍后..."
+
+
+
+
 
 
 

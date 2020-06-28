@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="faa4d92c-ca9d-482e-941d-159190c2f8e3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/user_info.xls" beforeDir="false" afterPath="$PROJECT_DIR$/data/user_info.xls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice/t3.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +89,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../django_0226" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -113,7 +113,7 @@
       <recent name="E:\pytest_api\common" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_merchant_recharge.Test_Merchant_recharge.test_1">
+  <component name="RunManager" selected="Python.t3">
     <configuration name="common_func_merchant" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="pytest_api" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -150,6 +150,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/common/common_func_operation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="t3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="pytest_api" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/t3.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -228,22 +250,6 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_operation_user.Test_User.test_15" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="pytest_api" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test_case_drg/test_case_operation" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_operation_user.Test_User.test_15&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="pytest for test_operation_user.Test_User.test_16" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="pytest_api" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -317,17 +323,17 @@
       <item itemvalue="Python tests.pytest in test_user" />
       <item itemvalue="Python tests.pytest in test_invoice" />
       <item itemvalue="Python tests.pytest for test_info_1.test_2" />
-      <item itemvalue="Python tests.pytest for test_operation_user.Test_User.test_15" />
       <item itemvalue="Python tests.pytest for test_operation_user.Test_User.test_16" />
       <item itemvalue="Python tests.pytest for test_merchant_recharge.Test_Merchant_recharge.test_1" />
+      <item itemvalue="Python.t3" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.t3" />
         <item itemvalue="Python tests.pytest for test_merchant_recharge.Test_Merchant_recharge.test_1" />
         <item itemvalue="Python.common_func_merchant" />
         <item itemvalue="Python tests.pytest for test_operation_user.Test_User.test_16" />
         <item itemvalue="Python.common_func_operation" />
-        <item itemvalue="Python tests.pytest for test_operation_user.Test_User.test_15" />
       </list>
     </recent_temporary>
   </component>
@@ -406,7 +412,8 @@
       <workItem from="1592187544877" duration="9761000" />
       <workItem from="1592297004508" duration="2395000" />
       <workItem from="1592356965487" duration="11965000" />
-      <workItem from="1592962481279" duration="317000" />
+      <workItem from="1592962481279" duration="1315000" />
+      <workItem from="1593308813467" duration="5296000" />
     </task>
     <task id="LOCAL-00001" summary="import os&#10;import requests&#10;import pytest&#10;from common.read_yaml import readyaml&#10;from common.common_func import DRG_func&#10;&#10;&#10;&#10;class Test_drg_login():&#10;&#10;    curpath = os.path.dirname(os.path.realpath(__file__))&#10;    # yaml文件的路径&#10;    yamlpath = os.path.join('../../common/test_data.yaml')&#10;    task_data = readyaml(yamlpath)['login_username_data']&#10;&#10;&#10;&#10;&#10;    @pytest.mark.parametrize(&quot;test_input,expect&quot;, task_data)&#10;    def test_username(self,test_input,expect):&#10;        '''登录用户名测试'''&#10;        s = requests.session()&#10;        DF = DRG_func(s)&#10;        result = DF.get_Login(test_input)&#10;        assert result[&quot;message&quot;][&quot;content&quot;] == expect[&quot;message&quot;][&quot;content&quot;]&#10;&#10;&#10;    def test_password(self):&#10;        s = requests.session()&#10;        DF = DRG_func(s)&#10;        result = DF.test_password()&#10;        assert &quot;密码错误&quot; in result">
       <created>1586508174046</created>
@@ -639,7 +646,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592448809769</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="2020-06-24 app pass">
+      <created>1592962810546</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1592962810546</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -682,7 +696,9 @@
     <MESSAGE value="2020-06-03 test" />
     <MESSAGE value="2020-06-15 新增商户放款至银行卡接口用例" />
     <MESSAGE value="2020-06-18 新增用例商户充值金额参数化" />
-    <option name="LAST_COMMIT_MESSAGE" value="2020-06-18 新增用例商户充值金额参数化" />
+    <MESSAGE value="2020-06-24 app pass" />
+    <MESSAGE value="2020-06-24 all pass" />
+    <option name="LAST_COMMIT_MESSAGE" value="2020-06-24 all pass" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="238" key="#Notifications" timestamp="1589869050030">
@@ -697,14 +713,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="690" y="329" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1589362977584" />
-    <state x="675" y="233" key="#test_1" timestamp="1584606012920">
+    <state x="744" y="195" width="1018" height="906" key="CommitChangelistDialog2" timestamp="1593334120737">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="675" y="233" key="#test_1/0.0.1920.1160@0.0.1920.1160" timestamp="1584606012920" />
-    <state x="744" y="195" width="1018" height="906" key="CommitChangelistDialog2" timestamp="1592448807536">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state x="744" y="195" width="1018" height="906" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1592448807536" />
+    <state x="744" y="195" width="1018" height="906" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1593334120737" />
     <state width="181" height="442" key="Diff.GoToChangePopup" timestamp="1586507689312">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -713,30 +725,30 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="335" y="41" key="DiffContextDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1586508163302" />
-    <state x="733" y="299" key="FileChooserDialogImpl" timestamp="1590129389765">
+    <state x="733" y="299" key="FileChooserDialogImpl" timestamp="1593328506279">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="733" y="299" key="FileChooserDialogImpl/0.0.1920.1160@0.0.1920.1160" timestamp="1590129389765" />
+    <state x="733" y="299" key="FileChooserDialogImpl/0.0.1920.1160@0.0.1920.1160" timestamp="1593328506279" />
     <state x="823" y="475" key="Github.ShareDialog" timestamp="1590045514064">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="823" y="475" key="Github.ShareDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1590045514064" />
-    <state width="1877" height="369" key="GridCell.Tab.0.bottom" timestamp="1592475105966">
+    <state width="1877" height="216" key="GridCell.Tab.0.bottom" timestamp="1593328937037">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="369" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1592475105966" />
-    <state width="1877" height="369" key="GridCell.Tab.0.center" timestamp="1592475105966">
+    <state width="1877" height="216" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1593328937037" />
+    <state width="1877" height="216" key="GridCell.Tab.0.center" timestamp="1593328937036">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="369" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1592475105966" />
-    <state width="1877" height="369" key="GridCell.Tab.0.left" timestamp="1592475105965">
+    <state width="1877" height="216" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1593328937036" />
+    <state width="1877" height="216" key="GridCell.Tab.0.left" timestamp="1593328937036">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="369" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1592475105965" />
-    <state width="1877" height="369" key="GridCell.Tab.0.right" timestamp="1592475105966">
+    <state width="1877" height="216" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1593328937036" />
+    <state width="1877" height="216" key="GridCell.Tab.0.right" timestamp="1593328937036">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1877" height="369" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1592475105966" />
+    <state width="1877" height="216" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1593328937036" />
     <state width="1877" height="255" key="GridCell.Tab.1.bottom" timestamp="1591352121151">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -757,14 +769,14 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state width="220" height="477" key="HiddenNamespacesPopup/0.0.1920.1160@0.0.1920.1160" timestamp="1590638447900" />
-    <state x="610" y="225" key="SettingsEditor" timestamp="1590372165285">
+    <state x="57" y="201" key="SettingsEditor" timestamp="1593322155366">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="610" y="225" key="SettingsEditor/0.0.1920.1160@0.0.1920.1160" timestamp="1590372165285" />
-    <state x="552" y="316" key="Vcs.Push.Dialog.v2" timestamp="1592448816000">
+    <state x="57" y="201" key="SettingsEditor/0.0.1920.1160@0.0.1920.1160" timestamp="1593322155366" />
+    <state x="552" y="316" key="Vcs.Push.Dialog.v2" timestamp="1592962835100">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="552" y="316" key="Vcs.Push.Dialog.v2/0.0.1920.1160@0.0.1920.1160" timestamp="1592448816000" />
+    <state x="552" y="316" key="Vcs.Push.Dialog.v2/0.0.1920.1160@0.0.1920.1160" timestamp="1592962835100" />
     <state x="754" y="498" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586507066816">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -810,8 +822,8 @@
     <SUITE FILE_PATH="coverage/pytest_api$pytest_in_test_user_2_py.coverage" NAME="pytest in test_user_2.py Coverage Results" MODIFIED="1585722657814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/info" />
     <SUITE FILE_PATH="coverage/pytest_api$pytest_for_test_operation_login_Test_drg_login.coverage" NAME="pytest for test_operation_login.Test_drg_login Coverage Results" MODIFIED="1589940531986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test_case_drg" />
     <SUITE FILE_PATH="coverage/pytest_api$p2.coverage" NAME="p2 Coverage Results" MODIFIED="1587953764954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/pachong" />
-    <SUITE FILE_PATH="coverage/pytest_api$t3.coverage" NAME="t3 Coverage Results" MODIFIED="1585818406700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/mokuai2" />
     <SUITE FILE_PATH="coverage/pytest_api$pytest_for_test_merchant_issu_Test_issu_test_9.coverage" NAME="pytest for test_merchant_issu.Test_issu.test_9 Coverage Results" MODIFIED="1592193488894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test_case_drg/test_case_merchant" />
+    <SUITE FILE_PATH="coverage/pytest_api$t3.coverage" NAME="t3 Coverage Results" MODIFIED="1593314439720" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/practice" />
     <SUITE FILE_PATH="coverage/pytest_api$pytest_for_test_operator_Test_invoice_test_3.coverage" NAME="pytest for test_operator.Test_invoice.test_3 Coverage Results" MODIFIED="1589251899032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/info" />
     <SUITE FILE_PATH="coverage/pytest_api$pytest_for_test_merchant_issu_Test_issu_test_8.coverage" NAME="pytest for test_merchant_issu.Test_issu.test_8 Coverage Results" MODIFIED="1592192386643" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test_case_drg/test_case_merchant" />
     <SUITE FILE_PATH="coverage/pytest_api$pytest_for_test_invoice_Test_invoice_test_4.coverage" NAME="pytest for test_invoice.Test_invoice.test_4 Coverage Results" MODIFIED="1586858416631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/info" />

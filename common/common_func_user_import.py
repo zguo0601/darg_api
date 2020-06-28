@@ -25,28 +25,29 @@ class User_sj():
             sheet.write(title_row + i, 1, dic['id'])  # 第1列放name的值
             sheet.write(title_row + i, 2, dic['phone'])  # 第2列放age的值
 
-        wb.save('E:\\pytest_api\\data\\user_info.xls')
+        #wb.save('E:\\pytest_api\\data\\user_info.xls')
+        wb.save('/var/jenkins_home/workspace/darg_api/data/user_info.xls')
 
 
     #jmeter 新增用户（单个新增）参数化方法
-    def sj_single(self):
-        with open('E:\pytest_api\data\\user_single.txt', 'w', encoding='utf-8') as f:
-            for i in range(0, 1):
-                name = sj.name()
-                id = sj.idcard()
-                phone = sj.phone()
-                data1 = f.write(name + ',' + id + ',' + phone + '\n')
-        f = open('E:\pytest_api\data\\user_single.txt', 'r', encoding='utf-8')
-
-    # jmeter 新增用户（批量新增）参数化方法
-    def sj_batch(self):
-        with open('E:\pytest_api\data\\user_batch.txt', 'w', encoding='utf-8') as f:
-            for i in range(0, 500):
-                name = sj.name()
-                id = sj.idcard()
-                phone = sj.phone()
-                data1 = f.write(name + ',' + id + ',' + phone + '\n')
-        f = open('E:\pytest_api\data\\user_batch.txt', 'r', encoding='utf-8')
+    # def sj_single(self):
+    #     with open('E:\pytest_api\data\\user_single.txt', 'w', encoding='utf-8') as f:
+    #         for i in range(0, 1):
+    #             name = sj.name()
+    #             id = sj.idcard()
+    #             phone = sj.phone()
+    #             data1 = f.write(name + ',' + id + ',' + phone + '\n')
+    #     f = open('E:\pytest_api\data\\user_single.txt', 'r', encoding='utf-8')
+    #
+    # # jmeter 新增用户（批量新增）参数化方法
+    # def sj_batch(self):
+    #     with open('E:\pytest_api\data\\user_batch.txt', 'w', encoding='utf-8') as f:
+    #         for i in range(0, 500):
+    #             name = sj.name()
+    #             id = sj.idcard()
+    #             phone = sj.phone()
+    #             data1 = f.write(name + ',' + id + ',' + phone + '\n')
+    #     f = open('E:\pytest_api\data\\user_batch.txt', 'r', encoding='utf-8')
 
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="faa4d92c-ca9d-482e-941d-159190c2f8e3" name="Default Changelist" comment="2020-06-28 修改文件保存路径">
+    <list default="true" id="faa4d92c-ca9d-482e-941d-159190c2f8e3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/common_func_user_import.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/common_func_user_import.py" afterDir="false" />
     </list>
@@ -318,6 +318,7 @@
       <item itemvalue="Python.test_invoice" />
       <item itemvalue="Python.common_func_operation" />
       <item itemvalue="Python.common_func_merchant" />
+      <item itemvalue="Python.t3" />
       <item itemvalue="Python tests.pytest for Test_invoice.test_12" />
       <item itemvalue="Python tests.pytest for test_user.test_1" />
       <item itemvalue="Python tests.pytest in test_user" />
@@ -325,7 +326,6 @@
       <item itemvalue="Python tests.pytest for test_info_1.test_2" />
       <item itemvalue="Python tests.pytest for test_operation_user.Test_User.test_16" />
       <item itemvalue="Python tests.pytest for test_merchant_recharge.Test_Merchant_recharge.test_1" />
-      <item itemvalue="Python.t3" />
     </list>
     <recent_temporary>
       <list>
@@ -413,7 +413,8 @@
       <workItem from="1592297004508" duration="2395000" />
       <workItem from="1592356965487" duration="11965000" />
       <workItem from="1592962481279" duration="1315000" />
-      <workItem from="1593308813467" duration="6145000" />
+      <workItem from="1593308813467" duration="7085000" />
+      <workItem from="1593410244238" duration="685000" />
     </task>
     <task id="LOCAL-00001" summary="import os&#10;import requests&#10;import pytest&#10;from common.read_yaml import readyaml&#10;from common.common_func import DRG_func&#10;&#10;&#10;&#10;class Test_drg_login():&#10;&#10;    curpath = os.path.dirname(os.path.realpath(__file__))&#10;    # yaml文件的路径&#10;    yamlpath = os.path.join('../../common/test_data.yaml')&#10;    task_data = readyaml(yamlpath)['login_username_data']&#10;&#10;&#10;&#10;&#10;    @pytest.mark.parametrize(&quot;test_input,expect&quot;, task_data)&#10;    def test_username(self,test_input,expect):&#10;        '''登录用户名测试'''&#10;        s = requests.session()&#10;        DF = DRG_func(s)&#10;        result = DF.get_Login(test_input)&#10;        assert result[&quot;message&quot;][&quot;content&quot;] == expect[&quot;message&quot;][&quot;content&quot;]&#10;&#10;&#10;    def test_password(self):&#10;        s = requests.session()&#10;        DF = DRG_func(s)&#10;        result = DF.test_password()&#10;        assert &quot;密码错误&quot; in result">
       <created>1586508174046</created>
@@ -667,7 +668,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593334240118</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="2020-06-28 修改文件保存路径">
+      <created>1593334956673</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1593334956673</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -687,7 +695,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="2020-4-10 zg" />
     <MESSAGE value="2020-4-13 zg" />
     <MESSAGE value="2020-4-14 zg" />
     <MESSAGE value="2020-4-20 zg" />
@@ -712,7 +719,8 @@
     <MESSAGE value="2020-06-24 app pass" />
     <MESSAGE value="2020-06-24 all pass" />
     <MESSAGE value="2020-06-28 第一次提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="2020-06-28 第一次提交" />
+    <MESSAGE value="2020-06-28 修改文件保存路径" />
+    <option name="LAST_COMMIT_MESSAGE" value="2020-06-28 修改文件保存路径" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="238" key="#Notifications" timestamp="1589869050030">
@@ -727,10 +735,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="690" y="329" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1589362977584" />
-    <state x="744" y="195" width="1018" height="906" key="CommitChangelistDialog2" timestamp="1593334820079">
+    <state x="744" y="195" width="1018" height="906" key="CommitChangelistDialog2" timestamp="1593334955229">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="744" y="195" width="1018" height="906" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1593334820079" />
+    <state x="744" y="195" width="1018" height="906" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1593334955229" />
     <state width="181" height="442" key="Diff.GoToChangePopup" timestamp="1586507689312">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -787,10 +795,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="57" y="201" key="SettingsEditor/0.0.1920.1160@0.0.1920.1160" timestamp="1593322155366" />
-    <state x="552" y="316" key="Vcs.Push.Dialog.v2" timestamp="1593334247580">
+    <state x="552" y="316" key="Vcs.Push.Dialog.v2" timestamp="1593334973631">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="552" y="316" key="Vcs.Push.Dialog.v2/0.0.1920.1160@0.0.1920.1160" timestamp="1593334247580" />
+    <state x="552" y="316" key="Vcs.Push.Dialog.v2/0.0.1920.1160@0.0.1920.1160" timestamp="1593334973631" />
     <state x="754" y="498" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586507066816">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>

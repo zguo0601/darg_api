@@ -89,6 +89,7 @@ class Test_issu():
         DM.batchIssu_loan(batchNo)
         #通过批次号查询放款详情，获取充值单号systemOrderNumber
         result2 = DM.issu_detail_batchNumber(batchNo)
+        time.sleep(1)
         systemOrderNumber = result2["data"]["dataList"][0]["systemOrderNumber"]
         #通过systemOrderNumber取消订单
         result3 = DM.issu_cancel(systemOrderNumber)

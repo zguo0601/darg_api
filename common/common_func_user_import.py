@@ -25,10 +25,12 @@ class User_sj():
             sheet.write(title_row + i, 1, dic['id'])  # 第1列放name的值
             sheet.write(title_row + i, 2, dic['phone'])  # 第2列放age的值
 
+
+        #本地调试时的地址
         #wb.save('E:\\pytest_api\\data\\user_info.xls')
-        #代码再docker里面运行，保存地址需要填写服务器上的地址，本地调试的时候，可以先注销
+        #代码再docker里面运行时的地址
         #wb.save('/var/jenkins_home/workspace/darg_api/data/user_info.xls')
-        #代码再服务器里用代理面运行，保存地址需要填写服务器上的地址，本地调试的时候，可以先注销
+        #代码再服务器里用代理面运行时的地址
         wb.save('/home/jenkins/test1/workspace/darg_api/data/user_info.xls')
 
 

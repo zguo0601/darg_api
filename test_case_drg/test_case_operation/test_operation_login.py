@@ -16,7 +16,7 @@ class Test_drg_login():
     data = readyaml(yaml_path)["login_username_data"]
 
     @pytest.mark.parametrize("test_input,expect", data)
-    @allure.story("运营账户登录测试")
+    @allure.story("运营登录账户测试")
     def test_username(self,test_input,expect):
         '''登录用户名测试'''
         s = requests.session()
@@ -26,8 +26,9 @@ class Test_drg_login():
 
 
 
-    @allure.story("运营密码登录测试")
+    @allure.story("运营登录密码错误测试")
     def test_password(self):
+        '''登录密码错误'''
         s = requests.session()
         DF = DRG_func(s)
         result = DF.get_password()

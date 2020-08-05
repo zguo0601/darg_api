@@ -29,7 +29,7 @@ class Test_drg_login():
 
     @allure.story("运营登录密码错误测试")
     def test_password(self):
-        '''登录密码错误'''
+        '''登录密码错误11'''
         s = requests.session()
         DF = DRG_func(s)
         result = DF.get_password()

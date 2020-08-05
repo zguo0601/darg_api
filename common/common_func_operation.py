@@ -195,7 +195,7 @@ class DRG_func():
             "licenceAddress":"福建省福州市福清市玉屏街道官塘乾成龙花园1号楼J102店面",
             "licenceBusinessScope":"零售服装。(依法须经批准的项目,经相关部门批准后方可开展经营活动)(依法须经批准的项目,经相关部门批准后方可开展经营活动)",
             "licenceCapital":"1000万人民币",
-            "licenceCompanyName":"福清市玉屏葛来娣服装店",
+            "licenceCompanyName":"福清市(玉屏)葛来娣服装店",
             "licenceEstablishTime":"2017-07-02",
             "licenceFileUrl":"https://darenguan-static-file.oss-cn-shenzhen.aliyuncs.com/by1584930809853.jpg",
             "licenceLegalerName":"林志亮",
@@ -882,11 +882,16 @@ if __name__ == '__main__':
     licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
     smscode = licenceSerialNumber[2:8]
     invoiceDate = time.strftime("%Y"+"-"+"%m"+"-"+"%d"+" "+"%H"+":"+"%M"+":"+"%S")
-
+    accountName = sj.name()
+    contactMail = sj.get_email()
+    contactName = sj.name()
+    licenceSerialNumber = time.strftime("%Y%m%d%H%M%S")
+    shortName = sj.name()
+    managerMobile = sj.phone()
 
     DF = DRG_func(s)
     response = DF.login_sucess(smscode)
-    result = DF.wechatMobile_query()
+    result = DF.add_merchant(accountName,contactMail,contactName,licenceSerialNumber,shortName,managerMobile)
     print(result)
     #分行CODE前端随机生成
     # bankBranchCode = sj.phone()

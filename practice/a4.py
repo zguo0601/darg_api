@@ -20,7 +20,7 @@ def get_file_content(filePath):
         return fp.read()
 
 
-image = get_file_content('F:\\bb.jpg')
+image = get_file_content('E:\\gzyp_auto\\common\\1.gif')
 """ 调用通用文字识别, 图片参数为本地图片 """
 text = client.basicGeneral(image)
 print(text)

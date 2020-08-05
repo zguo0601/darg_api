@@ -11,13 +11,15 @@ def getHTMLTEXT(s,url):
         print("产生异常")
 
 
+
+
+
+
 if __name__ == '__main__':
     s = requests.session()
-    url = " http://b.zqsign.com/#/"
+    url = "http://zwfw.fujian.gov.cn"
     response = getHTMLTEXT(s,url)
-    path = 'F:\\qqq.jpg'
-    with open(path,'wb') as f:
-        f.write(response.content)
-        f.close()
+
+
 
 

@@ -1,21 +1,23 @@
+from practice import a2
 
 
-def aa():
-    data = {
-        "学校":"清华大学",
-        "个人信息":"[{'姓名':'张三','年龄':'18',}]",
-    }
-    print(data)
-    data1 = {
-        "学校": "清华大学",
-        "个人信息": "[{'姓名':'','年龄':'',}]",
-    }
-    print(data1)
+
+def ipurl(ip):
+    ip = ip
+    url = ip + '/s_opt'
+    return url
+
+if __name__ == '__main__':
+    ip = '192.168.1.100:5000'
+    a1ip = a2.setA(ip)
+    ipurl = ipurl(a1ip)
+    print(ipurl)
 
 
-name = "aa"
-age = "18"
-r = aa(name,age)
-print(r)
+
+
+
+
+
 
 

@@ -18,7 +18,7 @@ more-itertools==8.0.2
 packaging==19.2
 Pillow==6.2.0
 pluggy==0.13.1
-py==1.8.0
+py==1.10.0
 PyExecJS==1.5.1
 PyMySQL==0.9.3
 pyparsing==2.4.5
